@@ -249,5 +249,35 @@ class ImportTests(unittest.TestCase):
         self.assertEqual(imp.license_file_name("o/r", ""), "licenses/o__r.LICENSE")
 
 
+class RefreshTests(unittest.TestCase):
+    def test_refresh_marks_edited_and_updates_hashes(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            sd = make_repo(root)
+            before = lib.load_lock(root)["skills"]["demo"]
+            (sd / "SKILL.md").write_text(SKILL.format(name="demo") + "tweak\n")
+            entry = lib.refresh(root, "demo")
+            self.assertTrue(entry["edited"])
+            self.assertEqual(entry["upstreamHash"], before["upstreamHash"])
+            self.assertNotEqual(entry["localHash"], before["upstreamHash"])
+            self.assertEqual(entry["computedHash"], entry["localHash"])
+            self.assertIn("edited locally", (sd / "SOURCE").read_text())
+            self.assertEqual(lib.check(root), ([], []))
+
+    def test_refresh_back_to_upstream_clears_edited(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            sd = make_repo(root, edited=True)
+            entry = lib.refresh(root, "demo")
+            self.assertFalse(entry["edited"])
+
+    def test_refresh_unknown_skill_raises(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            make_repo(root)
+            with self.assertRaises(KeyError):
+                lib.refresh(root, "nope")
+
+
 if __name__ == "__main__":
     unittest.main()

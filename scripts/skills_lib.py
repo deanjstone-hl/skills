@@ -122,3 +122,18 @@ def check(root):
         if entry.get("status") == "unadapted":
             warnings.append(f"{name}: unadapted import, not ready to use as shipped")
     return errors, warnings
+
+
+def refresh(root, name):
+    """Recompute hashes and SOURCE after an edit; set edited when content differs from upstream."""
+    root = Path(root)
+    lock = load_lock(root)
+    entry = lock["skills"][name]
+    files = read_dir(root / "skills" / name)
+    local = hash_files(files)
+    entry["localHash"] = local
+    entry["computedHash"] = local
+    entry["edited"] = local != entry["upstreamHash"]
+    save_lock(root, lock)
+    (root / "skills" / name / SOURCE_NAME).write_text(source_note(name, entry))
+    return entry
