@@ -29,20 +29,6 @@
       "sourceType": "github",
       "upstreamHash": "a3eb0f267bba9399fef7eccb42bc8faeca332151f8c2623d5e72b17bd7f24bcf"
     },
-    "code-review": {
-      "computedHash": "e14d83d727f514a484858272f5a45d83d42ba7f84c078758a0341ffe6e8832e5",
-      "edited": false,
-      "license": {
-        "file": "licenses/mattpocock__skills.LICENSE",
-        "spdx": "MIT"
-      },
-      "localHash": "e14d83d727f514a484858272f5a45d83d42ba7f84c078758a0341ffe6e8832e5",
-      "ref": "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d",
-      "skillPath": "skills/engineering/code-review",
-      "source": "mattpocock/skills",
-      "sourceType": "github",
-      "upstreamHash": "e14d83d727f514a484858272f5a45d83d42ba7f84c078758a0341ffe6e8832e5"
-    },
     "correct": {
       "computedHash": "cf2dd7020417f054f1425f0892b2b071a22edb72491e9843c4dd9f0e98da536f",
       "edited": false,
@@ -159,6 +145,21 @@
       "sourceType": "github",
       "status": "unadapted",
       "upstreamHash": "dcaa98af2a7124f9e0f761fb0823b09db8861a75232cd7760de7ca2102f47e1c"
+    },
+    "spec-review": {
+      "computedHash": "7fef277bbe477769d33619e7f655c675f19af2a8cc69a3295e3072e75c893555",
+      "edited": true,
+      "license": {
+        "file": "licenses/mattpocock__skills.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "7fef277bbe477769d33619e7f655c675f19af2a8cc69a3295e3072e75c893555",
+      "ref": "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d",
+      "skillPath": "skills/engineering/code-review",
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "upstreamHash": "e14d83d727f514a484858272f5a45d83d42ba7f84c078758a0341ffe6e8832e5",
+      "upstreamName": "code-review"
     },
     "takeover": {
       "computedHash": "07084936e604acf8f83400e997d5b19955b6b1aca58e959b649716ee8617db16",
