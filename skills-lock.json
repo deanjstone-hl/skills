@@ -29,6 +29,20 @@
       "sourceType": "github",
       "upstreamHash": "a3eb0f267bba9399fef7eccb42bc8faeca332151f8c2623d5e72b17bd7f24bcf"
     },
+    "code-review": {
+      "computedHash": "e14d83d727f514a484858272f5a45d83d42ba7f84c078758a0341ffe6e8832e5",
+      "edited": false,
+      "license": {
+        "file": "licenses/mattpocock__skills.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "e14d83d727f514a484858272f5a45d83d42ba7f84c078758a0341ffe6e8832e5",
+      "ref": "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d",
+      "skillPath": "skills/engineering/code-review",
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "upstreamHash": "e14d83d727f514a484858272f5a45d83d42ba7f84c078758a0341ffe6e8832e5"
+    },
     "correct": {
       "computedHash": "cf2dd7020417f054f1425f0892b2b071a22edb72491e9843c4dd9f0e98da536f",
       "edited": false,
@@ -117,6 +131,20 @@
       "status": "unadapted",
       "upstreamHash": "ec564fcd06f8af7b0e95cb945107ee8b5702fcfdfdf6360c07a1c27c284f23bd"
     },
+    "modernize": {
+      "computedHash": "248dc50869e7d1bd4895c1b15c1012b1366bbe2e34820bdcb3ce107dcdc91e47",
+      "edited": false,
+      "license": {
+        "file": "licenses/t3dotgg__tstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "248dc50869e7d1bd4895c1b15c1012b1366bbe2e34820bdcb3ce107dcdc91e47",
+      "ref": "1085050f3baed1ac724caa4a8166145fb2ac88af",
+      "skillPath": "skills/modernize",
+      "source": "t3dotgg/tstack",
+      "sourceType": "github",
+      "upstreamHash": "248dc50869e7d1bd4895c1b15c1012b1366bbe2e34820bdcb3ce107dcdc91e47"
+    },
     "reflect": {
       "computedHash": "dcaa98af2a7124f9e0f761fb0823b09db8861a75232cd7760de7ca2102f47e1c",
       "edited": false,
@@ -132,6 +160,34 @@
       "status": "unadapted",
       "upstreamHash": "dcaa98af2a7124f9e0f761fb0823b09db8861a75232cd7760de7ca2102f47e1c"
     },
+    "takeover": {
+      "computedHash": "07084936e604acf8f83400e997d5b19955b6b1aca58e959b649716ee8617db16",
+      "edited": false,
+      "license": {
+        "file": "licenses/t3dotgg__tstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "07084936e604acf8f83400e997d5b19955b6b1aca58e959b649716ee8617db16",
+      "ref": "1085050f3baed1ac724caa4a8166145fb2ac88af",
+      "skillPath": "skills/takeover",
+      "source": "t3dotgg/tstack",
+      "sourceType": "github",
+      "upstreamHash": "07084936e604acf8f83400e997d5b19955b6b1aca58e959b649716ee8617db16"
+    },
+    "tdd": {
+      "computedHash": "cb510a538834fd446bae7cff1e6e46c4b625524d162bfc56c6d64486115a48e3",
+      "edited": false,
+      "license": {
+        "file": "licenses/mattpocock__skills.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "cb510a538834fd446bae7cff1e6e46c4b625524d162bfc56c6d64486115a48e3",
+      "ref": "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d",
+      "skillPath": "skills/engineering/tdd",
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "upstreamHash": "cb510a538834fd446bae7cff1e6e46c4b625524d162bfc56c6d64486115a48e3"
+    },
     "technical-writing": {
       "computedHash": "31f15da567c0a04ca1d05649511de3cb83b979346cd098fb0535b132206f6f01",
       "edited": false,
@@ -145,6 +201,20 @@
       "source": "cursor/plugins",
       "sourceType": "github",
       "upstreamHash": "31f15da567c0a04ca1d05649511de3cb83b979346cd098fb0535b132206f6f01"
+    },
+    "test-value": {
+      "computedHash": "96d8b55baafea829d0ec43663c28cc343cc8830d2d2d11c933e8571b0b37ac6b",
+      "edited": false,
+      "license": {
+        "file": "licenses/tt-a1i__archify.LICENSE",
+        "spdx": "Apache-2.0"
+      },
+      "localHash": "96d8b55baafea829d0ec43663c28cc343cc8830d2d2d11c933e8571b0b37ac6b",
+      "ref": "a4065941f12be7967436261d9934784e381d423c",
+      "skillPath": ".agents/skills/test-value",
+      "source": "tt-a1i/archify",
+      "sourceType": "github",
+      "upstreamHash": "96d8b55baafea829d0ec43663c28cc343cc8830d2d2d11c933e8571b0b37ac6b"
     },
     "unslop": {
       "computedHash": "342ca2c99287f9e58e9ee3070d15c43e746d4e8487203df03e0060462a15de69",
