@@ -27,8 +27,7 @@ Agent({
   prompt: `Run the WSL2 health check below and return ONLY the final formatted report
   (Step 8 format) — do not include raw command output in your response.
 
-  <paste Steps 1–7 verbatim, substituting the actual ssh-perms-check stat commands for Step 5
-  since the subagent cannot invoke the Skill tool>`
+  <paste Steps 1–7 verbatim, pasting the stat commands from `references/ssh-permissions.md` into Step 5>`
 })
 ```
 
@@ -92,7 +91,7 @@ truncate -s 0 <file>
 
 ## Step 5 — SSH permissions
 
-Invoke the `ssh-perms-check` skill and fold its output into this report's SSH line.
+Run the stat commands in `references/ssh-permissions.md` and fold its `✓`/`✗` lines into this report's SSH line.
 
 ---
 
