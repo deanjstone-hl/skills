@@ -1,16 +1,24 @@
 ---
 name: wayfinder
-description: Plan a huge chunk of work (more than one agent session can hold) as a shared map of decision tickets on your issue tracker, and resolve them one at a time until the way to the destination is clear.
-disable-model-invocation: true
+description: >
+  Plan work too big for one session as a map of decision tickets on the issue tracker, then
+  resolve them one at a time. Use for "/wayfinder", "chart a wayfinder map for X", "this
+  needs a wayfinder map", "work the next ticket on map #N", "pick up wayfinder ticket #N",
+  "take the frontier ticket", or deferred work with unclear scope. How-to questions:
+  wayfinder-mechanics.
 ---
 
 A loose idea has arrived, too big for one agent session, and wrapped in fog: the way from here to the **destination** isn't visible yet. Wayfinding is about finding that way, not charging at the destination. This skill charts the way as a **shared map** on the repo's issue tracker, then works its **decision tickets** (questions whose resolution is a decision, not slices of a build to execute) one at a time until the route is clear.
 
 The destination varies per effort, and naming it is the first act of charting: it shapes every ticket. It might be a spec to hand off and iterate on, a decision to lock before planning starts, or a change made in place like a data-structure migration. The map is domain-agnostic: engineering work, course content, whatever fits the shape.
 
+The exact commands, ids and API gotchas for the steps below are kept in the read-only `wayfinder-mechanics` skill.
+
 ## Plan, don't do
 
 Wayfinder is **planning** by default: each ticket resolves a decision, and the map is done when the way is clear, with nothing left to decide before someone goes and does the thing. The pull to just do the work is usually the signal you've reached the edge of the map and it's time to hand off. An effort can override this in its **Notes**, carrying execution into the map itself, but absent that, produce decisions, not deliverables.
+
+When a map clears, hand off to `/to-spec` — it collapses the map's linked decisions into a buildable spec — rather than going straight to `/implement`, unless the effort turned out small enough to skip that collapse. Once the map has no fog (**Not yet specified** is empty) and the dev spec exists, the map becomes `mode:afk`: swap its `mode:hitl` label and `Mode:` line (see `wayfinder-mechanics` §7), so the orchestrator can take its build work.
 
 ## Refer by name
 
@@ -19,6 +27,8 @@ Every map and ticket is an issue, so it has a **name**: its title. In everything
 ## The Map
 
 The map is a single issue on this repo's issue tracker, labelled `wayfinder:map`, the canonical artifact. Its tickets are child issues of the map.
+
+Label sets are per-repo — the `wayfinder:*` vocabulary isn't guaranteed to exist everywhere. Run `gh label list -R <repo>` before applying `wayfinder:map` or any `wayfinder:<type>` label for the first time on a given repo, and create whichever are missing.
 
 The map is an **index**, not a store. It lists the decisions made and points at the tickets that hold their detail; a decision lives in exactly one place, its ticket, so the map never restates it, only gists it and links.
 
@@ -70,6 +80,16 @@ Blocking uses the tracker's **native** dependency relationship: essential becaus
 
 The answer isn't part of the body; it's recorded on resolution (see [Work through the map](#work-through-the-map)). Assets created while resolving a ticket are linked from the issue, not pasted in.
 
+## Mirror to plans
+
+Every map is mirrored to `myargus.cc/plans/wayfinder-<repo>-<map#>` as a read-only checklist: destination, claimed, frontier and blocked tickets, closed tickets with their Decisions-so-far gist. GitHub stays canonical; ticking a step on the plan page never touches a ticket.
+
+```bash
+bash ~/.claude/skills/wayfinder/scripts/mirror-map.sh <owner/repo> <map-number>
+```
+
+It rebuilds the plan from GitHub and publishes it through the `impl-plan` skill's `publish.sh`; republishing the same slug updates the plan in place and keeps its ticked steps. It prints one line: `published <url> created|republished`, or `fallback <reason>: <detail>` (for example `no-token` when the plans token is unavailable). A fallback exits 0. Put the line in your closing report and carry on: the mirror is a convenience, so a fallback never blocks charting or closeout.
+
 ## Ticket Types
 
 Every ticket is either **HITL** (human in the loop, worked _with_ a human who speaks for themselves) or **AFK**, driven by the agent alone. A HITL ticket only resolves through that live exchange; the agent never stands in for the human's side of it (a grilling agent that answers its own questions has broken this).
@@ -106,23 +126,27 @@ Two modes. Either way, **never resolve more than one ticket per session**, with 
 
 ### Chart the map
 
-User invokes with a loose idea.
+Invoked with a loose idea, by the user or by an agent.
+
+**With no human in the session**, nobody can answer the grilling in steps 1 and 2. Chart only if the invoking prompt already names the destination and the open decisions; otherwise stop and report that charting needs the user.
 
 1. **Name the destination.** Call the Skill tool twice, for "grilling" and "domain-modeling", to pin down what this map is finding its way to: the spec, decision, or change. The destination fixes the scope, so it's settled first.
 2. **Map the frontier.** Grill again, **breadth-first** this time: fan out across the whole space rather than deep on any one thread, surfacing the open decisions and the first steps takeable now. **If this surfaces no fog** (the way to the destination is already clear, the whole journey small enough for one session), you don't need a map. Stop and ask the user how they'd like to proceed.
-3. **Create the map** (label `wayfinder:map`): Destination and Notes filled in, Decisions-so-far empty, the fog sketched into **Not yet specified**.
+3. **Create the map** (label `wayfinder:map`, plus the filing wave (your choice of `wave:w1`, `wave:w2` or `wave:later` with a one-line reason in the body; default `wave:later`, `wave:w1` in argus-config) and one `mode:*` label, `mode:afk` or `mode:hitl`, on the map and on every ticket — see `wayfinder-mechanics` §7): Destination and Notes filled in, Decisions-so-far empty, the fog sketched into **Not yet specified**.
 4. **Create the tickets you can specify now** as child issues of the map, then wire blocking edges in a **second pass** (issues need ids before they can reference each other). Wiring sorts them into the frontier and the blocked; everything you can't yet specify stays in the fog: the **Not yet specified** section.
 5. **Fire the research subagents.** For each `research` ticket you just created, spin up a subagent that calls the Skill tool with "research" to resolve it in parallel, capturing its findings on a throwaway `research/<name>` branch with a context pointer from the ticket.
-6. Stop: charting is one session's work; it hand-resolves nothing.
+6. **Mirror the map** (see [Mirror to plans](#mirror-to-plans)) and report the printed line.
+7. Stop: charting is one session's work; it hand-resolves nothing.
 
 ### Work through the map
 
-User invokes with a map (URL or number). A ticket is **optional**: without one, you pick the next decision, not the user.
+Invoked, by the user or by an agent, with a map (URL or number). A ticket is **optional**: without one, you pick the next decision, not the user.
 
 1. Load the **map**: the low-res view, not every ticket body.
-2. Choose the ticket. If the user named one, use it. Otherwise take the first frontier ticket in order. **Claim it**: assign it to yourself before any work.
+2. Choose the ticket. If the invoker named one, use it. Otherwise take the first frontier ticket in order. **With no human in the session** (an agent invoked you, or the run is headless), take only AFK tickets: skip HITL ones, and if a named ticket is HITL, stop and report it rather than resolving it. **Claim it**: assign it to yourself before any work.
 3. Resolve it. **Zoom as needed**: fetch the full body of any related or closed ticket on demand; call the Skill tool for whichever skills the `## Notes` block names. If in doubt, call the Skill tool twice, for "grilling" and "domain-modeling".
 4. Record the resolution: post the answer as a **resolution comment**, **close** the issue, and **append a context pointer** to the map's Decisions-so-far.
 5. Add newly-surfaced tickets (create-then-wire); graduate any fog the answer has made specifiable, clearing each graduated patch from **Not yet specified** so it lives only as its new ticket. If the answer reveals that a ticket (this one or another) sits beyond the destination, **rule it out of scope** rather than resolving it on the route. If the decision invalidates other parts of the map, update or delete those tickets.
+6. **Republish the mirror** (see [Mirror to plans](#mirror-to-plans)) once steps 4 and 5 have landed, so the plan shows the closed ticket and any new ones; report the printed line.
 
 The user may run unblocked tickets in parallel, so expect other sessions to be editing the tracker concurrently.

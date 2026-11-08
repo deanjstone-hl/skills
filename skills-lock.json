@@ -520,13 +520,13 @@
       "upstreamHash": "342ca2c99287f9e58e9ee3070d15c43e746d4e8487203df03e0060462a15de69"
     },
     "wayfinder": {
-      "computedHash": "f72f9d0f62eb2b38f2a698283f59f6eb9f65fc80a3d38032bf90d686faa5e262",
-      "edited": false,
+      "computedHash": "16fdab6a1ca9a5f9f497f7d3e9ea333a793e6f93d0e57ac613dfd8ab913fbea3",
+      "edited": true,
       "license": {
         "file": "licenses/mattpocock__skills.LICENSE",
         "spdx": "MIT"
       },
-      "localHash": "f72f9d0f62eb2b38f2a698283f59f6eb9f65fc80a3d38032bf90d686faa5e262",
+      "localHash": "16fdab6a1ca9a5f9f497f7d3e9ea333a793e6f93d0e57ac613dfd8ab913fbea3",
       "ref": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
       "skillPath": "skills/engineering/wayfinder",
       "source": "mattpocock/skills",
