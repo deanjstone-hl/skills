@@ -339,5 +339,55 @@ class AuthoredTests(unittest.TestCase):
             self.assertTrue(any("no lock entry" in e for e in errors), errors)
 
 
+class PrivacyToggleTests(unittest.TestCase):
+    """The private-marker check is a per-repo setting: on by default, off via skills-config.json."""
+
+    def repo_with_private_text(self, root, config=None):
+        files = {"SKILL.md": (SKILL.format(name="demo") + "see /home/deanj/notes\n").encode()}
+        make_repo(root, files=files)
+        if config is not None:
+            (root / "skills-config.json").write_text(json.dumps(config))
+
+    def test_on_by_default_without_a_config_file(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            self.repo_with_private_text(root)
+            errors, _ = lib.check(root)
+            self.assertTrue(any("private" in e.lower() for e in errors), errors)
+
+    def test_config_can_switch_it_off(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            self.repo_with_private_text(root, {"privacyCheck": False})
+            self.assertEqual(lib.check(root), ([], []))
+
+    def test_argument_overrides_the_config_both_ways(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            self.repo_with_private_text(root, {"privacyCheck": False})
+            errors, _ = lib.check(root, privacy=True)
+            self.assertTrue(any("private" in e.lower() for e in errors), errors)
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            self.repo_with_private_text(root)
+            self.assertEqual(lib.check(root, privacy=False), ([], []))
+
+    def test_markers_stay_defined_for_reuse(self):
+        self.assertIn("/home/deanj", lib.PRIVATE_MARKERS)
+        self.assertTrue(callable(lib.load_config))
+        self.assertTrue(lib.load_config(Path("/nonexistent"))["privacyCheck"])
+
+    def test_cli_flags_override(self):
+        import subprocess
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            self.repo_with_private_text(root, {"privacyCheck": False})
+            script = Path(__file__).resolve().parent.parent / "scripts" / "check_skills.py"
+            off = subprocess.run([sys.executable, str(script), str(root)], capture_output=True, text=True)
+            on = subprocess.run([sys.executable, str(script), str(root), "--privacy"], capture_output=True, text=True)
+            self.assertEqual(off.returncode, 0, off.stdout)
+            self.assertEqual(on.returncode, 1, on.stdout)
+
+
 if __name__ == "__main__":
     unittest.main()

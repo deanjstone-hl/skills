@@ -8,6 +8,8 @@ from pathlib import Path
 import merge_lib
 
 LOCK_NAME = "skills-lock.json"
+CONFIG_NAME = "skills-config.json"
+DEFAULT_CONFIG = {"privacyCheck": True}
 SOURCE_NAME = "SOURCE"
 SIZE_WARN_BYTES = 8 * 1024
 PRIVATE_MARKERS = (
@@ -68,9 +70,24 @@ def source_note(name, entry):
     )
 
 
-def check(root):
-    """Return (errors, warnings) for the repo at root."""
+def load_config(root):
+    """Per-repo settings from skills-config.json; privacyCheck is on unless the file turns it off."""
+    config = dict(DEFAULT_CONFIG)
+    path = Path(root) / CONFIG_NAME
+    if path.exists():
+        config.update(json.loads(path.read_text()))
+    return config
+
+
+def check(root, privacy=None):
+    """Return (errors, warnings) for the repo at root.
+
+    privacy=None follows skills-config.json (default on); True or False overrides it.
+    The marker screen is for repos that publish skills; a private repo can switch it off.
+    """
     root = Path(root)
+    if privacy is None:
+        privacy = load_config(root)["privacyCheck"]
     errors, warnings = [], []
     lock = load_lock(root)
     entries = lock.get("skills", {})
@@ -104,10 +121,11 @@ def check(root):
         for rel, data in files.items():
             if merge_lib.has_conflict_markers(data):
                 errors.append(f"{name}: conflict marker in {rel}")
-            body = data.decode("utf-8", "ignore")
-            for marker in PRIVATE_MARKERS:
-                if marker in body:
-                    errors.append(f"{name}: private marker {marker!r} in {rel}")
+            if privacy:
+                body = data.decode("utf-8", "ignore")
+                for marker in PRIVATE_MARKERS:
+                    if marker in body:
+                        errors.append(f"{name}: private marker {marker!r} in {rel}")
 
         entry = entries.get(name)
         if entry is None:
