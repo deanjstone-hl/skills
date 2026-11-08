@@ -2,12 +2,12 @@
 
 Agent skills (`SKILL.md`) for coding agents, maintained by Dean Stone.
 
-Status: seeded. Every skill is a pinned import from upstream (none authored yet); the pstack skills are adapted to Claude Code and T3 on top of the verbatim base. Release plumbing is in place; no version has been cut.
+Status: seeded. 39 skills are pinned imports from upstream (the pstack set adapted to Claude Code and T3 on top of the verbatim base) and 4 are authored here (`grilling`, `session-brief`, `adr`, `research`), all with proven use in the owner's sessions. Release plumbing is in place; no version has been cut.
 
 ## What lives here
 
 - **Imported skills**, copied from upstream at a pinned commit, then edited only when needed.
-- **Authored skills** (none yet), written here.
+- **Authored skills**, written here: no lock entry and no `SOURCE` note. They get the same front matter, size and private-marker checks, and no hash checks.
 
 Each imported skill has an entry in `skills-lock.json` (upstream repo, path, commit, content hashes, licence, whether it is edited) and a `SOURCE` note inside its directory. The upstream licence text sits in `licenses/`.
 

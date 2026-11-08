@@ -111,7 +111,9 @@ def check(root):
 
         entry = entries.get(name)
         if entry is None:
-            errors.append(f"{name}: no lock entry")
+            # No lock entry and no SOURCE note: authored here, tracked by git alone.
+            if (skill_dir / SOURCE_NAME).exists():
+                errors.append(f"{name}: no lock entry")
             continue
         actual = hash_files(files)
         if entry.get("edited"):
