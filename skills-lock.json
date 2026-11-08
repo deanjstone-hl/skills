@@ -196,6 +196,20 @@
       "sourceType": "github",
       "upstreamHash": "669cc75d749a3f60c222ee5295e4d3b0c3a58a63a2e6be9ebf44be1a03f7939e"
     },
+    "diagnosing-bugs": {
+      "computedHash": "5f05f7e0c8d3ae86779f94aa6c46ef231d019c916fdf28f04ec7af2b0717edc2",
+      "edited": false,
+      "license": {
+        "file": "licenses/mattpocock__skills.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "5f05f7e0c8d3ae86779f94aa6c46ef231d019c916fdf28f04ec7af2b0717edc2",
+      "ref": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "skillPath": "skills/engineering/diagnosing-bugs",
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "upstreamHash": "5f05f7e0c8d3ae86779f94aa6c46ef231d019c916fdf28f04ec7af2b0717edc2"
+    },
     "domain-modeling": {
       "computedHash": "ab7acbca5aaf6e976caef1ccd1c14bac9459702f5b8e9d6d96e5a8ca8e3c7ee9",
       "edited": false,
