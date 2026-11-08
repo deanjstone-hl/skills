@@ -271,6 +271,27 @@ class RefreshTests(unittest.TestCase):
             entry = lib.refresh(root, "demo")
             self.assertFalse(entry["edited"])
 
+    def test_refresh_adapted_clears_unadapted_status(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            sd = make_repo(root)
+            lock = lib.load_lock(root)
+            lock["skills"]["demo"]["status"] = "unadapted"
+            lib.save_lock(root, lock)
+            (sd / "SKILL.md").write_text(SKILL.format(name="demo") + "adapted\n")
+            entry = lib.refresh(root, "demo", adapted=True)
+            self.assertNotIn("status", entry)
+            self.assertEqual(lib.check(root), ([], []))
+
+    def test_refresh_without_adapted_keeps_status(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            make_repo(root)
+            lock = lib.load_lock(root)
+            lock["skills"]["demo"]["status"] = "unadapted"
+            lib.save_lock(root, lock)
+            self.assertEqual(lib.refresh(root, "demo")["status"], "unadapted")
+
     def test_refresh_unknown_skill_raises(self):
         with tempfile.TemporaryDirectory() as d:
             root = Path(d)
