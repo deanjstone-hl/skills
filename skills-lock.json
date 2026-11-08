@@ -266,6 +266,20 @@
       "sourceType": "github",
       "upstreamHash": "ef4c0a103e95e4eda062663edf406a927febb6fa135f5867fa26f690d7a8301a"
     },
+    "i-have-adhd": {
+      "computedHash": "828d3b7ffc60694bfc62900688716e79e83580f339f194dc6c1aa96e16c5dbbf",
+      "edited": false,
+      "license": {
+        "file": "licenses/ayghri__i-have-adhd.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "828d3b7ffc60694bfc62900688716e79e83580f339f194dc6c1aa96e16c5dbbf",
+      "ref": "6f1f982d0a47c65899af3c5a7450b7098bc65325",
+      "skillPath": "skills/i-have-adhd",
+      "source": "ayghri/i-have-adhd",
+      "sourceType": "github",
+      "upstreamHash": "828d3b7ffc60694bfc62900688716e79e83580f339f194dc6c1aa96e16c5dbbf"
+    },
     "improve-codebase-architecture": {
       "computedHash": "3c72a8a3852beda9b28b6a14ce665506ea57a59a76568cf826873ec17d798c5a",
       "edited": false,
