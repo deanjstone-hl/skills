@@ -59,7 +59,8 @@ Trunk-based once the repo is on the trunk list: small commits straight to `main`
 
 - A merge to `main` runs the check and releases nothing.
 - `deploy` is only ever fast-forwarded to a commit already on `main`, on the owner's approval of a promotion. It is never force-pushed or deleted.
-- A push to `deploy` runs `.github/workflows/release.yml`: job `Test before release (unit tests, skill check)`, then `Release`. semantic-release tags `vX.Y.Z` and publishes a GitHub Release from the commit types since the last tag (`feat` is minor, `fix` and `perf` are patch, a breaking change is major). A promotion of only `chore`, `docs`, `ci`, `test` or `refactor` commits releases nothing.
+- A push to `deploy` runs `.github/workflows/release.yml`: job `Test before release (unit tests, skill check)`, then `Release`. semantic-release tags a version and publishes a GitHub Release from the commit types since the last tag (`feat` is minor, `fix` and `perf` are patch, a breaking change is major). **Releases are alphas for now** (owner decision, 8 Nov 2026): `.releaserc.json` marks `deploy` as an `alpha` prerelease branch, so versions read `v1.0.0-alpha.1`, `v1.0.0-alpha.2` and so on, published as GitHub prereleases, until the prerelease flag is removed on purpose. `main` is listed in the config only because semantic-release needs one non-prerelease branch; the workflow never runs on it. A promotion of only `chore`, `docs`, `ci`, `test` or `refactor` commits releases nothing.
+- The `deploy` branch does not exist yet. The ops hub creates it on the first promotion.
 - Nothing is installed on any machine yet: how machines consume a release is undecided (deanjstone/argus-config#1225).
 
 ## Licence
