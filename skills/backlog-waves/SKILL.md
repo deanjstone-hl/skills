@@ -2,9 +2,11 @@
 name: backlog-waves
 description: >
   Answer what to work on next from the rolling-wave Argus Ecosystem Backlog (wave:* and
-  mode:* labels) and keep wave labels true. Use for "what should I work on next", "what's
-  takeable", "which wave are we on", "what's blocking the current wave", "is the backlog
-  still accurate", "cut the next wave", or placing an issue in a wave.
+  mode:* labels) and keep wave labels true; also list what is open across the repos. Use for
+  "what should I work on next", "what's takeable", "which wave are we on", "what's blocking
+  the current wave", "is the backlog still accurate", "cut the next wave", placing an issue
+  in a wave, "what's open?", "show me the backlog", "what's open in <project>?", "find
+  issues about X", or "any urgent issues?".
 ---
 
 # Backlog Waves
@@ -15,7 +17,7 @@ Near-term work is planned in detail and far-term work coarsely, and each wave is
 approaches. This skill answers "what is takeable right now", keeps the `wave:*` labels
 honest, and proposes the next wave once the old Next has been promoted. It is permanent: the method has no end state.
 
-It answers ordering questions, not inventory ones: plain issue lookup and search ("what's open in budget", "find issues about X") is the `issues` skill.
+It answers ordering questions first; plain inventory ("what's open", "what's open in budget", "find issues about X", "any urgent issues") is the [`inventory` mode](#mode-inventory) below.
 
 **This skill navigates. It does not execute.** It reports and proposes, then stops — you pick,
 then invoke `/implement`, `/wayfinder`, or work the issue directly. It never claims an issue,
@@ -158,6 +160,71 @@ Then, and only then:
    is `W4` or higher, add its label to the taxonomy in `hooks/backlog-labels.py` (`WAVE_LABELS`)
    in the same PR and run `python3 hooks/backlog-labels.py ensure` after merge.
 3. Apply the approved moves via `assign`; close pruned issues with a comment saying why.
+
+---
+
+## Mode: `inventory`
+
+What is open, not what to do next. Read-only `gh` calls, no judgment beyond grouping. Run
+them in a Haiku `Explore` subagent so raw `gh` JSON stays out of the main session, and show
+its formatted answer as-is. Pick the sub-mode from the request: no repo or keyword is
+**summary**, a named project is **repo drill-down**, a keyword is **search**, "urgent" is
+summary with the urgent filter. Ambiguous means summary.
+
+Repo registry (spoken name to repo):
+
+| Project | Repo |
+|---|---|
+| argus / agent-cli / agent-engine / mcp-memory | `deanjstone/argus` |
+| argus-config / claude config / skills | `deanjstone/argus-config` |
+| atto1 / EV tracker | `deanjstone/atto1` |
+| budget / budgetbuddy / Up Bank | `deanjstone/budget` |
+| erto / AQF cert | `audaxworks/erto-apps` |
+| homelab / dell | `deanjstone/homelab` |
+| ios-scripts / scriptable | `deanjstone/scriptable-private` |
+| myargus / stockade / knowledge / reader | `deanjstone/myargus` |
+| sys-admin / sysadmin / dev stack | `deanjstone/sys-admin` |
+
+`deanjstone/mcp-memory` and `deanjstone/ccbot` are archived and hold no open issues; they are
+not iterated. The registry above is a convenience, and `board.py dump` covers the full
+in-scope set.
+
+**Summary** (one `gh` call per repo, then urgent items):
+
+```bash
+for repo in deanjstone/argus deanjstone/argus-config deanjstone/atto1 deanjstone/budget audaxworks/erto-apps deanjstone/homelab deanjstone/scriptable-private deanjstone/myargus deanjstone/sys-admin; do
+  count=$(gh issue list --repo "$repo" --state open --json number -q 'length' 2>/dev/null)
+  [ "${count:-0}" -gt 0 ] && echo "$count $repo"
+done | sort -rn
+gh search issues --owner deanjstone --state open "\[!\]" \
+  --json repository,number,title \
+  -q '.[] | "\(.repository.name)/\(.number) \(.title)"' 2>/dev/null
+```
+
+Present as open counts per repo, then the urgent `[!]` items.
+
+**Repo drill-down:**
+
+```bash
+gh issue list --repo "$TARGET_REPO" --state open --limit 100 \
+  --json number,title,createdAt -q '.[] | "#\(.number)  \(.title)"'
+```
+
+Group by theme above 10 issues, list flat at 10 or fewer, and end with
+`https://github.com/$TARGET_REPO/issues`.
+
+**Search:**
+
+```bash
+gh search issues --owner deanjstone --state open "<keyword>" \
+  --json repository,number,title -q '.[] | "\(.repository.name)/\(.number)  \(.title)"'
+```
+
+Group by repo and show the repo URL per group.
+
+Rules: always show issue numbers (the handle for follow-up); never invent counts or titles;
+skip a repo that errors (archived, private, no access) silently; `~/agent-cli/docs/TODO.md`
+is a cross-cutting scratchpad and never appears in a backlog view.
 
 ---
 
