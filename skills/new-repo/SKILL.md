@@ -411,81 +411,18 @@ For simple projects, skip it — the global CLAUDE.md is sufficient.
 
 ---
 
-## Step 11 — Director-Agent governance
+## Step 11 — Architectural rules
 
-Create the governance files that enable the Director-Agent workflow in this project.
-
-### `.claude/SYSTEM.md`
-
-Write `.claude/SYSTEM.md` with permanent architectural constraints specific to this project. Always include:
+Write `.claude/SYSTEM.md` with the permanent architectural constraints specific to this
+project. Always include:
 
 - Package manager rules (pnpm only for JS/TS; never npm/yarn)
 - Stack summary (what lives where, why)
-- Any core invariants (e.g. RelayEvent stream rule for code-relay)
+- Any core invariants the code must keep
 - TypeScript rules (strict, no `any`, no `.js` source files)
-- The Director-Agent workflow block (copy verbatim):
 
-```markdown
-## Director-Agent Workflow
-
-- All non-trivial work begins with a task file in `.claude/tasks/task-NNN-<name>.md`.
-- Claude must append its implementation plan to the task file before writing any code.
-- Code execution is blocked until the Director provides explicit approval in chat.
-- Chat is the UI; the task file is the source of truth.
-```
-
-### `.claude/tasks/_task-template.md`
-
-Create the task template at `.claude/tasks/_task-template.md`:
-
-```markdown
-# Task-XXX: [Title]
-
-## 1. Specification (Human Authored)
-
-- **Objective:** Concise summary of what needs to be accomplished.
-- **Requirements:**
-  1. [Requirement A]
-  2. [Requirement B]
-- **Architectural Boundary:** Constraints (e.g., "Do not introduce new dependencies").
-
-## 2. AI Implementation Plan (AI Authored)
-
-*To be filled by Claude before writing any code.*
-
-### Scope of changes
-
-**Files to create:**
-- `path/to/file` — purpose
-
-**Files to modify:**
-- `path/to/file` — what changes and why
-
-**Files to delete:**
-- `path/to/file` — reason
-
-**Files NOT touched:**
-- [list anything explicitly out of scope]
-
-### Step-by-step execution plan
-
-**Step 1 — [Name]**
-Description of what happens and why.
-
-### Risks / tradeoffs
-
-- [Any non-obvious side effects or decisions made]
-
-## 3. Human Approval Sign-off
-
-- **Status:** Pending
-- **Director Review Notes:** —
-
-## 4. Verification Checklist (AI Completed)
-
-- [ ] [Specific verifiable outcome]
-- [ ] TypeScript compiles with no errors
-```
+Do not create `.claude/tasks/` or a task template: task files are retired, and work is
+tracked as GitHub issues (the `todo` and `wayfinder` skills).
 
 ---
 
@@ -530,8 +467,7 @@ Scaffold:
 - [ ] `.claude/project.json` with `wtTabColor`, `.claude/settings.json` with `theme: custom:<name>`
 - [ ] `~/.claude/themes/<name>.json` created (with `promptBorder`/`autoAccept`/`planMode`/`warning`)
 - [ ] Colour map memory updated through `memory_remember`
-- [ ] `.claude/SYSTEM.md` with architectural constraints and the Director-Agent block
-- [ ] `.claude/tasks/_task-template.md` created
+- [ ] `.claude/SYSTEM.md` with architectural constraints (no `.claude/tasks/`; work is GitHub issues)
 - [ ] Git init and initial commit
 
 New-repo (see the references):
