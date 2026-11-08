@@ -1,24 +1,41 @@
 ---
-name: new-project
+name: new-repo
 description: >
-  Bootstrap a new project from scratch: scaffold, tooling, Claude project files, colour
-  scheme, initial commit. Use for "new project", "create project", "bootstrap project",
-  "scaffold project", "init project", "start a new <X> project". Stops at the initial
-  commit; production ops are project-init-extended.
+  Create a new repo end to end: scaffold (or split out of a monorepo), tooling, Claude project
+  files, colour scheme, initial commit, then the GitHub side (CI, PR template, labels, trunk
+  readiness) and the production ops (secrets, Supabase, promotion-based deploy and release).
+  Use for "new project", "new repo", "create project", "bootstrap project", "scaffold
+  project", "start a new <X> project", "set up github for <project>", "add CI to <project>",
+  "wire github", "set up project fully", "production setup", "wire Supabase".
 ---
 
-# New Project Bootstrap
+# New Repo
 
-Creates a fully configured project under `~/repos/<name>` with the correct stack,
-Claude project files, per-project colour scheme, git init, and initial commit. At the
-end, optionally opens a Claude session in the new project via the launch-claude skill.
+Phases, run in order; stop after the phase the user asked for.
+
+| Phase | Does | Where |
+|---|---|---|
+| 1. Scaffold | Directory under `~/repos/<name>`, stack, tooling, Claude project files, initial commit | Steps below |
+| 2. GitHub | Repo, CI that runs the local check, PR template, labels, trunk readiness | `references/github.md` |
+| 3. Ops | Secrets, Supabase, deploy script, `deploy`-branch workflows, release workflow | `references/ops.md` |
+
+"Add CI to <project>" or "wire github" on an existing repo starts at phase 2; "set up
+project fully" on a scaffolded repo starts at phase 3. Secrets are their own skill
+(`secrets-setup`), called from phase 3 or on request.
+
+## Phase 1: Scaffold
+
+Creates a project under `~/repos/<name>` with the stack, Claude project files, per-project
+colour scheme, git init and initial commit. A product-family repo split out of the argus
+monorepo follows the same steps, with the code moved in (history kept with
+`git filter-repo` if the owner wants it) instead of generated.
 
 ---
 
 ## Step 1 — Check CORTEX for prior art
 
-Before scaffolding, invoke the **cortex-search** skill to search for any existing notes,
-decisions, or reference material related to the project name or type. This surfaces:
+Before scaffolding, run the **vault-search** skill on `cortex` for the project name or type.
+It surfaces:
 
 - Previous attempts or abandoned versions of the same project
 - Architecture decisions or constraints already recorded
@@ -40,8 +57,8 @@ If the user hasn't specified, ask with `AskUserQuestion`:
 **Optional (ask only if not obvious from context):**
 - Supabase integration needed?
 - Deploy target: Vercel / Cloudflare Workers / none
-- GitHub repo: create now?
-- Bitwarden secrets needed? (If yes, invoke the **secrets-setup** skill after Step 8)
+- GitHub repo: create now? (phase 2)
+- Bitwarden secrets needed? (If yes, invoke the **secrets-setup** skill after Step 12)
 
 ### Project types
 
@@ -142,12 +159,14 @@ Lint with oxlint, type-aware, the same setup as myargus. Never scaffold ESLint o
 pnpm add -D oxlint oxlint-tsgolint
 ```
 
-Add to `package.json` `scripts`:
+Add to `package.json` `scripts` (`check` is the one command workers run before every push and
+CI runs on every push to `main`; drop `pnpm test` until a suite exists):
 
 ```json
 {
   "scripts": {
-    "lint": "oxlint --type-aware ."
+    "lint": "oxlint --type-aware .",
+    "check": "pnpm lint && pnpm build && pnpm test"
   }
 }
 ```
@@ -165,8 +184,8 @@ export default defineConfig({
 });
 ```
 
-Run `pnpm lint` once and fix anything it reports before the initial commit. The
-github-setup skill's CI template runs `pnpm lint` on every PR.
+Run `pnpm check` once and fix anything it reports before the initial commit. The CI
+workflow in `references/github.md` runs it.
 
 ---
 
@@ -470,18 +489,7 @@ Description of what happens and why.
 
 ---
 
-## Step 13 — GitHub repo (if requested)
-
-```bash
-cd ~/repos/<name>
-gh repo create <name> --private --source . --remote origin
-```
-
-Adjust `--private`/`--public` per user preference. Then invoke the **github-setup** skill to add CI workflow and PR/issue templates.
-
----
-
-## Step 14 — Git init and initial commit
+## Step 12 — Git init and initial commit
 
 ```bash
 cd ~/repos/<name>
@@ -490,47 +498,46 @@ git add .
 git commit -m "chore: initial scaffold"
 ```
 
-If a GitHub remote was created in Step 13, push immediately:
+---
 
-```bash
-git push -u origin main
-```
+## Step 13 — Project registration is automatic
+
+Nothing to do. The `context/projects.md` registry is gone: the SessionStart hook
+(`~/.argus/hooks/projects-registry.sh`) scans `~/repos/` fresh every session, so a new
+directory with a `CLAUDE.md` is picked up on the next session start.
 
 ---
 
-## Step 15 — Project registration is automatic
+## Step 14 — Continue or open a session
 
-Nothing to do here. The `context/projects.md` registry is gone — project discovery now
-happens via the SessionStart hook (`~/.argus/hooks/projects-registry.sh`), which scans
-`~/repos/` fresh every session. A new project directory with a `CLAUDE.md` is picked up
-automatically on the next session start.
-
----
-
-## Step 16 — Open a session (optional)
-
-Ask the user: "Want me to open a Claude session in the new project?"
-
-If yes, invoke the **launch-claude** skill with the new project name.
+If the user asked for GitHub, secrets or deploy, continue with phase 2 or 3 now.
+Otherwise ask: "Want me to open a Claude session in the new project?" If yes, invoke the
+**launch-claude** skill with the new project name.
 
 ---
 
-## Checklist summary
+## Checklist
+
+Scaffold:
 
 - [ ] CORTEX searched for prior art
 - [ ] Directory created and deps installed
-- [ ] oxlint wired (`lint` script, `oxlint.config.ts`, `pnpm lint` clean)
+- [ ] oxlint wired (`lint` and `check` scripts, `oxlint.config.ts`, `pnpm check` clean)
 - [ ] Tailwind CSS wired (web only)
 - [ ] Supabase client added (if requested)
 - [ ] Deploy config added (if requested)
-- [ ] `.gitignore` created
-- [ ] `.env.example` created
-- [ ] `.claude/project.json` with `wtTabColor`
-- [ ] `.claude/settings.json` with `theme: custom:<name>`
+- [ ] `.gitignore` and `.env.example` created
+- [ ] `.claude/project.json` with `wtTabColor`, `.claude/settings.json` with `theme: custom:<name>`
 - [ ] `~/.claude/themes/<name>.json` created (with `promptBorder`/`autoAccept`/`planMode`/`warning`)
-- [ ] Colour map memory updated
-- [ ] `.claude/SYSTEM.md` created with architectural constraints + Director-Agent block
+- [ ] Colour map memory updated through `memory_remember`
+- [ ] `.claude/SYSTEM.md` with architectural constraints and the Director-Agent block
 - [ ] `.claude/tasks/_task-template.md` created
-- [ ] Git init + initial commit
-- [ ] GitHub repo created + github-setup invoked (if requested)
-- [ ] Session opened (if requested)
+- [ ] Git init and initial commit
+
+New-repo (see the references):
+
+- [ ] README covers setup, commands, config and env, deploy and public behaviour (updated in the same push as any change to them)
+- [ ] CI runs the local check on every push to `main`; `scripts/trunk-readiness.sh` passes, output kept for the Resolution
+- [ ] Repo added to the deploy-repo list in the instruction files, and to the ops-hub, if it deploys
+- [ ] `release.yml` on push to `deploy` with `Test before release (<what it ran>)` then `Release`
+- [ ] Secrets set up through `secrets-setup` (separate skill, if needed)

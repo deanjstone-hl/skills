@@ -2,7 +2,7 @@
 
 Agent skills (`SKILL.md`) for coding agents, maintained by Dean Stone.
 
-Status: seeded, private. 89 skills: 59 pinned imports from upstream (15 edited: the pstack set adapted to Claude Code and T3, `pr`, `spec-review`, and the owner's private versions of `wayfinder`, `diagnosing-bugs`, `wizard`, `handoff` and `i-have-adhd` merged onto upstream) and 30 authored here, including the skills the owner's orchestrator, memory and host set-up depend on. Nothing installs from this repo yet. Release plumbing is in place; no version has been cut.
+Status: seeded, private. 89 skills: 59 pinned imports from upstream (15 edited: the pstack set adapted to Claude Code and T3, `pr`, `spec-review`, and the owner's private versions of `wayfinder`, `diagnosing-bugs`, `wizard`, `handoff` and `i-have-adhd` merged onto upstream) and 30 authored here, including the skills the owner's orchestrator, memory and host set-up depend on. Eight overlapping skills are folded into six: `claude-handoff` into `handoff`, `context-search` and `cortex-search` into `vault-search`, `github-setup` and `project-init-extended` into `new-project` (now `new-repo`), `grill-with-docs` into `grilling`, `issues` into `backlog-waves`, `ssh-perms-check` into `health-check`; the retired names are not in this repo, and `tests/test_retired_references.py` fails on any skill text that still names one. Nothing installs from this repo yet. Release plumbing is in place; no version has been cut.
 
 ## What lives here
 

@@ -3,7 +3,7 @@ name: secrets-setup
 description: >
   Scaffold Bitwarden vault items and .env templates for a project. Use for "set up
   secrets", "bootstrap Bitwarden", "create env", "add secrets", "/secrets-setup", or from
-  new-project or project-init-extended when secrets are requested.
+  new-repo when secrets are requested.
 ---
 
 # Secrets Setup

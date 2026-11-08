@@ -74,7 +74,7 @@ names the repo, the file and the exact change. Payoff order:
    and fork PRs on a self-hosted runner execute untrusted code on homelab.
 
 House style for the changes, so fixes match what the account already runs (CI tiering per
-memory `decision_ci_workflow_strategy`; workflow shape per the `github-setup` skill):
+memory `decision_ci_workflow_strategy`; workflow shape per the `new-repo` skill's `references/github.md`):
 
 ```yaml
 on:
@@ -132,4 +132,4 @@ like. Its numbers are history, not current state.
 ## Not this skill
 
 - One PR's red CI: `pr-triage` (reads that PR's job logs).
-- Writing CI for a repo that has none: `github-setup`.
+- Writing CI for a repo that has none: `new-repo` (GitHub phase).
