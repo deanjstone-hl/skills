@@ -1,6 +1,6 @@
 # skills
 
-A public repo of agent skills: pinned imports from upstream plus authored skills. Read `README.md` for layout and commands.
+A private repo of agent skills: pinned imports from upstream plus authored skills. Read `README.md` for layout and commands.
 
 ## Rules
 
@@ -9,7 +9,7 @@ A public repo of agent skills: pinned imports from upstream plus authored skills
 - **Never hand-edit `skills-lock.json` hashes.** `refresh_lock.py` writes them. A rename is the one manual lock edit: move the key and set `upstreamName`.
 - **Check before every push:** `bash scripts/check.sh` must pass (unit tests, then `check_skills.py`). CI and the Release test job run the same command.
 - **Authored skills have no lock entry and no `SOURCE` file.** Adding either to an authored skill makes the check treat it as an import and fail it.
-- **Nothing private.** No personal paths, hostnames or tool names from the owner's own set-up (the `PRIVATE_MARKERS` list in `scripts/skills_lib.py` enforces some). This repo is public.
+- **The private-marker check is off here, not removed.** This repo is private, so `skills-config.json` sets `privacyCheck: false`. The screen (`PRIVATE_MARKERS` in `scripts/skills_lib.py`) stays for repos that publish skills: switch it on with `check_skills.py --privacy`, or by deleting the config setting. Never commit secrets either way.
 - **Keep SKILL.md under about 8 KB**; move detail into files the skill loads on demand. The check warns above 8 KB.
 - **Licences:** an import needs its upstream licence text in `licenses/`; do not import a skill whose repo has no licence.
 - Tests first for changes to `scripts/`.

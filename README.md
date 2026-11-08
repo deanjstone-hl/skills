@@ -7,7 +7,7 @@ Status: seeded. 39 skills are pinned imports from upstream (the pstack set adapt
 ## What lives here
 
 - **Imported skills**, copied from upstream at a pinned commit, then edited only when needed.
-- **Authored skills**, written here: no lock entry and no `SOURCE` note. They get the same front matter, size and private-marker checks, and no hash checks.
+- **Authored skills**, written here: no lock entry and no `SOURCE` note. They get the same front matter and size checks, and no hash checks.
 
 Each imported skill has an entry in `skills-lock.json` (upstream repo, path, commit, content hashes, licence, whether it is edited) and a `SOURCE` note inside its directory. The upstream licence text sits in `licenses/`.
 
@@ -26,7 +26,7 @@ tests/                unittest tests for the scripts
 Python 3 and PyYAML; `gh` for imports.
 
 ```bash
-bash scripts/check.sh                          # the local check: tests, then skills, lock, licences, private markers
+bash scripts/check.sh                          # the local check: tests, then skills, lock and licences
                                                # (same as `pnpm run check`; CI and the Release test job run it)
 
 # import verbatim at a pinned commit (HEAD is resolved to a SHA)
@@ -50,6 +50,11 @@ python3 scripts/update_skill.py resolve <skill>                      # after fix
 4. `update_skill.py update` is a three-way merge per file: base is the upstream skill at the pinned commit (checked against `upstreamHash` first, and refused if it no longer matches), ours is the directory here, theirs is the skill at the new upstream commit (HEAD unless `--ref`). A clean merge advances `ref` and the hashes. A conflict writes `<<<<<<< local` / `>>>>>>> upstream` markers, sets `status: merge-conflict` with a `pending` block, and leaves the pin where it was. Fix the files and run `resolve`. `check_skills.py` fails while a conflict is pending or markers remain. If upstream moved the skill, pass `--path`. A local rename is recorded with `upstreamName`.
 
 `status: unadapted` in the lock means the skill still names another harness's paths or tools and is not ready to use as shipped. `check_skills.py` warns about these.
+
+## Settings and CI
+
+- **`skills-config.json`**: `privacyCheck` controls the private-marker screen (the `PRIVATE_MARKERS` list in `scripts/skills_lib.py`: personal paths, hostnames, internal repo names). It is **off here** because the repo is private; the code stays for repos that publish skills. Force it for one run with `python3 scripts/check_skills.py --privacy` (or `--no-privacy`); with no config file it defaults to on.
+- **Runners**: both workflows use `runs-on: ${{ fromJSON(vars.CI_RUNS_ON || '"ubuntu-latest"') }}`, like the other repos. With no `CI_RUNS_ON` repo variable they run on GitHub-hosted runners. To move to the homelab JIT runners: enrol `deanjstone/skills` in the dispatcher (an owner step on the homelab, see homelab `docs/runbooks/jit-dispatcher.md`), check the dispatcher token reaches the repo, then set `CI_RUNS_ON` to `["self-hosted","homelab"]`. Set the variable only after enrolment: until then those jobs would queue with nobody serving them.
 
 ## Development
 

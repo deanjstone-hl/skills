@@ -35,7 +35,7 @@ jobs:
     name: Test before release (unit tests, skill check)
     # A manual dispatch from main (or any other ref) would tag unpromoted code.
     if: github.ref == 'refs/heads/deploy'
-    runs-on: ubuntu-latest
+    runs-on: ${{ fromJSON(vars.CI_RUNS_ON || '"ubuntu-latest"') }}
     permissions:
       contents: read
     steps:
@@ -44,9 +44,11 @@ jobs:
         with:
           ref: ${{ github.sha }}
       - uses: actions/setup-python@v5
+        if: runner.environment == 'github-hosted'
         with:
           python-version: "3.12"
       - run: pip install pyyaml
+        if: runner.environment == 'github-hosted'
       # The command workers run before every push, so the two cannot drift.
       - name: Check
         run: bash scripts/check.sh
@@ -55,17 +57,24 @@ jobs:
     name: Release
     needs: test
     if: github.ref == 'refs/heads/deploy'
-    runs-on: ubuntu-latest
+    runs-on: ${{ fromJSON(vars.CI_RUNS_ON || '"ubuntu-latest"') }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           persist-credentials: false
+      # pnpm/action-setup only runs on GitHub-hosted runners (the CI_RUNS_ON fallback). The
+      # homelab runners already have pnpm on PATH through fnm; host-pnpm checks it matches
+      # `packageManager`, which stays the one place the version is pinned.
       - uses: pnpm/action-setup@v4
+        if: runner.environment == 'github-hosted'
+      - name: Use the host pnpm (self-hosted)
+        if: runner.environment != 'github-hosted'
+        uses: deanjstone/argus/.github/actions/host-pnpm@e08b523faa5e3a6e0732d229d6f4139c6d0d05f6 # argus#692
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: pnpm
+          cache: ${{ runner.environment == 'github-hosted' && 'pnpm' || '' }}
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       # Up to 3 attempts, each from the remote tip of deploy: a second promotion landing
