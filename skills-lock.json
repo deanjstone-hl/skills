@@ -744,18 +744,18 @@
       "upstreamHash": "77e81b901035c1f89f2fb3b04e6540b9ad4b713dd1bd4eddd2faa5bcb40b2bae"
     },
     "wizard": {
-      "computedHash": "0599b10343043c3d35c4359c7eaaa427e47d19133a17ea75b99451cbadbbd36c",
+      "computedHash": "2517a0e02447d4d75918943f437e22193c0bc8e9fe3ed1ab6eb43bcb971f83fe",
       "edited": true,
       "license": {
         "file": "licenses/mattpocock__skills.LICENSE",
         "spdx": "MIT"
       },
-      "localHash": "0599b10343043c3d35c4359c7eaaa427e47d19133a17ea75b99451cbadbbd36c",
-      "ref": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "localHash": "2517a0e02447d4d75918943f437e22193c0bc8e9fe3ed1ab6eb43bcb971f83fe",
+      "ref": "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d",
       "skillPath": "skills/engineering/wizard",
       "source": "mattpocock/skills",
       "sourceType": "github",
-      "upstreamHash": "273972972f7a9883e6a5f35a69132ec3e73eb6b8cc0076363c20031a0cc92bf4"
+      "upstreamHash": "ff7fcce1f6b40c003397dae39e184b77d70e12f90bc61091d0d73e5c2196ed30"
     },
     "writing-for-agents": {
       "computedHash": "dfc57c19e0f7a7e9c371966d765700d74ecae7694377c095095ee94f6fd216b3",
