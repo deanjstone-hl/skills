@@ -158,6 +158,188 @@
       "sourceType": "github",
       "upstreamHash": "248dc50869e7d1bd4895c1b15c1012b1366bbe2e34820bdcb3ce107dcdc91e47"
     },
+    "principle-boundary-discipline": {
+      "computedHash": "80c1aec9d05cf01247240ac4fa392b71cdccb6b0095f52647123c1988270eee5",
+      "edited": false,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "80c1aec9d05cf01247240ac4fa392b71cdccb6b0095f52647123c1988270eee5",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/principle-boundary-discipline",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "80c1aec9d05cf01247240ac4fa392b71cdccb6b0095f52647123c1988270eee5"
+    },
+    "principle-encode-lessons-in-structure": {
+      "computedHash": "a84e8cba2a6ece92809e1413c458f40c73384724c7517b0ad22861ea479ff045",
+      "edited": false,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "a84e8cba2a6ece92809e1413c458f40c73384724c7517b0ad22861ea479ff045",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/principle-encode-lessons-in-structure",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "a84e8cba2a6ece92809e1413c458f40c73384724c7517b0ad22861ea479ff045"
+    },
+    "principle-exhaust-the-design-space": {
+      "computedHash": "127357a789cdcb3703e468c17a20750aee3229d20b16005a4d7195c33bb97b5a",
+      "edited": false,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "127357a789cdcb3703e468c17a20750aee3229d20b16005a4d7195c33bb97b5a",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/principle-exhaust-the-design-space",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "127357a789cdcb3703e468c17a20750aee3229d20b16005a4d7195c33bb97b5a"
+    },
+    "principle-fix-root-causes": {
+      "computedHash": "ed98fb0b84121d03c68a7b30a16ac7f520c4fb881d4a0074b755c794a5babc2c",
+      "edited": false,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "ed98fb0b84121d03c68a7b30a16ac7f520c4fb881d4a0074b755c794a5babc2c",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/principle-fix-root-causes",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "ed98fb0b84121d03c68a7b30a16ac7f520c4fb881d4a0074b755c794a5babc2c"
+    },
+    "principle-foundational-thinking": {
+      "computedHash": "5c3c5d8994d279d2140f6bcaddf25ddb3c64fbae0d167eedae093d1d36624465",
+      "edited": false,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "5c3c5d8994d279d2140f6bcaddf25ddb3c64fbae0d167eedae093d1d36624465",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/principle-foundational-thinking",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "5c3c5d8994d279d2140f6bcaddf25ddb3c64fbae0d167eedae093d1d36624465"
+    },
+    "principle-laziness-protocol": {
+      "computedHash": "f6824c8bdf7f0d72a99c1eb165e7d01be9e90827941bbcd57f04f767a5776a14",
+      "edited": false,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "f6824c8bdf7f0d72a99c1eb165e7d01be9e90827941bbcd57f04f767a5776a14",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/principle-laziness-protocol",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "f6824c8bdf7f0d72a99c1eb165e7d01be9e90827941bbcd57f04f767a5776a14"
+    },
+    "principle-make-operations-idempotent": {
+      "computedHash": "f53fc518c0ec1a124dfc2bf70928265779599629e972def2e1e7248a7975db65",
+      "edited": false,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "f53fc518c0ec1a124dfc2bf70928265779599629e972def2e1e7248a7975db65",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/principle-make-operations-idempotent",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "f53fc518c0ec1a124dfc2bf70928265779599629e972def2e1e7248a7975db65"
+    },
+    "principle-minimize-reader-load": {
+      "computedHash": "d99df73400ba247640823d4ae30d37f177c207d0baadccad02bbea9a46fdee64",
+      "edited": false,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "d99df73400ba247640823d4ae30d37f177c207d0baadccad02bbea9a46fdee64",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/principle-minimize-reader-load",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "d99df73400ba247640823d4ae30d37f177c207d0baadccad02bbea9a46fdee64"
+    },
+    "principle-outcome-oriented-execution": {
+      "computedHash": "bb8c62327e213be8d18baa4410e383c7ed78b3fcccd6742e92dfc214171b6a49",
+      "edited": false,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "bb8c62327e213be8d18baa4410e383c7ed78b3fcccd6742e92dfc214171b6a49",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/principle-outcome-oriented-execution",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "bb8c62327e213be8d18baa4410e383c7ed78b3fcccd6742e92dfc214171b6a49"
+    },
+    "principle-prove-it-works": {
+      "computedHash": "2805d86034937683a8cdd46efdad8e07913748a7f2bce7c8bac963007edcb1a2",
+      "edited": false,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "2805d86034937683a8cdd46efdad8e07913748a7f2bce7c8bac963007edcb1a2",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/principle-prove-it-works",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "2805d86034937683a8cdd46efdad8e07913748a7f2bce7c8bac963007edcb1a2"
+    },
+    "principle-redesign-from-first-principles": {
+      "computedHash": "651d528568f52cc5e9cd0e2fdae76ba4f05d557ab3ebe52e731fc3900a6492dd",
+      "edited": false,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "651d528568f52cc5e9cd0e2fdae76ba4f05d557ab3ebe52e731fc3900a6492dd",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/principle-redesign-from-first-principles",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "651d528568f52cc5e9cd0e2fdae76ba4f05d557ab3ebe52e731fc3900a6492dd"
+    },
+    "principle-separate-before-serializing-shared-state": {
+      "computedHash": "621ca36cbe68fb0b9d6a85cf6121b66d88d0aa86f364e148bb8bdff5df1546a3",
+      "edited": false,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "621ca36cbe68fb0b9d6a85cf6121b66d88d0aa86f364e148bb8bdff5df1546a3",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/principle-separate-before-serializing-shared-state",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "621ca36cbe68fb0b9d6a85cf6121b66d88d0aa86f364e148bb8bdff5df1546a3"
+    },
+    "principle-subtract-before-you-add": {
+      "computedHash": "4b71c6f783dd03b100579ba813d145175bdeb6420fee0b24aa533f0464f1afa5",
+      "edited": false,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "4b71c6f783dd03b100579ba813d145175bdeb6420fee0b24aa533f0464f1afa5",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/principle-subtract-before-you-add",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "4b71c6f783dd03b100579ba813d145175bdeb6420fee0b24aa533f0464f1afa5"
+    },
     "reflect": {
       "computedHash": "e383e7514b06a62e803b68c9b3bd2992e22dc33b5e1e8fe3f91c5d0cf2402fde",
       "edited": true,
