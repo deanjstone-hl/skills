@@ -2,7 +2,7 @@
 
 Agent skills (`SKILL.md`) for coding agents, maintained by Dean Stone.
 
-Status: seeded. 17 skills imported from five upstream repos, none authored yet. Imports are pinned to upstream commits; nothing here is a release yet (no `deploy` branch).
+Status: seeded. 17 skills imported from four upstream repos, none authored yet. Imports are pinned to upstream commits. Release plumbing is in place; no version has been cut.
 
 ## What lives here
 
@@ -17,7 +17,7 @@ Each imported skill has an entry in `skills-lock.json` (upstream repo, path, com
 skills/<name>/        one skill: SKILL.md plus its files, and SOURCE
 skills-lock.json      upstream, pinned commit and hashes for every import
 licenses/             upstream licence texts
-scripts/              import_skill.py, refresh_lock.py, check_skills.py, skills_lib.py
+scripts/              check.sh, import_skill.py, refresh_lock.py, check_skills.py, skills_lib.py, ci/release-with-retry.sh
 tests/                unittest tests for the scripts
 ```
 
@@ -26,8 +26,8 @@ tests/                unittest tests for the scripts
 Python 3 and PyYAML; `gh` for imports.
 
 ```bash
-python3 -m unittest discover -s tests          # tests
-python3 scripts/check_skills.py                # validate skills, lock, licences, private markers
+bash scripts/check.sh                          # the local check: tests, then skills, lock, licences, private markers
+                                               # (same as `pnpm run check`; CI and the Release test job run it)
 
 # import verbatim at a pinned commit (HEAD is resolved to a SHA)
 python3 scripts/import_skill.py <owner/repo> <path-to-skill> --license MIT \
@@ -48,7 +48,14 @@ python3 scripts/refresh_lock.py <skill>
 
 ## Development
 
-Pull requests until the repo passes trunk readiness; then small commits straight to `main`. Releases are cut from the `deploy` branch (not created yet). Tests first for script changes.
+Trunk-based once the repo is on the trunk list: small commits straight to `main` with `Refs #N`; before each push run `git pull --rebase` and `bash scripts/check.sh`. Until then, pull requests. Tests first for script changes.
+
+## Releases and the `deploy` branch
+
+- A merge to `main` runs the check and releases nothing.
+- `deploy` is only ever fast-forwarded to a commit already on `main`, on the owner's approval of a promotion. It is never force-pushed or deleted.
+- A push to `deploy` runs `.github/workflows/release.yml`: job `Test before release (unit tests, skill check)`, then `Release`. semantic-release tags `vX.Y.Z` and publishes a GitHub Release from the commit types since the last tag (`feat` is minor, `fix` and `perf` are patch, a breaking change is major). A promotion of only `chore`, `docs`, `ci`, `test` or `refactor` commits releases nothing.
+- Nothing is installed on any machine yet: how machines consume a release is undecided (deanjstone/argus-config#1225).
 
 ## Licence
 
