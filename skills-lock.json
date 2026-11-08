@@ -224,6 +224,20 @@
       "sourceType": "github",
       "upstreamHash": "ab7acbca5aaf6e976caef1ccd1c14bac9459702f5b8e9d6d96e5a8ca8e3c7ee9"
     },
+    "explain-interface": {
+      "computedHash": "7ff23d7b52b2c22369e36437674aed8080ab5bffb385ce0993bd9c03af316ec1",
+      "edited": false,
+      "license": {
+        "file": "licenses/jakubkrehel__skills.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "7ff23d7b52b2c22369e36437674aed8080ab5bffb385ce0993bd9c03af316ec1",
+      "ref": "60bf140e43c98b248e6594487384ec967e89d98a",
+      "skillPath": "skills/explain-interface",
+      "source": "jakubkrehel/skills",
+      "sourceType": "github",
+      "upstreamHash": "7ff23d7b52b2c22369e36437674aed8080ab5bffb385ce0993bd9c03af316ec1"
+    },
     "gh-stack": {
       "computedHash": "3918cf119d2ab4c7a8d5e2e7b8dcb8f7bcdc67d94eabb41677b32fa8f924ca49",
       "edited": false,
@@ -363,6 +377,20 @@
       "source": "cursor/plugins",
       "sourceType": "github",
       "upstreamHash": "ec564fcd06f8af7b0e95cb945107ee8b5702fcfdfdf6360c07a1c27c284f23bd"
+    },
+    "mcp-builder": {
+      "computedHash": "f8e859b421059ba94694ae55e7132475f25ddc61bb14150340cad9d67b474c34",
+      "edited": false,
+      "license": {
+        "file": "licenses/anthropics__skills__mcp-builder.LICENSE",
+        "spdx": "Apache-2.0"
+      },
+      "localHash": "f8e859b421059ba94694ae55e7132475f25ddc61bb14150340cad9d67b474c34",
+      "ref": "2c5958ecac7cee2b583967a2c4981d0f4a75c579",
+      "skillPath": "skills/mcp-builder",
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "upstreamHash": "f8e859b421059ba94694ae55e7132475f25ddc61bb14150340cad9d67b474c34"
     },
     "mobile-native": {
       "computedHash": "0f40128310a8298412278e0f5af64e2b4fbb3c149b436c5e3205269d307bb226",
