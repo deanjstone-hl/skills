@@ -239,13 +239,13 @@
       "upstreamHash": "3918cf119d2ab4c7a8d5e2e7b8dcb8f7bcdc67d94eabb41677b32fa8f924ca49"
     },
     "handoff": {
-      "computedHash": "793887bbd3d0a82fb827cc3642dd4c1147d6a20c0551a0c690f9a49be91e8df1",
-      "edited": false,
+      "computedHash": "247d2a23e1d829e108a3d30fa22642a7affa6dfa9996558cd78b87e2f79fd5a9",
+      "edited": true,
       "license": {
         "file": "licenses/mattpocock__skills.LICENSE",
         "spdx": "MIT"
       },
-      "localHash": "793887bbd3d0a82fb827cc3642dd4c1147d6a20c0551a0c690f9a49be91e8df1",
+      "localHash": "247d2a23e1d829e108a3d30fa22642a7affa6dfa9996558cd78b87e2f79fd5a9",
       "ref": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
       "skillPath": "skills/productivity/handoff",
       "source": "mattpocock/skills",
