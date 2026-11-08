@@ -13,12 +13,17 @@ permissions:
 jobs:
   check:
     name: Check skills
-    runs-on: ubuntu-latest
+    # The CI_RUNS_ON repo variable selects the homelab runners once the repo is enrolled in the
+    # JIT dispatcher; until then jobs run on GitHub-hosted runners.
+    runs-on: ${{ fromJSON(vars.CI_RUNS_ON || '"ubuntu-latest"') }}
     steps:
       - uses: actions/checkout@v4
+      # The homelab runners already carry python3 and PyYAML.
       - uses: actions/setup-python@v5
+        if: runner.environment == 'github-hosted'
         with:
           python-version: "3.12"
       - run: pip install pyyaml
+        if: runner.environment == 'github-hosted'
       - name: Check
         run: bash scripts/check.sh

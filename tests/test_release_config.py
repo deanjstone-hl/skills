@@ -26,6 +26,15 @@ class ReleaseConfigTests(unittest.TestCase):
         self.assertNotIn("@semantic-release/git", plugins)
         self.assertNotIn("@semantic-release/changelog", plugins)
 
+    def test_workflows_pick_their_runner_from_ci_runs_on_with_a_hosted_fallback(self):
+        # Same pattern as the other repos: the CI_RUNS_ON repo variable selects the homelab
+        # runners once the repo is enrolled; until then jobs run on GitHub-hosted runners.
+        expr = "runs-on: ${{ fromJSON(vars.CI_RUNS_ON || '\"ubuntu-latest\"') }}"
+        for name, jobs in (("check.yml", 1), ("release.yml", 2)):
+            text = (ROOT / ".github" / "workflows" / name).read_text()
+            self.assertEqual(text.count(expr), jobs, name)
+            self.assertNotIn("runs-on: ubuntu-latest", text, name)
+
 
 if __name__ == "__main__":
     unittest.main()
