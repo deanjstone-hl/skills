@@ -1,0 +1,77 @@
+name: Release
+
+# A version is cut when the owner promotes: one per push to `deploy`, never by a merge to
+# `main`. A promotion made only of chore, docs, ci, test or refactor commits releases
+# nothing: semantic-release finds no releasable commit and exits 0.
+#
+# The job does not read github.event.commits to decide whether to run: a push event lists
+# 20 commits at most. semantic-release reads the real history since the last tag.
+#
+# semantic-release only analyses, tags and publishes the GitHub Release (.releaserc.json).
+# It commits nothing back: `deploy` is fast-forwarded from `main`, so a commit made here
+# would fork the branches. The changelog is the GitHub Release notes.
+#
+# Modelled on atto1's release.yml (argus-config#1048, #1167). No workflow_run trigger:
+# GitHub reports the default branch as the run's branch and semantic-release would
+# silently dry-run.
+
+on:
+  push:
+    branches: [deploy]
+  # Manual retry: a release whose run failed is not retried by the next promotion.
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: release-skills
+  cancel-in-progress: false
+
+jobs:
+  test:
+    name: Test before release (unit tests, skill check)
+    # A manual dispatch from main (or any other ref) would tag unpromoted code.
+    if: github.ref == 'refs/heads/deploy'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      # github.sha: the commit that was promoted (or the tip of deploy for a manual run).
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyyaml
+      # The command workers run before every push, so the two cannot drift.
+      - name: Check
+        run: bash scripts/check.sh
+
+  release:
+    name: Release
+    needs: test
+    if: github.ref == 'refs/heads/deploy'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      # Up to 3 attempts, each from the remote tip of deploy: a second promotion landing
+      # mid-run would otherwise make semantic-release exit 0 having released nothing.
+      - name: Release
+        run: bash scripts/ci/release-with-retry.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_BRANCH: deploy

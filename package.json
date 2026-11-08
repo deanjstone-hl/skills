@@ -1,0 +1,12 @@
+{
+  "name": "skills",
+  "private": true,
+  "packageManager": "pnpm@12.13.0",
+  "scripts": {
+    "check": "bash scripts/check.sh"
+  },
+  "devDependencies": {
+    "@semantic-release/github": "^11.0.1",
+    "semantic-release": "^24.2.3"
+  }
+}

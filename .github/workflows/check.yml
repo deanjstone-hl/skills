@@ -1,5 +1,7 @@
 name: Check
 
+# The repo's local check, `bash scripts/check.sh`, on every PR and every push to main.
+
 on:
   pull_request:
   push:
@@ -18,5 +20,5 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install pyyaml
-      - run: python3 -m unittest discover -s tests
-      - run: python3 scripts/check_skills.py
+      - name: Check
+        run: bash scripts/check.sh
