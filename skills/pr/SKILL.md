@@ -21,6 +21,10 @@ Use this template for writing the PR body:
 - **Before:** <screenshot/output/failing test run>
   **After:** <screenshot/output/passing test run>
 
+## README
+
+README: updated / not needed because <reason>. Required when the change touches setup, commands, config or env, deploy or public behaviour.
+
 ## Merge Danger
 
 **Door:** <one-way or two-way>

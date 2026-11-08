@@ -197,13 +197,13 @@
       "upstreamHash": "248dc50869e7d1bd4895c1b15c1012b1366bbe2e34820bdcb3ce107dcdc91e47"
     },
     "pr": {
-      "computedHash": "0022b89898e391536aedbd29aaef805cf352675eec4b15a453889bd1d4f1b6da",
-      "edited": false,
+      "computedHash": "d7eff09138f6c0812e282a1978a58559032f8531c8a121ebdecef93e568b6248",
+      "edited": true,
       "license": {
         "file": "licenses/mattpocock__skills.LICENSE",
         "spdx": "MIT"
       },
-      "localHash": "0022b89898e391536aedbd29aaef805cf352675eec4b15a453889bd1d4f1b6da",
+      "localHash": "d7eff09138f6c0812e282a1978a58559032f8531c8a121ebdecef93e568b6248",
       "ref": "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d",
       "skillPath": "skills/engineering/pr",
       "source": "mattpocock/skills",
