@@ -253,18 +253,18 @@
       "upstreamHash": "ef4c0a103e95e4eda062663edf406a927febb6fa135f5867fa26f690d7a8301a"
     },
     "improve-codebase-architecture": {
-      "computedHash": "7a19a6511ca230177a5daec074ddb1266fb9c2a5ccc0d70388f52f0a7fe1ef0d",
+      "computedHash": "3c72a8a3852beda9b28b6a14ce665506ea57a59a76568cf826873ec17d798c5a",
       "edited": false,
       "license": {
         "file": "licenses/mattpocock__skills.LICENSE",
         "spdx": "MIT"
       },
-      "localHash": "7a19a6511ca230177a5daec074ddb1266fb9c2a5ccc0d70388f52f0a7fe1ef0d",
-      "ref": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "localHash": "3c72a8a3852beda9b28b6a14ce665506ea57a59a76568cf826873ec17d798c5a",
+      "ref": "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d",
       "skillPath": "skills/engineering/improve-codebase-architecture",
       "source": "mattpocock/skills",
       "sourceType": "github",
-      "upstreamHash": "7a19a6511ca230177a5daec074ddb1266fb9c2a5ccc0d70388f52f0a7fe1ef0d"
+      "upstreamHash": "3c72a8a3852beda9b28b6a14ce665506ea57a59a76568cf826873ec17d798c5a"
     },
     "in-your-own-words": {
       "computedHash": "17f052eb4d65dc4641eee8748e773ece335ee9caff9f20dea28ccefe5a8ca929",
