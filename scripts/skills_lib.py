@@ -5,6 +5,8 @@ import json
 import re
 from pathlib import Path
 
+import merge_lib
+
 LOCK_NAME = "skills-lock.json"
 SOURCE_NAME = "SOURCE"
 SIZE_WARN_BYTES = 8 * 1024
@@ -100,6 +102,8 @@ def check(root):
             warnings.append(f"{name}: SKILL.md is {len(skill_md)} bytes, over the 8 KB budget")
 
         for rel, data in files.items():
+            if merge_lib.has_conflict_markers(data):
+                errors.append(f"{name}: conflict marker in {rel}")
             body = data.decode("utf-8", "ignore")
             for marker in PRIVATE_MARKERS:
                 if marker in body:
@@ -119,6 +123,8 @@ def check(root):
         lic = entry.get("license", {})
         if not lic.get("file") or not (root / lic["file"]).exists():
             errors.append(f"{name}: licence file {lic.get('file')!r} is missing")
+        if entry.get("status") == "merge-conflict":
+            errors.append(f"{name}: merge-conflict pending; fix the files and run update_skill.py resolve")
         if entry.get("status") == "unadapted":
             warnings.append(f"{name}: unadapted import, not ready to use as shipped")
     return errors, warnings
