@@ -1,0 +1,16 @@
+{
+  "defaults": {
+    "stale_later_days": 90
+  },
+  "waves": {
+    "W1": {
+      "name": "Ground truth"
+    },
+    "W2": {
+      "name": "Decide before building"
+    },
+    "W3": {
+      "name": "One instruction set for every agent"
+    }
+  }
+}
