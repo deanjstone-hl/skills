@@ -2,7 +2,7 @@
 
 Agent skills (`SKILL.md`) for coding agents, maintained by Dean Stone.
 
-Status: seeded. 17 skills imported from four upstream repos, none authored yet. Imports are pinned to upstream commits. Release plumbing is in place; no version has been cut.
+Status: seeded. Every skill is a pinned import from upstream (none authored yet); the pstack skills are adapted to Claude Code and T3 on top of the verbatim base. Release plumbing is in place; no version has been cut.
 
 ## What lives here
 
