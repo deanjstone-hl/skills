@@ -197,18 +197,18 @@
       "upstreamHash": "669cc75d749a3f60c222ee5295e4d3b0c3a58a63a2e6be9ebf44be1a03f7939e"
     },
     "diagnosing-bugs": {
-      "computedHash": "f54e9ccf3aabcc7ec06cd6a56cddbff1ea8a9c072eeedb6fb716032fdfa452ef",
+      "computedHash": "f0734acdb4044fee0796fb9d9a4f123acde20be333ddf35ab526d100e7980b45",
       "edited": true,
       "license": {
         "file": "licenses/mattpocock__skills.LICENSE",
         "spdx": "MIT"
       },
-      "localHash": "f54e9ccf3aabcc7ec06cd6a56cddbff1ea8a9c072eeedb6fb716032fdfa452ef",
-      "ref": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "localHash": "f0734acdb4044fee0796fb9d9a4f123acde20be333ddf35ab526d100e7980b45",
+      "ref": "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d",
       "skillPath": "skills/engineering/diagnosing-bugs",
       "source": "mattpocock/skills",
       "sourceType": "github",
-      "upstreamHash": "5f05f7e0c8d3ae86779f94aa6c46ef231d019c916fdf28f04ec7af2b0717edc2"
+      "upstreamHash": "eb364bd413d5b65ec3360466dfc8fe36a2f6c6de6a2c84a3b39bbf60fdbc120d"
     },
     "domain-modeling": {
       "computedHash": "ab7acbca5aaf6e976caef1ccd1c14bac9459702f5b8e9d6d96e5a8ca8e3c7ee9",
