@@ -300,5 +300,44 @@ class RefreshTests(unittest.TestCase):
                 lib.refresh(root, "nope")
 
 
+class AuthoredTests(unittest.TestCase):
+    """A skill with no lock entry and no SOURCE note is authored here."""
+
+    def make_authored(self, root, name="mine", text=None):
+        d = root / "skills" / name
+        d.mkdir(parents=True)
+        (d / "SKILL.md").write_text(text or SKILL.format(name=name))
+        (root / "skills-lock.json").write_text(json.dumps({"version": 1, "skills": {}}))
+        return d
+
+    def test_authored_skill_passes(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            self.make_authored(root)
+            self.assertEqual(lib.check(root), ([], []))
+
+    def test_authored_skill_still_gets_the_content_checks(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            self.make_authored(root, text=SKILL.format(name="other"))
+            errors, _ = lib.check(root)
+            self.assertTrue(any("does not match the directory" in e for e in errors), errors)
+
+    def test_authored_skill_is_screened_for_private_markers(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            self.make_authored(root, text=SKILL.format(name="mine") + "see /home/deanj/notes\n")
+            errors, _ = lib.check(root)
+            self.assertTrue(any("private" in e.lower() for e in errors), errors)
+
+    def test_source_note_without_a_lock_entry_still_fails(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            sd = self.make_authored(root)
+            (sd / "SOURCE").write_text("imported from somewhere\n")
+            errors, _ = lib.check(root)
+            self.assertTrue(any("no lock entry" in e for e in errors), errors)
+
+
 if __name__ == "__main__":
     unittest.main()
