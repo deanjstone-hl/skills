@@ -28,8 +28,7 @@ Agent({
   prompt: `Run the config audit below and return ONLY the final formatted report
   (Step 6 format) — do not include raw command output in your response.
 
-  <paste Steps 1–5 verbatim, substituting the actual ssh-perms-check stat commands for Step 3
-  since the subagent cannot invoke the Skill tool. Steps 2 and 5 run argus-config's own
+  <paste Steps 1–5 verbatim, pasting the stat commands from health-check's `references/ssh-permissions.md` into Step 3. Steps 2 and 5 run argus-config's own
   --dry-run scripts; they write nothing>`
 })
 ```
@@ -90,7 +89,7 @@ the repo file over a live one.
 
 ## Step 3 — SSH key permissions
 
-Invoke the `ssh-perms-check` skill and fold its output into this report's SSH row.
+Run the stat commands in health-check's `references/ssh-permissions.md` and fold its `✓`/`✗` lines into this report's SSH row.
 
 ---
 
