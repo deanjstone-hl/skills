@@ -519,6 +519,20 @@
       "sourceType": "github",
       "upstreamHash": "342ca2c99287f9e58e9ee3070d15c43e746d4e8487203df03e0060462a15de69"
     },
+    "wayfinder": {
+      "computedHash": "f72f9d0f62eb2b38f2a698283f59f6eb9f65fc80a3d38032bf90d686faa5e262",
+      "edited": false,
+      "license": {
+        "file": "licenses/mattpocock__skills.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "f72f9d0f62eb2b38f2a698283f59f6eb9f65fc80a3d38032bf90d686faa5e262",
+      "ref": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "skillPath": "skills/engineering/wayfinder",
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "upstreamHash": "f72f9d0f62eb2b38f2a698283f59f6eb9f65fc80a3d38032bf90d686faa5e262"
+    },
     "why": {
       "computedHash": "ebdd63cb574d7988b4010869b2042c59f053cf190e8deda7c0320996db2cf7a1",
       "edited": true,
