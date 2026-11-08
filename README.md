@@ -33,8 +33,13 @@ bash scripts/check.sh                          # the local check: tests, then sk
 python3 scripts/import_skill.py <owner/repo> <path-to-skill> --license MIT \
     [--license-path LICENSE] [--license-scope <subdir>] [--name <local-name>] [--ref <sha>] [--status unadapted]
 
-# after editing an imported skill
-python3 scripts/refresh_lock.py <skill>
+# after editing an imported skill (--adapted also clears the `unadapted` flag)
+python3 scripts/refresh_lock.py [--adapted] <skill>
+
+# take upstream changes into an imported skill, keeping local edits
+python3 scripts/update_skill.py status [<skill> ...]                 # compare each pin with upstream HEAD, no writes
+python3 scripts/update_skill.py update <skill> [--ref SHA] [--path NEW_UPSTREAM_PATH]
+python3 scripts/update_skill.py resolve <skill>                      # after fixing a conflicted update
 ```
 
 ## How imports stay updatable
@@ -42,7 +47,7 @@ python3 scripts/refresh_lock.py <skill>
 1. An import is committed **verbatim** first, so the pinned upstream commit is an exact merge base.
 2. Edits go in later commits. `refresh_lock.py` then records `edited: true` and the new `localHash`; the upstream hash and commit stay.
 3. `check_skills.py` fails if an unedited import differs from its upstream hash, or an edited one differs from its recorded local hash.
-4. Taking an upstream update (not built yet) will be a three-way merge: base = upstream file at the pinned commit, ours = the file here, theirs = new upstream. Renames are recorded with `upstreamName`.
+4. `update_skill.py update` is a three-way merge per file: base is the upstream skill at the pinned commit (checked against `upstreamHash` first, and refused if it no longer matches), ours is the directory here, theirs is the skill at the new upstream commit (HEAD unless `--ref`). A clean merge advances `ref` and the hashes. A conflict writes `<<<<<<< local` / `>>>>>>> upstream` markers, sets `status: merge-conflict` with a `pending` block, and leaves the pin where it was. Fix the files and run `resolve`. `check_skills.py` fails while a conflict is pending or markers remain. If upstream moved the skill, pass `--path`. A local rename is recorded with `upstreamName`.
 
 `status: unadapted` in the lock means the skill still names another harness's paths or tools and is not ready to use as shipped. `check_skills.py` warns about these.
 
