@@ -1,19 +1,32 @@
 {
   "skills": {
     "architect": {
-      "computedHash": "affefa059f77f73f37cc4cdde0dec09e0db6918c25cc65583c8c911359d37703",
-      "edited": false,
+      "computedHash": "93ca4b62347592e93f0dba972427499929bcbc325e34d38b74bf89004770751e",
+      "edited": true,
       "license": {
         "file": "licenses/cursor__plugins__pstack.LICENSE",
         "spdx": "MIT"
       },
-      "localHash": "affefa059f77f73f37cc4cdde0dec09e0db6918c25cc65583c8c911359d37703",
+      "localHash": "93ca4b62347592e93f0dba972427499929bcbc325e34d38b74bf89004770751e",
       "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
       "skillPath": "pstack/skills/architect",
       "source": "cursor/plugins",
       "sourceType": "github",
-      "status": "unadapted",
       "upstreamHash": "affefa059f77f73f37cc4cdde0dec09e0db6918c25cc65583c8c911359d37703"
+    },
+    "arena": {
+      "computedHash": "3cbc1876fa999550cd22a6b0e6ac60ad8f4eb4262d336642e4c7d19df586d595",
+      "edited": true,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "3cbc1876fa999550cd22a6b0e6ac60ad8f4eb4262d336642e4c7d19df586d595",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/arena",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "fe907c6f0ddaa405ffca0ba9ae788306b6fffac48af035e7fd3f236b9862a249"
     },
     "bro": {
       "computedHash": "a3eb0f267bba9399fef7eccb42bc8faeca332151f8c2623d5e72b17bd7f24bcf",
@@ -44,48 +57,59 @@
       "upstreamHash": "cf2dd7020417f054f1425f0892b2b071a22edb72491e9843c4dd9f0e98da536f"
     },
     "create-verification-skill": {
-      "computedHash": "669cc75d749a3f60c222ee5295e4d3b0c3a58a63a2e6be9ebf44be1a03f7939e",
-      "edited": false,
+      "computedHash": "396207fdc84a4f99676b23d8613d02ef180d7acdb06263ebba6e1e4d25569953",
+      "edited": true,
       "license": {
         "file": "licenses/cursor__plugins__pstack.LICENSE",
         "spdx": "MIT"
       },
-      "localHash": "669cc75d749a3f60c222ee5295e4d3b0c3a58a63a2e6be9ebf44be1a03f7939e",
+      "localHash": "396207fdc84a4f99676b23d8613d02ef180d7acdb06263ebba6e1e4d25569953",
       "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
       "skillPath": "pstack/skills/create-verification-skill",
       "source": "cursor/plugins",
       "sourceType": "github",
-      "status": "unadapted",
       "upstreamHash": "669cc75d749a3f60c222ee5295e4d3b0c3a58a63a2e6be9ebf44be1a03f7939e"
     },
     "how": {
-      "computedHash": "ef4c0a103e95e4eda062663edf406a927febb6fa135f5867fa26f690d7a8301a",
-      "edited": false,
+      "computedHash": "0cb5a3616795e50008ca0167058d82f1a91a8cc34a7244b83f9b33d5e1949649",
+      "edited": true,
       "license": {
         "file": "licenses/cursor__plugins__pstack.LICENSE",
         "spdx": "MIT"
       },
-      "localHash": "ef4c0a103e95e4eda062663edf406a927febb6fa135f5867fa26f690d7a8301a",
+      "localHash": "0cb5a3616795e50008ca0167058d82f1a91a8cc34a7244b83f9b33d5e1949649",
       "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
       "skillPath": "pstack/skills/how",
       "source": "cursor/plugins",
       "sourceType": "github",
-      "status": "unadapted",
       "upstreamHash": "ef4c0a103e95e4eda062663edf406a927febb6fa135f5867fa26f690d7a8301a"
     },
-    "interrogate": {
-      "computedHash": "625e5f01d793e51b1b4d0a98c66002388fc3f434a09499fee0aff223d705764c",
+    "in-your-own-words": {
+      "computedHash": "17f052eb4d65dc4641eee8748e773ece335ee9caff9f20dea28ccefe5a8ca929",
       "edited": false,
       "license": {
         "file": "licenses/cursor__plugins__pstack.LICENSE",
         "spdx": "MIT"
       },
-      "localHash": "625e5f01d793e51b1b4d0a98c66002388fc3f434a09499fee0aff223d705764c",
+      "localHash": "17f052eb4d65dc4641eee8748e773ece335ee9caff9f20dea28ccefe5a8ca929",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/in-your-own-words",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "17f052eb4d65dc4641eee8748e773ece335ee9caff9f20dea28ccefe5a8ca929"
+    },
+    "interrogate": {
+      "computedHash": "8b571b3127daa0ef859491d9eeb7eceb0d56846dc65e07a7345695f2013ece00",
+      "edited": true,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "8b571b3127daa0ef859491d9eeb7eceb0d56846dc65e07a7345695f2013ece00",
       "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
       "skillPath": "pstack/skills/interrogate",
       "source": "cursor/plugins",
       "sourceType": "github",
-      "status": "unadapted",
       "upstreamHash": "625e5f01d793e51b1b4d0a98c66002388fc3f434a09499fee0aff223d705764c"
     },
     "ketchup": {
@@ -103,18 +127,17 @@
       "upstreamHash": "72805c01cade1c4e9d8960f0ff01b015e492cdaad5f67efdc46d2ec87efd6e78"
     },
     "maintain-verification-skill": {
-      "computedHash": "ec564fcd06f8af7b0e95cb945107ee8b5702fcfdfdf6360c07a1c27c284f23bd",
-      "edited": false,
+      "computedHash": "2667cb02429b473c1f1027d377dc78782ccb5a013c6a6373c26b7495877d22b8",
+      "edited": true,
       "license": {
         "file": "licenses/cursor__plugins__pstack.LICENSE",
         "spdx": "MIT"
       },
-      "localHash": "ec564fcd06f8af7b0e95cb945107ee8b5702fcfdfdf6360c07a1c27c284f23bd",
+      "localHash": "2667cb02429b473c1f1027d377dc78782ccb5a013c6a6373c26b7495877d22b8",
       "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
       "skillPath": "pstack/skills/maintain-verification-skill",
       "source": "cursor/plugins",
       "sourceType": "github",
-      "status": "unadapted",
       "upstreamHash": "ec564fcd06f8af7b0e95cb945107ee8b5702fcfdfdf6360c07a1c27c284f23bd"
     },
     "modernize": {
@@ -131,19 +154,200 @@
       "sourceType": "github",
       "upstreamHash": "248dc50869e7d1bd4895c1b15c1012b1366bbe2e34820bdcb3ce107dcdc91e47"
     },
-    "reflect": {
-      "computedHash": "dcaa98af2a7124f9e0f761fb0823b09db8861a75232cd7760de7ca2102f47e1c",
+    "principle-boundary-discipline": {
+      "computedHash": "80c1aec9d05cf01247240ac4fa392b71cdccb6b0095f52647123c1988270eee5",
       "edited": false,
       "license": {
         "file": "licenses/cursor__plugins__pstack.LICENSE",
         "spdx": "MIT"
       },
-      "localHash": "dcaa98af2a7124f9e0f761fb0823b09db8861a75232cd7760de7ca2102f47e1c",
+      "localHash": "80c1aec9d05cf01247240ac4fa392b71cdccb6b0095f52647123c1988270eee5",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/principle-boundary-discipline",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "80c1aec9d05cf01247240ac4fa392b71cdccb6b0095f52647123c1988270eee5"
+    },
+    "principle-encode-lessons-in-structure": {
+      "computedHash": "a84e8cba2a6ece92809e1413c458f40c73384724c7517b0ad22861ea479ff045",
+      "edited": false,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "a84e8cba2a6ece92809e1413c458f40c73384724c7517b0ad22861ea479ff045",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/principle-encode-lessons-in-structure",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "a84e8cba2a6ece92809e1413c458f40c73384724c7517b0ad22861ea479ff045"
+    },
+    "principle-exhaust-the-design-space": {
+      "computedHash": "127357a789cdcb3703e468c17a20750aee3229d20b16005a4d7195c33bb97b5a",
+      "edited": false,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "127357a789cdcb3703e468c17a20750aee3229d20b16005a4d7195c33bb97b5a",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/principle-exhaust-the-design-space",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "127357a789cdcb3703e468c17a20750aee3229d20b16005a4d7195c33bb97b5a"
+    },
+    "principle-fix-root-causes": {
+      "computedHash": "ed98fb0b84121d03c68a7b30a16ac7f520c4fb881d4a0074b755c794a5babc2c",
+      "edited": false,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "ed98fb0b84121d03c68a7b30a16ac7f520c4fb881d4a0074b755c794a5babc2c",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/principle-fix-root-causes",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "ed98fb0b84121d03c68a7b30a16ac7f520c4fb881d4a0074b755c794a5babc2c"
+    },
+    "principle-foundational-thinking": {
+      "computedHash": "5c3c5d8994d279d2140f6bcaddf25ddb3c64fbae0d167eedae093d1d36624465",
+      "edited": false,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "5c3c5d8994d279d2140f6bcaddf25ddb3c64fbae0d167eedae093d1d36624465",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/principle-foundational-thinking",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "5c3c5d8994d279d2140f6bcaddf25ddb3c64fbae0d167eedae093d1d36624465"
+    },
+    "principle-laziness-protocol": {
+      "computedHash": "f6824c8bdf7f0d72a99c1eb165e7d01be9e90827941bbcd57f04f767a5776a14",
+      "edited": false,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "f6824c8bdf7f0d72a99c1eb165e7d01be9e90827941bbcd57f04f767a5776a14",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/principle-laziness-protocol",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "f6824c8bdf7f0d72a99c1eb165e7d01be9e90827941bbcd57f04f767a5776a14"
+    },
+    "principle-make-operations-idempotent": {
+      "computedHash": "f53fc518c0ec1a124dfc2bf70928265779599629e972def2e1e7248a7975db65",
+      "edited": false,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "f53fc518c0ec1a124dfc2bf70928265779599629e972def2e1e7248a7975db65",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/principle-make-operations-idempotent",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "f53fc518c0ec1a124dfc2bf70928265779599629e972def2e1e7248a7975db65"
+    },
+    "principle-minimize-reader-load": {
+      "computedHash": "d99df73400ba247640823d4ae30d37f177c207d0baadccad02bbea9a46fdee64",
+      "edited": false,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "d99df73400ba247640823d4ae30d37f177c207d0baadccad02bbea9a46fdee64",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/principle-minimize-reader-load",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "d99df73400ba247640823d4ae30d37f177c207d0baadccad02bbea9a46fdee64"
+    },
+    "principle-outcome-oriented-execution": {
+      "computedHash": "bb8c62327e213be8d18baa4410e383c7ed78b3fcccd6742e92dfc214171b6a49",
+      "edited": false,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "bb8c62327e213be8d18baa4410e383c7ed78b3fcccd6742e92dfc214171b6a49",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/principle-outcome-oriented-execution",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "bb8c62327e213be8d18baa4410e383c7ed78b3fcccd6742e92dfc214171b6a49"
+    },
+    "principle-prove-it-works": {
+      "computedHash": "2805d86034937683a8cdd46efdad8e07913748a7f2bce7c8bac963007edcb1a2",
+      "edited": false,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "2805d86034937683a8cdd46efdad8e07913748a7f2bce7c8bac963007edcb1a2",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/principle-prove-it-works",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "2805d86034937683a8cdd46efdad8e07913748a7f2bce7c8bac963007edcb1a2"
+    },
+    "principle-redesign-from-first-principles": {
+      "computedHash": "651d528568f52cc5e9cd0e2fdae76ba4f05d557ab3ebe52e731fc3900a6492dd",
+      "edited": false,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "651d528568f52cc5e9cd0e2fdae76ba4f05d557ab3ebe52e731fc3900a6492dd",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/principle-redesign-from-first-principles",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "651d528568f52cc5e9cd0e2fdae76ba4f05d557ab3ebe52e731fc3900a6492dd"
+    },
+    "principle-separate-before-serializing-shared-state": {
+      "computedHash": "621ca36cbe68fb0b9d6a85cf6121b66d88d0aa86f364e148bb8bdff5df1546a3",
+      "edited": false,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "621ca36cbe68fb0b9d6a85cf6121b66d88d0aa86f364e148bb8bdff5df1546a3",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/principle-separate-before-serializing-shared-state",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "621ca36cbe68fb0b9d6a85cf6121b66d88d0aa86f364e148bb8bdff5df1546a3"
+    },
+    "principle-subtract-before-you-add": {
+      "computedHash": "4b71c6f783dd03b100579ba813d145175bdeb6420fee0b24aa533f0464f1afa5",
+      "edited": false,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "4b71c6f783dd03b100579ba813d145175bdeb6420fee0b24aa533f0464f1afa5",
+      "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
+      "skillPath": "pstack/skills/principle-subtract-before-you-add",
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "upstreamHash": "4b71c6f783dd03b100579ba813d145175bdeb6420fee0b24aa533f0464f1afa5"
+    },
+    "reflect": {
+      "computedHash": "e383e7514b06a62e803b68c9b3bd2992e22dc33b5e1e8fe3f91c5d0cf2402fde",
+      "edited": true,
+      "license": {
+        "file": "licenses/cursor__plugins__pstack.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "e383e7514b06a62e803b68c9b3bd2992e22dc33b5e1e8fe3f91c5d0cf2402fde",
       "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
       "skillPath": "pstack/skills/reflect",
       "source": "cursor/plugins",
       "sourceType": "github",
-      "status": "unadapted",
       "upstreamHash": "dcaa98af2a7124f9e0f761fb0823b09db8861a75232cd7760de7ca2102f47e1c"
     },
     "spec-review": {
@@ -232,18 +436,17 @@
       "upstreamHash": "342ca2c99287f9e58e9ee3070d15c43e746d4e8487203df03e0060462a15de69"
     },
     "why": {
-      "computedHash": "77e81b901035c1f89f2fb3b04e6540b9ad4b713dd1bd4eddd2faa5bcb40b2bae",
-      "edited": false,
+      "computedHash": "ebdd63cb574d7988b4010869b2042c59f053cf190e8deda7c0320996db2cf7a1",
+      "edited": true,
       "license": {
         "file": "licenses/cursor__plugins__pstack.LICENSE",
         "spdx": "MIT"
       },
-      "localHash": "77e81b901035c1f89f2fb3b04e6540b9ad4b713dd1bd4eddd2faa5bcb40b2bae",
+      "localHash": "ebdd63cb574d7988b4010869b2042c59f053cf190e8deda7c0320996db2cf7a1",
       "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
       "skillPath": "pstack/skills/why",
       "source": "cursor/plugins",
       "sourceType": "github",
-      "status": "unadapted",
       "upstreamHash": "77e81b901035c1f89f2fb3b04e6540b9ad4b713dd1bd4eddd2faa5bcb40b2bae"
     }
   },

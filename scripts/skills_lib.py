@@ -124,8 +124,11 @@ def check(root):
     return errors, warnings
 
 
-def refresh(root, name):
-    """Recompute hashes and SOURCE after an edit; set edited when content differs from upstream."""
+def refresh(root, name, adapted=False):
+    """Recompute hashes and SOURCE after an edit; set edited when content differs from upstream.
+
+    adapted=True also clears an `unadapted` status: the edit made the skill usable.
+    """
     root = Path(root)
     lock = load_lock(root)
     entry = lock["skills"][name]
@@ -134,6 +137,8 @@ def refresh(root, name):
     entry["localHash"] = local
     entry["computedHash"] = local
     entry["edited"] = local != entry["upstreamHash"]
+    if adapted:
+        entry.pop("status", None)
     save_lock(root, lock)
     (root / "skills" / name / SOURCE_NAME).write_text(source_note(name, entry))
     return entry
