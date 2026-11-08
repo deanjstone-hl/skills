@@ -2,7 +2,7 @@
 
 Agent skills (`SKILL.md`) for coding agents, maintained by Dean Stone.
 
-Status: seeded, private. 57 skills: 40 pinned imports from upstream (11 edited: the pstack set adapted to Claude Code and T3, `pr`, `spec-review`, and `wayfinder`, the owner's private version merged onto upstream) and 17 authored here, including the skills the owner's orchestrator, memory and host set-up depend on. Nothing installs from this repo yet. Release plumbing is in place; no version has been cut.
+Status: seeded, private. 77 skills: 53 pinned imports from upstream (12 edited: the pstack set adapted to Claude Code and T3, `pr`, `spec-review`, and the owner's private versions of `wayfinder` and `diagnosing-bugs` merged onto upstream) and 24 authored here, including the skills the owner's orchestrator, memory and host set-up depend on. Nothing installs from this repo yet. Release plumbing is in place; no version has been cut.
 
 ## What lives here
 
