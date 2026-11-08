@@ -132,18 +132,17 @@
       "upstreamHash": "248dc50869e7d1bd4895c1b15c1012b1366bbe2e34820bdcb3ce107dcdc91e47"
     },
     "reflect": {
-      "computedHash": "dcaa98af2a7124f9e0f761fb0823b09db8861a75232cd7760de7ca2102f47e1c",
-      "edited": false,
+      "computedHash": "e383e7514b06a62e803b68c9b3bd2992e22dc33b5e1e8fe3f91c5d0cf2402fde",
+      "edited": true,
       "license": {
         "file": "licenses/cursor__plugins__pstack.LICENSE",
         "spdx": "MIT"
       },
-      "localHash": "dcaa98af2a7124f9e0f761fb0823b09db8861a75232cd7760de7ca2102f47e1c",
+      "localHash": "e383e7514b06a62e803b68c9b3bd2992e22dc33b5e1e8fe3f91c5d0cf2402fde",
       "ref": "6b0300214a09fd6029cfb7077043125758cd1fd2",
       "skillPath": "pstack/skills/reflect",
       "source": "cursor/plugins",
       "sourceType": "github",
-      "status": "unadapted",
       "upstreamHash": "dcaa98af2a7124f9e0f761fb0823b09db8861a75232cd7760de7ca2102f47e1c"
     },
     "spec-review": {
