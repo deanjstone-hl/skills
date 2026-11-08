@@ -224,6 +224,20 @@
       "sourceType": "github",
       "upstreamHash": "ab7acbca5aaf6e976caef1ccd1c14bac9459702f5b8e9d6d96e5a8ca8e3c7ee9"
     },
+    "explain-interface": {
+      "computedHash": "7ff23d7b52b2c22369e36437674aed8080ab5bffb385ce0993bd9c03af316ec1",
+      "edited": false,
+      "license": {
+        "file": "licenses/jakubkrehel__skills.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "7ff23d7b52b2c22369e36437674aed8080ab5bffb385ce0993bd9c03af316ec1",
+      "ref": "60bf140e43c98b248e6594487384ec967e89d98a",
+      "skillPath": "skills/explain-interface",
+      "source": "jakubkrehel/skills",
+      "sourceType": "github",
+      "upstreamHash": "7ff23d7b52b2c22369e36437674aed8080ab5bffb385ce0993bd9c03af316ec1"
+    },
     "gh-stack": {
       "computedHash": "3918cf119d2ab4c7a8d5e2e7b8dcb8f7bcdc67d94eabb41677b32fa8f924ca49",
       "edited": false,
@@ -238,6 +252,20 @@
       "sourceType": "github",
       "upstreamHash": "3918cf119d2ab4c7a8d5e2e7b8dcb8f7bcdc67d94eabb41677b32fa8f924ca49"
     },
+    "handoff": {
+      "computedHash": "b377e6a2c05f89484946d295c7706f712a2336edc700355f4c08af8582f0e125",
+      "edited": true,
+      "license": {
+        "file": "licenses/mattpocock__skills.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "b377e6a2c05f89484946d295c7706f712a2336edc700355f4c08af8582f0e125",
+      "ref": "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d",
+      "skillPath": "skills/productivity/handoff",
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "upstreamHash": "9f7eab21188d0c5d95a1a123d8b4dc8337774cf880166ade009622d766102f16"
+    },
     "how": {
       "computedHash": "0cb5a3616795e50008ca0167058d82f1a91a8cc34a7244b83f9b33d5e1949649",
       "edited": true,
@@ -251,6 +279,34 @@
       "source": "cursor/plugins",
       "sourceType": "github",
       "upstreamHash": "ef4c0a103e95e4eda062663edf406a927febb6fa135f5867fa26f690d7a8301a"
+    },
+    "i-have-adhd": {
+      "computedHash": "c3599c8baae1ba116c28c4897903f2702e904ab47a993f7739d60ed02ad38037",
+      "edited": true,
+      "license": {
+        "file": "licenses/ayghri__i-have-adhd.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "c3599c8baae1ba116c28c4897903f2702e904ab47a993f7739d60ed02ad38037",
+      "ref": "1ecea1993b7fce257ffbd686c070948b5e07eda6",
+      "skillPath": "skills/i-have-adhd",
+      "source": "ayghri/i-have-adhd",
+      "sourceType": "github",
+      "upstreamHash": "cdec75e9122909b8a2787f011d192820d3daaccd655173c624cf81d90e4f1b65"
+    },
+    "improve-codebase-architecture": {
+      "computedHash": "3c72a8a3852beda9b28b6a14ce665506ea57a59a76568cf826873ec17d798c5a",
+      "edited": false,
+      "license": {
+        "file": "licenses/mattpocock__skills.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "3c72a8a3852beda9b28b6a14ce665506ea57a59a76568cf826873ec17d798c5a",
+      "ref": "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d",
+      "skillPath": "skills/engineering/improve-codebase-architecture",
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "upstreamHash": "3c72a8a3852beda9b28b6a14ce665506ea57a59a76568cf826873ec17d798c5a"
     },
     "in-your-own-words": {
       "computedHash": "17f052eb4d65dc4641eee8748e773ece335ee9caff9f20dea28ccefe5a8ca929",
@@ -321,6 +377,20 @@
       "source": "cursor/plugins",
       "sourceType": "github",
       "upstreamHash": "ec564fcd06f8af7b0e95cb945107ee8b5702fcfdfdf6360c07a1c27c284f23bd"
+    },
+    "mcp-builder": {
+      "computedHash": "f8e859b421059ba94694ae55e7132475f25ddc61bb14150340cad9d67b474c34",
+      "edited": false,
+      "license": {
+        "file": "licenses/anthropics__skills__mcp-builder.LICENSE",
+        "spdx": "Apache-2.0"
+      },
+      "localHash": "f8e859b421059ba94694ae55e7132475f25ddc61bb14150340cad9d67b474c34",
+      "ref": "2c5958ecac7cee2b583967a2c4981d0f4a75c579",
+      "skillPath": "skills/mcp-builder",
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "upstreamHash": "f8e859b421059ba94694ae55e7132475f25ddc61bb14150340cad9d67b474c34"
     },
     "mobile-native": {
       "computedHash": "0f40128310a8298412278e0f5af64e2b4fbb3c149b436c5e3205269d307bb226",
@@ -728,6 +798,20 @@
       "source": "cursor/plugins",
       "sourceType": "github",
       "upstreamHash": "77e81b901035c1f89f2fb3b04e6540b9ad4b713dd1bd4eddd2faa5bcb40b2bae"
+    },
+    "wizard": {
+      "computedHash": "2517a0e02447d4d75918943f437e22193c0bc8e9fe3ed1ab6eb43bcb971f83fe",
+      "edited": true,
+      "license": {
+        "file": "licenses/mattpocock__skills.LICENSE",
+        "spdx": "MIT"
+      },
+      "localHash": "2517a0e02447d4d75918943f437e22193c0bc8e9fe3ed1ab6eb43bcb971f83fe",
+      "ref": "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d",
+      "skillPath": "skills/engineering/wizard",
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "upstreamHash": "ff7fcce1f6b40c003397dae39e184b77d70e12f90bc61091d0d73e5c2196ed30"
     },
     "writing-for-agents": {
       "computedHash": "dfc57c19e0f7a7e9c371966d765700d74ecae7694377c095095ee94f6fd216b3",
