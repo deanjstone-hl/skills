@@ -267,13 +267,13 @@
       "upstreamHash": "ef4c0a103e95e4eda062663edf406a927febb6fa135f5867fa26f690d7a8301a"
     },
     "i-have-adhd": {
-      "computedHash": "828d3b7ffc60694bfc62900688716e79e83580f339f194dc6c1aa96e16c5dbbf",
-      "edited": false,
+      "computedHash": "b23bc995abdee8283ffb54e9a972fbae0bce15234b75c4cf40ca4a20a3b81c91",
+      "edited": true,
       "license": {
         "file": "licenses/ayghri__i-have-adhd.LICENSE",
         "spdx": "MIT"
       },
-      "localHash": "828d3b7ffc60694bfc62900688716e79e83580f339f194dc6c1aa96e16c5dbbf",
+      "localHash": "b23bc995abdee8283ffb54e9a972fbae0bce15234b75c4cf40ca4a20a3b81c91",
       "ref": "6f1f982d0a47c65899af3c5a7450b7098bc65325",
       "skillPath": "skills/i-have-adhd",
       "source": "ayghri/i-have-adhd",
