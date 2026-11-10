@@ -14,6 +14,8 @@ RETIRED = {
     "ssh-perms-check": r"ssh-perms-check",
     "new-project": r"new-project",
     "issues skill": r"`issues` skill|\bthe `issues`",
+    "launch-claude": r"\blaunch-claude\b",
+    "variant": r"`variant`",
 }
 
 
