@@ -225,13 +225,13 @@
       "upstreamHash": "ab7acbca5aaf6e976caef1ccd1c14bac9459702f5b8e9d6d96e5a8ca8e3c7ee9"
     },
     "explain-interface": {
-      "computedHash": "7ff23d7b52b2c22369e36437674aed8080ab5bffb385ce0993bd9c03af316ec1",
-      "edited": false,
+      "computedHash": "c27691f443b8b6e16cf1de23ce9c8ff01681b63e33508a57798520f6690ffd69",
+      "edited": true,
       "license": {
         "file": "licenses/jakubkrehel__skills.LICENSE",
         "spdx": "MIT"
       },
-      "localHash": "7ff23d7b52b2c22369e36437674aed8080ab5bffb385ce0993bd9c03af316ec1",
+      "localHash": "c27691f443b8b6e16cf1de23ce9c8ff01681b63e33508a57798520f6690ffd69",
       "ref": "60bf140e43c98b248e6594487384ec967e89d98a",
       "skillPath": "skills/explain-interface",
       "source": "jakubkrehel/skills",

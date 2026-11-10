@@ -449,7 +449,7 @@ directory with a `CLAUDE.md` is picked up on the next session start.
 
 If the user asked for GitHub, secrets or deploy, continue with phase 2 or 3 now.
 Otherwise ask: "Want me to open a Claude session in the new project?" If yes, invoke the
-**launch-claude** skill with the new project name.
+**t3-thread** skill with the new project name.
 
 ---
 
