@@ -1,11 +1,17 @@
 name: Release
 
 # A version is cut when the owner promotes: one per push to `deploy`, never by a merge to
-# `main`. A promotion made only of chore, docs, ci, test or refactor commits releases
-# nothing: semantic-release finds no releasable commit and exits 0.
+# `main`. Two jobs, in order:
 #
-# The job does not read github.event.commits to decide whether to run: a push event lists
-# 20 commits at most. semantic-release reads the real history since the last tag.
+#   1. "Test before release (...)": a cheap check first (scripts/release-needed.sh): with no
+#      feat, fix, perf, revert or breaking commit since the last tag, the workflow ends
+#      green with no test and no version. Otherwise the same check workers run before every
+#      push, on the promoted SHA. The name lists what ran, so the Actions page and the hub
+#      card read as a sentence.
+#   2. "Release": `needs` the test job, so a red test means no version.
+#
+# The pre-check reads the real history since the last tag, not github.event.commits: a push
+# event lists 20 commits at most.
 #
 # semantic-release only analyses, tags and publishes the GitHub Release (.releaserc.json).
 # It commits nothing back: `deploy` is fast-forwarded from `main`, so a commit made here
@@ -22,12 +28,10 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
-  issues: write
-  pull-requests: write
+  contents: read
 
 concurrency:
-  group: release-skills
+  group: release
   cancel-in-progress: false
 
 jobs:
@@ -36,28 +40,39 @@ jobs:
     # A manual dispatch from main (or any other ref) would tag unpromoted code.
     if: github.ref == 'refs/heads/deploy'
     runs-on: ${{ fromJSON(vars.CI_RUNS_ON || '"ubuntu-latest"') }}
-    permissions:
-      contents: read
+    outputs:
+      releasable: ${{ steps.precheck.outputs.releasable }}
     steps:
       # github.sha: the commit that was promoted (or the tip of deploy for a manual run).
+      # Full history and tags: the pre-check looks at the commits since the last v* tag.
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Anything to release?
+        id: precheck
+        run: bash scripts/release-needed.sh
       - uses: actions/setup-python@v5
-        if: runner.environment == 'github-hosted'
+        if: steps.precheck.outputs.releasable == 'true' && runner.environment == 'github-hosted'
         with:
           python-version: "3.12"
       - run: pip install pyyaml
-        if: runner.environment == 'github-hosted'
+        if: steps.precheck.outputs.releasable == 'true' && runner.environment == 'github-hosted'
       # The command workers run before every push, so the two cannot drift.
       - name: Check
+        if: steps.precheck.outputs.releasable == 'true'
         run: bash scripts/check.sh
 
   release:
     name: Release
     needs: test
-    if: github.ref == 'refs/heads/deploy'
+    if: needs.test.outputs.releasable == 'true'
     runs-on: ${{ fromJSON(vars.CI_RUNS_ON || '"ubuntu-latest"') }}
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
         with:

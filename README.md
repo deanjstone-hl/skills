@@ -17,7 +17,7 @@ Each imported skill has an entry in `skills-lock.json` (upstream repo, path, com
 skills/<name>/        one skill: SKILL.md plus its files, and SOURCE
 skills-lock.json      upstream, pinned commit and hashes for every import
 licenses/             upstream licence texts
-scripts/              check.sh, import_skill.py, refresh_lock.py, check_skills.py, skills_lib.py, ci/release-with-retry.sh
+scripts/              check.sh, import_skill.py, refresh_lock.py, check_skills.py, skills_lib.py, release-needed.sh, ci/release-with-retry.sh
 tests/                unittest tests for the scripts
 ```
 
@@ -64,7 +64,8 @@ Trunk-based once the repo is on the trunk list: small commits straight to `main`
 
 - A merge to `main` runs the check and releases nothing.
 - `deploy` is only ever fast-forwarded to a commit already on `main`, on the owner's approval of a promotion. It is never force-pushed or deleted.
-- A push to `deploy` runs `.github/workflows/release.yml`: job `Test before release (unit tests, skill check)`, then `Release`. semantic-release tags a version and publishes a GitHub Release from the commit types since the last tag (`feat` is minor, `fix` and `perf` are patch, a breaking change is major). **Releases are alphas for now** (owner decision, 8 Nov 2026): `.releaserc.json` marks `deploy` as an `alpha` prerelease branch, so versions read `v1.0.0-alpha.1`, `v1.0.0-alpha.2` and so on, published as GitHub prereleases, until the prerelease flag is removed on purpose. `main` is listed in the config only because semantic-release needs one non-prerelease branch; the workflow never runs on it. A promotion of only `chore`, `docs`, `ci`, `test` or `refactor` commits releases nothing.
+- A push to `deploy` runs `.github/workflows/release.yml`: job `Test before release (unit tests, skill check)`, then `Release` (`needs:` it). The test job starts with `scripts/release-needed.sh`, which looks at the commits since the last `v*` tag: with no `feat`, `fix`, `perf`, `revert` or breaking change, the run ends green with no test and no version. Otherwise it runs `bash scripts/check.sh` on the promoted SHA, then semantic-release tags a version and publishes a GitHub Release (`feat` is minor, `fix` and `perf` are patch, a breaking change is major). `deploy` is the only release branch in `.releaserc.json`, so versions are plain `vX.Y.Z`; the first promotion with a releasable commit is `v1.0.0`. The workflow's concurrency group is `release`.
+- The github plugin's `successComment`, `failComment` and `releasedLabels` are off: commit subjects cite `#N` refs that can point at issues in other repos, and the plugin's success step turns the Release job red after the tag is cut when it cannot resolve them.
 - The `deploy` branch does not exist yet. The ops hub creates it on the first promotion.
 - Nothing is installed on any machine yet: how machines consume a release is undecided (deanjstone/argus-config#1225).
 - Rollback: the ops hub's Roll back card dispatches the deploy workflows (every workflow on a push to `deploy` except `release*.yml`) at a release tag. This repo has none, so there is nothing to dispatch yet. `tests/test_deploy_rollback.py` fails if one is added without ops-hub's rollback wiring: a `workflow_dispatch` trigger, a job `if:` that allows `refs/tags/v*`, `DEPLOY_ROLLBACK_TAG` set from the tag, and a `scripts/require-deploy-checkout.sh` that accepts it (deanjstone/argus#1179).
