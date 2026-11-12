@@ -136,9 +136,12 @@ their own body structure. Revisit only if the repo goes public with outside cont
 
 ## 6. Labels
 
-The todo skill files every issue with one `wave:*` and one `mode:*` label. Check the repo is
-in scope and the labels exist: `python3 ~/repos/argus-config/hooks/backlog-labels.py repos`
-lists the scope, and `ensure` creates the labels. A repo missing from the scope list is an
+The todo skill files every issue with one `wave:*`, one `mode:*` and one `type:*` label
+(`labels/labels.yml` in argus-config declares them all). Check the repo is in scope:
+`python3 ~/repos/argus-config/hooks/backlog-labels.py repos` lists the scope. Then print the
+plan with `python3 ~/repos/argus-config/hooks/backlog-labels.py sync --repo deanjstone/<repo>`:
+`sync` is the one label writer and a dry run unless `--confirm` is given, so the plan goes to
+the owner and the `--confirm` run is the owner's step. A repo missing from the scope list is an
 argus-config change (the scope is defined in `backlog-labels.py`).
 
 ## 7. Branch protection
@@ -196,7 +199,7 @@ pushed SHA with a Monitor, not `gh --watch`.
 GitHub setup complete for <project>
   CI: .github/workflows/ci.yml (Node/TS | .NET), runs the check on push and PR
   PR template: .github/pull_request_template.md
-  Labels: ensured | repo not in scope (argus-config change needed)
+  Labels: sync plan printed, --confirm is the owner's | repo not in scope (argus-config change needed)
   Branch protection: none (trunk) | applied | skipped (plan)
   Trunk readiness: READINESS: ok | fail <point>
 ```
