@@ -18,6 +18,10 @@ jobs:
     runs-on: ${{ fromJSON(vars.CI_RUNS_ON || '"ubuntu-latest"') }}
     steps:
       - uses: actions/checkout@v4
+      # The release scripts in scripts/ci are vendored from argus-config and synced, never
+      # edited here (skills#26, argus-config#1269): this fails on a hand-edited copy.
+      - name: Release scripts match their lock
+        run: bash scripts/ci/release-scripts-check.sh
       # The homelab runners already carry python3 and PyYAML.
       - uses: actions/setup-python@v5
         if: runner.environment == 'github-hosted'

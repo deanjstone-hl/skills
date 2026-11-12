@@ -17,7 +17,7 @@ Each imported skill has an entry in `skills-lock.json` (upstream repo, path, com
 skills/<name>/        one skill: SKILL.md plus its files, and SOURCE
 skills-lock.json      upstream, pinned commit and hashes for every import
 licenses/             upstream licence texts
-scripts/              check.sh, import_skill.py, refresh_lock.py, check_skills.py, skills_lib.py, release-needed.sh, ci/release-with-retry.sh
+scripts/              check.sh, import_skill.py, refresh_lock.py, check_skills.py, skills_lib.py, release-needed.sh, ci/ (release-with-retry.sh, release-proof.sh, release-scripts-check.sh, release-scripts.lock: vendored from argus-config, synced and never edited here; the check fails CI on a hand-edited copy)
 tests/                unittest tests for the scripts
 ```
 

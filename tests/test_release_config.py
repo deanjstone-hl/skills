@@ -67,6 +67,29 @@ class ReleaseConfigTests(unittest.TestCase):
             self.assertEqual(text.count(expr), jobs, name)
             self.assertNotIn("runs-on: ubuntu-latest", text, name)
 
+    def test_release_retry_wrapper_is_authenticated_and_pointed_at_deploy(self):
+        # The vendored script reads these; its own behaviour is tested in argus-config.
+        text = (ROOT / ".github" / "workflows" / "release.yml").read_text()
+        step = next(s for s in yaml.safe_load(text)["jobs"]["release"]["steps"] if s.get("name") == "Release")
+        self.assertEqual(step["run"], "bash scripts/ci/release-with-retry.sh")
+        self.assertEqual(step["env"]["GITHUB_TOKEN"], "${{ secrets.GITHUB_TOKEN }}")
+        self.assertEqual(step["env"]["RELEASE_BRANCH"], "deploy")
+
+    def test_check_workflow_fails_on_a_hand_edited_vendored_release_script(self):
+        text = (ROOT / ".github" / "workflows" / "check.yml").read_text()
+        workflow = yaml.safe_load(text)
+        triggers = workflow.get("on", workflow.get(True))
+        self.assertIn("pull_request", triggers)
+        self.assertEqual(triggers["push"], {"branches": ["main"]})
+        runs = [s.get("run") for s in workflow["jobs"]["check"]["steps"]]
+        self.assertIn("bash scripts/ci/release-scripts-check.sh", runs)
+
+    def test_vendored_release_scripts_have_a_lock_naming_the_argus_config_source(self):
+        lock = (ROOT / "scripts" / "ci" / "release-scripts.lock").read_text()
+        self.assertRegex(lock, r"(?m)^source deanjstone/argus-config [0-9a-f]{40}$")
+        for name in ("release-proof.sh", "release-scripts-check.sh", "release-with-retry.sh"):
+            self.assertRegex(lock, rf"(?m)^[0-9a-f]{{64}}  {name}$")
+
 
 if __name__ == "__main__":
     unittest.main()
