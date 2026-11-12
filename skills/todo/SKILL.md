@@ -95,24 +95,27 @@ Store the resolved repo as `$TARGET_REPO`.
 
 Set `$WAVE_LABEL` first. Choose it: `wave:w1`, `wave:w2` or `wave:later`, and put the reason in one line of the body (the map, blocker or incident it serves; argus-config#1197). With no reason to choose, the default stands: `wave:w1` when `$TARGET_REPO` is `deanjstone/argus-config` (its work affects the whole ecosystem, argus-config#716), `wave:later` for every other repo. The orchestrator validates the choice on its tick.
 
+Set `$TYPE_LABEL` too: the kind of change, from the title's commit type (`fix` is `type:bug`; otherwise `type:feat`, `type:docs`, `type:chore`, `type:refactor`, `type:test`, `type:ci`, `type:perf`, `type:build`, `type:security` or `type:revert`). Exactly one; pick the nearest, never leave it off (argus-config#1294).
+
 ```bash
 gh issue create \
   --repo "$TARGET_REPO" \
   --title "<Title>" \
   --label "$WAVE_LABEL" \
   --label mode:<afk|hitl> \
+  --label "$TYPE_LABEL" \
   --body "<Detail and context>
 
 Mode: <HITL|AFK>"
 ```
 
-**The labels are the backlog** (argus-config#566): the filing wave (chosen, with a reason line; default `wave:w1` in argus-config, `wave:later` elsewhere), and the one `mode:*`
-label matching Step 1 (`AFK` → `mode:afk`, `HITL` → `mode:hitl`). Moving the issue into W1
+**The labels are the backlog** (argus-config#566): the filing wave (chosen, with a reason line; default `wave:w1` in argus-config, `wave:later` elsewhere), the one `mode:*`
+label matching Step 1 (`AFK` → `mode:afk`, `HITL` → `mode:hitl`), and the one `type:*` label (`$TYPE_LABEL`). Moving the issue into W1
 or W2 is not this skill's job: the daily label sweep judges each new issue once. `Urgent`
 (Step 1) is conveyed in the body, not by filing straight into a numbered wave.
 
 If `gh` reports a label as not found, the repo predates the label set or is out of scope.
-Provision it and retry: `python3 ~/.claude/hooks/backlog-labels.py ensure --repo "$TARGET_REPO"`.
+Do not create it by hand: `python3 ~/.claude/hooks/backlog-labels.py sync --repo "$TARGET_REPO"` prints the plan (a dry run), and the owner approves `--confirm`. File the issue without the missing label meanwhile.
 Out-of-scope repos (certificate-generator, erto-apps) get no backlog labels; file without them.
 
 The body ends with a one-line `Mode:` that matches the `mode:*` label: `Mode: AFK` or
@@ -138,7 +141,7 @@ If the `gh` call fails, note the error and proceed to the file fallback (Step 5)
 
 ```
 Created issue: **<Title>** · $ISSUE_URL
-[Labelled <wave:w1|wave:w2|wave:later>, mode:<mode>]
+[Labelled <wave:w1|wave:w2|wave:later>, mode:<mode>, type:<type>]
 ```
 
 No file write needed. Done.
@@ -205,4 +208,5 @@ Added to ~/agent-cli/docs/TODO.md → <Section>: **<Title>**
 - **Never create docs/TODO.md in project dirs.** The only TODO.md files that exist are `~/agent-cli/docs/TODO.md` and `~/agent-cli/docs/TODO-archive.md`.
 - **Size gate, not this skill.** If the deferred work is unclear in scope, or clearly more than ~1 session, it's not a `/todo` issue — it's a wayfinder map (grilling if the scope is unclear, task-type if it's just large). Only invoke this skill for work that's both clear and small.
 - **You choose the wave at filing** (`wave:w1`, `wave:w2` or `wave:later`, with a one-line reason in the body); the defaults are `wave:w1` in argus-config and `wave:later` everywhere else — see Step 3.
+- **Every issue carries exactly one `type:`** — the commit-type label (`type:bug`, `type:feat`, `type:docs`, `type:chore`, …) in `$TYPE_LABEL`, set at filing (Step 3); a missing one is a sweep warning.
 - **Every issue carries exactly one mode** — the `mode:*` label plus the `Mode:` body line, set at filing (Steps 1 and 3). Unlike the wave, the mode is decided here: the filer knows best what the work needs. The owner may correct it later, swapping the label and the line together.

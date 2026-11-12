@@ -49,6 +49,7 @@ retired `old-W*` chart, stays on the frozen `projects/2` board and is not read.
 |---|---|
 | Wave labels | `wave:w1`, `wave:w2`, `wave:w3`, `wave:later`, `wave:held` — exactly one per open issue |
 | Mode labels | `mode:afk`, `mode:hitl` — exactly one per open issue, set by the `todo` skill at filing. `mode:both` is retired and deleted (argus-config#595, #604): a stray one reads as no mode |
+| Type labels | `type:bug`, `type:feat`, `type:docs`, `type:chore`, `type:refactor`, `type:test`, `type:ci`, `type:perf`, `type:build`, `type:security`, `type:revert` — exactly one per issue, set by the `todo` skill at filing; waived on `wayfinder:map`, grilling, research and prototype tickets, required on `wayfinder:task`. Not an ordering field: wave stays the only one. A missing one is a sweep warning |
 | Scope | The 23 repos `hooks/backlog-labels.py repos` prints: non-archived, non-fork `deanjstone` repos minus certificate-generator, erto-apps and template-repo-with-claude, plus obsidian-cadence. Issues only, never PRs |
 | Wave metadata | `waves.json` — per wave: `name`; plus `defaults.stale_later_days` (90) |
 | Source of truth | the labels. Taxonomy and data moves: `hooks/backlog-labels.py` in argus-config |
@@ -157,8 +158,9 @@ Then, and only then:
 
 1. Walk each step with the user via `AskUserQuestion` and collect explicit decisions.
 2. Add the new Next wave to `waves.json` (name), on a branch + PR in argus-config. If it
-   is `W4` or higher, add its label to the taxonomy in `hooks/backlog-labels.py` (`WAVE_LABELS`)
-   in the same PR and run `python3 hooks/backlog-labels.py ensure` after merge.
+   is `W4` or higher, add its label to `labels/labels.yml` (the `wave:` family), run
+   `python3 scripts/compose_labels.py` and commit the generated files in the same PR; after
+   promotion the owner runs `python3 hooks/backlog-labels.py sync --confirm`.
 3. Apply the approved moves via `assign`; close pruned issues with a comment saying why.
 
 ---

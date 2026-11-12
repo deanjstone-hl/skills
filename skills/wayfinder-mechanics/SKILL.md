@@ -222,7 +222,11 @@ Every new map **and** every child ticket is labelled at creation with the filing
 `wave:later`, with a one-line reason in the body: the map, blocker or incident it serves; with no reason to choose the default
 stands, `wave:later`, or `wave:w1` in `deanjstone/argus-config`, argus-config#716, and the orchestrator validates the choice on its tick, argus-config#1197) plus
 exactly one `mode:*` label (`mode:afk` or `mode:hitl`) matching its `Mode:`
-line. That rule comes from the global `TODO Convention` → *Backlog triage*: the backlog's wave
+line, plus exactly one `type:*` label on every `wayfinder:task` (the commit type of the build:
+`type:feat`, `type:bug`, `type:docs`, `type:chore` and the rest; argus-config#1294). `type:` is
+waived on `wayfinder:map`, `wayfinder:grilling`, `wayfinder:research` and `wayfinder:prototype`
+tickets, which have no change type. Until every filing path sets it, a missing `type:` on a task
+is a sweep warning. That rule comes from the global `TODO Convention` → *Backlog triage*: the backlog's wave
 and mode live in labels on issues (argus-config#566). Child tickets belong in the backlog too.
 Their absence has been drift, not convention
 [MEM:preference_board_tracks_all_repos, correction (c) 2026-08-17]. `/todo` does this in one
@@ -243,6 +247,7 @@ and the `Mode:` line together, whatever mode it was filed with. Link the spec fr
 
 ```bash reference
 gh issue edit <n> -R deanjstone/<repo> --add-label wave:later --add-label mode:afk   # your chosen wave; default wave:w1 in argus-config
+# a wayfinder:task also gets one type: label, e.g. --add-label type:feat
 ```
 
 ## 8. Resolving a ticket and keeping the map readable

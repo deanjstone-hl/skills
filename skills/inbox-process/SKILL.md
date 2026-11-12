@@ -234,8 +234,8 @@ tool's shape): filename → capture_type → proposed destination → one-line r
 For each approved capture, in order:
 
 1. **Execute the destination**:
-   - GitHub issue: `gh issue create --repo <repo> --title "<title>" --label <chosen wave, default wave:w1 if <repo> is deanjstone/argus-config, else wave:later> --label mode:<afk|hitl> --body "<body>\n\nMode: <AFK|HITL>\n\n---\nSource: capture <filename>"`
-     — the backlog labels and the `Mode:` line exactly as the `todo` skill's Step 3 sets them
+   - GitHub issue: `gh issue create --repo <repo> --title "<title>" --label <chosen wave, default wave:w1 if <repo> is deanjstone/argus-config, else wave:later> --label mode:<afk|hitl> --label type:<bug|feat|docs|chore|refactor|test|ci|perf|build|security|revert> --body "<body>\n\nMode: <AFK|HITL>\n\n---\nSource: capture <filename>"`
+     — the backlog labels (wave, mode, one `type:`) and the `Mode:` line exactly as the `todo` skill's Step 3 sets them
    - Memory (new or update): the `memorise` skill's write process — `memory_remember` is
      the only write path, never a hand-edited file. Pass `type` from the approved
      `candidate_type`, and no `source:*` tag (see Capture file shape)

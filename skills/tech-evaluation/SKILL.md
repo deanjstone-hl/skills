@@ -33,7 +33,7 @@ Run this as a sequence, not a single pass — each step changes what the next on
    than as a wall of text.
 
 5. **Route any follow-up work through `todo`**, never a raw `gh issue create` — that's what
-   gets it into the backlog (a chosen wave with a reason line; default `wave:later`, `wave:w1` in argus-config) with a mode label.
+   gets it into the backlog (a chosen wave with a reason line; default `wave:later`, `wave:w1` in argus-config) with a mode label and a type label.
 
 This composes with `research` (source-gathering), `grilling` (fog-clearing interview),
 `artifact-design` (the writeup), and `todo` (follow-up work) — reach for those directly by

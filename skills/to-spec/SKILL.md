@@ -16,7 +16,7 @@ The issue tracker and triage label vocabulary should have been provided to you. 
 
 Check with the user that these seams match their expectations.
 
-3. Write the spec using the template below, then publish it to the project issue tracker. Apply the `ready-for-agent` triage label - no need for additional triage.
+3. Write the spec using the template below, then publish it to the project issue tracker. File it as the `todo` skill's Step 3 does: a chosen wave with a one-line reason in the body, `mode:afk` (the spec is ready for an agent) with a matching `Mode: AFK` line, and one `type:` label (usually `type:feat`). No additional triage.
 
 <spec-template>
 

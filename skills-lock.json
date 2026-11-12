@@ -744,13 +744,13 @@
       "upstreamHash": "96d8b55baafea829d0ec43663c28cc343cc8830d2d2d11c933e8571b0b37ac6b"
     },
     "to-spec": {
-      "computedHash": "7c0ac5892441627cbe76e8587d47cbe3adedc61f779df5c9f82d473588503330",
-      "edited": false,
+      "computedHash": "e5c430e93d261faba0a83a30203d048216b9d4b988f863d4c8d6cdc3107ddfc2",
+      "edited": true,
       "license": {
         "file": "licenses/mattpocock__skills.LICENSE",
         "spdx": "MIT"
       },
-      "localHash": "7c0ac5892441627cbe76e8587d47cbe3adedc61f779df5c9f82d473588503330",
+      "localHash": "e5c430e93d261faba0a83a30203d048216b9d4b988f863d4c8d6cdc3107ddfc2",
       "ref": "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d",
       "skillPath": "skills/engineering/to-spec",
       "source": "mattpocock/skills",
@@ -772,13 +772,13 @@
       "upstreamHash": "342ca2c99287f9e58e9ee3070d15c43e746d4e8487203df03e0060462a15de69"
     },
     "wayfinder": {
-      "computedHash": "4ee707db52032489c7b106d15a732853ba291e0e00d4088f3287a3ca786fe30a",
+      "computedHash": "7eee92ed1a635a73b2fdb7f39fa1738bdef15ea813fd982e9f8d97a9e97b575d",
       "edited": true,
       "license": {
         "file": "licenses/mattpocock__skills.LICENSE",
         "spdx": "MIT"
       },
-      "localHash": "4ee707db52032489c7b106d15a732853ba291e0e00d4088f3287a3ca786fe30a",
+      "localHash": "7eee92ed1a635a73b2fdb7f39fa1738bdef15ea813fd982e9f8d97a9e97b575d",
       "ref": "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d",
       "skillPath": "skills/engineering/wayfinder",
       "source": "mattpocock/skills",
