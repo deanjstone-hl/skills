@@ -2,7 +2,9 @@
 
 Agent skills (`SKILL.md`) for coding agents, maintained by Dean Stone.
 
-Status: seeded, private. 89 skills: 59 pinned imports from upstream (15 edited: the pstack set adapted to Claude Code and T3, `pr`, `spec-review`, and the owner's private versions of `wayfinder`, `diagnosing-bugs`, `wizard`, `handoff` and `i-have-adhd` merged onto upstream) and 30 authored here, including the skills the owner's orchestrator, memory and host set-up depend on. Eight overlapping skills are folded into six: `claude-handoff` into `handoff`, `context-search` and `cortex-search` into `vault-search`, `github-setup` and `project-init-extended` into `new-project` (now `new-repo`), `grill-with-docs` into `grilling`, `issues` into `backlog-waves`, `ssh-perms-check` into `health-check`; the retired names are not in this repo, and `tests/test_retired_references.py` fails on any skill text that still names one. Nothing installs from this repo yet. Release plumbing is in place; no version has been cut.
+Status: seeded. 89 skills: 59 pinned imports from upstream (15 edited: the pstack set adapted to Claude Code and T3, `pr`, `spec-review`, and the owner's private versions of `wayfinder`, `diagnosing-bugs`, `wizard`, `handoff` and `i-have-adhd` merged onto upstream) and 30 authored here, including the skills the owner's orchestrator, memory and host set-up depend on. Eight overlapping skills are folded into six: `claude-handoff` into `handoff`, `context-search` and `cortex-search` into `vault-search`, `github-setup` and `project-init-extended` into `new-project` (now `new-repo`), `grill-with-docs` into `grilling`, `issues` into `backlog-waves`, `ssh-perms-check` into `health-check`; the retired names are not in this repo, and `tests/test_retired_references.py` fails on any skill text that still names one. Nothing installs from this repo yet. Release plumbing is in place; this history has cut no version (an earlier private history, with `v1.0.0`, is kept in `skills-archive`).
+
+**Public, fresh history.** The repo is published through a fresh-history cutover (skills/27): the old private repo is renamed `skills-archive` and a new public `skills` starts from one commit of a scrubbed tree. No private value is in the tree: addresses a skill needs are read at run time from Bitwarden Secrets Manager by key name, `.env.example` lists the names with no value, and `bash scripts/scrub-scan.sh` (gitleaks plus personal-data rules) must report no finding. See `docs/public-cutover.md`.
 
 ## What lives here
 
@@ -17,17 +19,21 @@ Each imported skill has an entry in `skills-lock.json` (upstream repo, path, com
 skills/<name>/        one skill: SKILL.md plus its files, and SOURCE
 skills-lock.json      upstream, pinned commit and hashes for every import
 licenses/             upstream licence texts
-scripts/              check.sh, import_skill.py, refresh_lock.py, check_skills.py, skills_lib.py, release-needed.sh, ci/ (release-with-retry.sh, release-proof.sh, release-scripts-check.sh, release-scripts.lock: vendored from argus-config, synced and never edited here; the check fails CI on a hand-edited copy)
+docs/                 public-cutover.md: where private values live, CI safety, the scrub scan, the cutover runbook
+.env.example          Secrets Manager key names for private values, no values (`.env` is gitignored)
+.gitleaks.toml        the scrub rules behind scripts/scrub-scan.sh
+scripts/              check.sh, import_skill.py, refresh_lock.py, check_skills.py, skills_lib.py, release-needed.sh, scrub-scan.sh, owner-steps/27.sh (the public cutover, owner-run), ci/ (release-with-retry.sh, release-proof.sh, release-scripts-check.sh, release-scripts.lock: vendored from argus-config, synced and never edited here; the check fails CI on a hand-edited copy)
 tests/                unittest tests for the scripts
 ```
 
 ## Commands
 
-Python 3 and PyYAML; `gh` for imports.
+Python 3 and PyYAML; `gh` for imports; `gitleaks` and `jq` for the scrub scan (the scan and the cutover-script tests skip without them).
 
 ```bash
 bash scripts/check.sh                          # the local check: tests, then skills, lock and licences
                                                # (same as `pnpm run check`; CI and the Release test job run it)
+bash scripts/scrub-scan.sh                     # gitleaks + personal-data rules over the tree: must print `pass (0 findings)`
 
 # import verbatim at a pinned commit (HEAD is resolved to a SHA)
 python3 scripts/import_skill.py <owner/repo> <path-to-skill> --license MIT \
@@ -53,12 +59,12 @@ python3 scripts/update_skill.py resolve <skill>                      # after fix
 
 ## Settings and CI
 
-- **`skills-config.json`**: `privacyCheck` controls the private-marker screen (the `PRIVATE_MARKERS` list in `scripts/skills_lib.py`: personal paths, hostnames, internal repo names). It is **off here** because the repo is private; the code stays for repos that publish skills. Force it for one run with `python3 scripts/check_skills.py --privacy` (or `--no-privacy`); with no config file it defaults to on.
-- **Runners**: both workflows use `runs-on: ${{ fromJSON(vars.CI_RUNS_ON || '"ubuntu-latest"') }}`, like the other repos. With no `CI_RUNS_ON` repo variable they run on GitHub-hosted runners. To move to the homelab JIT runners: enrol `deanjstone/skills` in the dispatcher (an owner step on the homelab, see homelab `docs/runbooks/jit-dispatcher.md`), check the dispatcher token reaches the repo, then set `CI_RUNS_ON` to `["self-hosted","homelab"]`. Set the variable only after enrolment: until then those jobs would queue with nobody serving them.
+- **`skills-config.json`**: `privacyCheck` controls the private-marker screen (the `PRIVATE_MARKERS` list in `scripts/skills_lib.py`: personal paths, hostnames, internal repo names). It is **off here**: the skills cite the owner's private repos and vault paths on purpose, and the screen would fail 60 times. The value gate is `scripts/scrub-scan.sh`. Force the marker screen for one run with `python3 scripts/check_skills.py --privacy` (or `--no-privacy`); with no config file it defaults to on.
+- **Runners**: both workflows run every job on `ubuntu-latest`. The repo is public, so a fork's pull request runs `check.yml`: no job may use `self-hosted`, read `CI_RUNS_ON` or another runner-selecting variable, use `pull_request_target`, or hold a secret beyond the read-only `GITHUB_TOKEN`. `tests/test_public_safe.py` fails on any of them. Do not enrol this repo in the homelab JIT dispatcher.
 
 ## Development
 
-Trunk-based once the repo is on the trunk list: small commits straight to `main` with `Refs #N`; before each push run `git pull --rebase` and `bash scripts/check.sh`. Until then, pull requests. Tests first for script changes.
+Trunk-based: small commits straight to `main` with `Refs #N`; before each push run `git pull --rebase` and `bash scripts/check.sh`. Tests first for script changes.
 
 ## Releases and the `deploy` branch
 

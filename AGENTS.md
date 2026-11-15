@@ -1,6 +1,6 @@
 # skills
 
-A private repo of agent skills: pinned imports from upstream plus authored skills. Read `README.md` for layout and commands.
+A public repo of agent skills (fresh history; the earlier private history is `skills-archive`): pinned imports from upstream plus authored skills. Read `README.md` for layout and commands.
 
 ## Rules
 
@@ -9,7 +9,9 @@ A private repo of agent skills: pinned imports from upstream plus authored skill
 - **Never hand-edit `skills-lock.json` hashes.** `refresh_lock.py` writes them. A rename is the one manual lock edit: move the key and set `upstreamName`.
 - **Check before every push:** `bash scripts/check.sh` must pass (unit tests, then `check_skills.py`). CI and the Release test job run the same command.
 - **Authored skills have no lock entry and no `SOURCE` file.** Adding either to an authored skill makes the check treat it as an import and fail it.
-- **The private-marker check is off here, not removed.** This repo is private, so `skills-config.json` sets `privacyCheck: false`. The screen (`PRIVATE_MARKERS` in `scripts/skills_lib.py`) stays for repos that publish skills: switch it on with `check_skills.py --privacy`, or by deleting the config setting. Never commit secrets either way.
+- **Nothing private goes in the tree: the repo is public.** No address, hostname, email, Cloudflare id or other value that identifies the owner's hosts or accounts. A skill that needs one reads it at run time from Bitwarden Secrets Manager by key name (see `skills/syncthing-pair`), and the key name goes in `.env.example`. `bash scripts/scrub-scan.sh` must print `pass (0 findings)` before a push. Test fixtures build such values at run time. `docs/public-cutover.md` has the rules.
+- **CI is GitHub-hosted only.** Never `self-hosted`, `CI_RUNS_ON`, `pull_request_target` or a secret in a workflow a pull request starts: `tests/test_public_safe.py` fails on each.
+- **The private-marker check is off here, not removed.** `skills-config.json` sets `privacyCheck: false` because the skills cite the owner's private repos and vault paths on purpose. The screen (`PRIVATE_MARKERS` in `scripts/skills_lib.py`) stays: switch it on with `check_skills.py --privacy`. Never commit secrets either way.
 - **Keep SKILL.md under about 8 KB**; move detail into files the skill loads on demand. The check warns above 8 KB.
 - **Licences:** an import needs its upstream licence text in `licenses/`; do not import a skill whose repo has no licence.
 - Tests first for changes to `scripts/`.
