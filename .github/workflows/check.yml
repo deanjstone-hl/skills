@@ -13,21 +13,18 @@ permissions:
 jobs:
   check:
     name: Check skills
-    # The CI_RUNS_ON repo variable selects the homelab runners once the repo is enrolled in the
-    # JIT dispatcher; until then jobs run on GitHub-hosted runners.
-    runs-on: ${{ fromJSON(vars.CI_RUNS_ON || '"ubuntu-latest"') }}
+    # GitHub-hosted only: the repo is public, so a fork's pull request runs this job
+    # (tests/test_public_safe.py). No variable may pick another runner.
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       # The release scripts in scripts/ci are vendored from argus-config and synced, never
       # edited here (skills#26, argus-config#1269): this fails on a hand-edited copy.
       - name: Release scripts match their lock
         run: bash scripts/ci/release-scripts-check.sh
-      # The homelab runners already carry python3 and PyYAML.
       - uses: actions/setup-python@v5
-        if: runner.environment == 'github-hosted'
         with:
           python-version: "3.12"
       - run: pip install pyyaml
-        if: runner.environment == 'github-hosted'
       - name: Check
         run: bash scripts/check.sh

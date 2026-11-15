@@ -39,7 +39,7 @@ jobs:
     name: Test before release (unit tests, skill check)
     # A manual dispatch from main (or any other ref) would tag unpromoted code.
     if: github.ref == 'refs/heads/deploy'
-    runs-on: ${{ fromJSON(vars.CI_RUNS_ON || '"ubuntu-latest"') }}
+    runs-on: ubuntu-latest
     outputs:
       releasable: ${{ steps.precheck.outputs.releasable }}
     steps:
@@ -54,11 +54,11 @@ jobs:
         id: precheck
         run: bash scripts/release-needed.sh
       - uses: actions/setup-python@v5
-        if: steps.precheck.outputs.releasable == 'true' && runner.environment == 'github-hosted'
+        if: steps.precheck.outputs.releasable == 'true'
         with:
           python-version: "3.12"
       - run: pip install pyyaml
-        if: steps.precheck.outputs.releasable == 'true' && runner.environment == 'github-hosted'
+        if: steps.precheck.outputs.releasable == 'true'
       # The command workers run before every push, so the two cannot drift.
       - name: Check
         if: steps.precheck.outputs.releasable == 'true'
@@ -68,7 +68,7 @@ jobs:
     name: Release
     needs: test
     if: needs.test.outputs.releasable == 'true'
-    runs-on: ${{ fromJSON(vars.CI_RUNS_ON || '"ubuntu-latest"') }}
+    runs-on: ubuntu-latest
     permissions:
       contents: write
       issues: write
@@ -78,18 +78,12 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
-      # pnpm/action-setup only runs on GitHub-hosted runners (the CI_RUNS_ON fallback). The
-      # homelab runners already have pnpm on PATH through fnm; host-pnpm checks it matches
-      # `packageManager`, which stays the one place the version is pinned.
+      # `packageManager` in package.json is the one place the pnpm version is pinned.
       - uses: pnpm/action-setup@v4
-        if: runner.environment == 'github-hosted'
-      - name: Use the host pnpm (self-hosted)
-        if: runner.environment != 'github-hosted'
-        uses: deanjstone/argus/.github/actions/host-pnpm@e08b523faa5e3a6e0732d229d6f4139c6d0d05f6 # argus#692
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: ${{ runner.environment == 'github-hosted' && 'pnpm' || '' }}
+          cache: pnpm
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       # Up to 3 attempts, each from the remote tip of deploy: a second promotion landing
