@@ -3,7 +3,7 @@ name: syncthing-pair
 description: >
   Add a new device to Syncthing and share folders to it across the WSL/LGN5/iOS/homelab
   mesh. Handles device ID discovery, config.xml editing, and WSL2 mirrored-networking
-  quirks (127.0.0.1 for local peers, Tailscale IPs for external). Use when the user says
+  quirks (127.0.0.1 for local peers, Tailscale IPs for external, read from Secrets Manager). Use when the user says
   "add <machine> to syncthing", "pair syncthing with <machine>", "sync <machine>",
   or "share <folder> with <machine>".
 disable-model-invocation: true
@@ -13,7 +13,13 @@ disable-model-invocation: true
 
 Adds a new device to the Syncthing mesh and shares one or more folders to it.
 
-Node names: **WSL** is the WSL2 instance on LNV-LGN5, **LGN5** is its Windows host.
+Node names: **WSL** is the WSL2 instance on the laptop, **LGN5** is its Windows host.
+
+**No address is stored in this file.** The four Tailscale addresses are private values, kept in
+Bitwarden Secrets Manager under `syncthing-tailscale-ip-wsl`, `syncthing-tailscale-ip-lgn5`,
+`syncthing-tailscale-ip-homelab` and `syncthing-tailscale-ip-dj15`.
+Step 0 loads them into `$WSL_IP`, `$LGN5_IP`, `$HOMELAB_IP` and `$DJ15_IP`; every table below
+uses those names.
 
 The tables below are a cache of live state, read 2026-10-17. Full device IDs, the topology
 history and the Tailscale-only posture live in
@@ -29,9 +35,9 @@ Every node runs Syncthing v2.1.2. homelab is the introducer: WSL and LGN5 set
 
 | Node | Service | Config path | GUI | BEP listen |
 |------|---------|-------------|-----|------------|
-| WSL (`lnv-lgn5-wsl`) | apt, `syncthing.service` user unit | `~/.local/state/syncthing/config.xml` | `http://127.0.0.1:8385` | `100.125.93.42:22001`, `127.0.0.1:22001` |
-| LGN5 (`lnv-lgn5`) | native `Syncthing` Windows Service (NSSM) | `/mnt/c/Users/deanj/AppData/Local/Syncthing/config.xml` | `http://127.0.0.1:8386` | `default` (`:22000`) |
-| homelab | apt, `syncthing.service` user unit (user `srvr`) | `ssh homelab` → `~/.config/syncthing/config.xml` | `https://100.68.221.49:8384` | `100.68.221.49:22000` |
+| WSL | apt, `syncthing.service` user unit | `~/.local/state/syncthing/config.xml` | `http://127.0.0.1:8385` | `$WSL_IP:22001`, `127.0.0.1:22001` |
+| LGN5 | native `Syncthing` Windows Service (NSSM) | `/mnt/c/Users/deanj/AppData/Local/Syncthing/config.xml` | `http://127.0.0.1:8386` | `default` (`:22000`) |
+| homelab | apt, `syncthing.service` user unit (user `srvr`) | `ssh homelab` → `~/.config/syncthing/config.xml` | `https://$HOMELAB_IP:8384` | `$HOMELAB_IP:22000` |
 | dj15 (iPhone) | SyncTrain app (VaultSync also paired from LGN5) | App UI only | — | outbound only |
 
 ## Devices
@@ -40,13 +46,13 @@ Use the short name when adding a device. Live configs still carry older names un
 [#161](https://github.com/deanjstone/sys-admin/issues/161) renames them, so match a device
 by its ID prefix, never by its name.
 
-| Name | ID prefix | Live names still in config | Tailscale IP |
+| Name | ID prefix | Live names still in config | Tailscale IP (variable) |
 |------|-----------|----------------------------|--------------|
-| `WSL` | `QZY5U6X` | `LNV-LGN5` (own), `LGN5-WSL2` (LGN5), `wsl2` (homelab) | `100.125.93.42` |
-| `LGN5` | `EJZYLDC` | `LNV-LGN5` (all nodes) | `100.68.40.49` |
-| `homelab` | `QUTF5GA` | — | `100.68.221.49` |
-| `dj15-SyncTrain` | `LTS4Z7E` | — | `100.75.26.3` |
-| `dj15-VaultSync` | `X2ASWHV` | LGN5 config only | `100.75.26.3` |
+| `WSL` | `QZY5U6X` | hostname-style names, differing per node | `$WSL_IP` |
+| `LGN5` | `EJZYLDC` | the laptop's hostname (all nodes) | `$LGN5_IP` |
+| `homelab` | `QUTF5GA` | — | `$HOMELAB_IP` |
+| `dj15-SyncTrain` | `LTS4Z7E` | — | `$DJ15_IP` |
+| `dj15-VaultSync` | `X2ASWHV` | LGN5 config only | `$DJ15_IP` |
 
 Only the hosts above are mesh nodes; any other tailnet host is outside the mesh.
 
@@ -60,9 +66,19 @@ Only the hosts above are mesh nodes; any other tailnet host is outside the mesh.
 
 ---
 
-## Step 0 — Re-read live config
+## Step 0 — Load the addresses, re-read live config
 
-Print each node's devices, addresses and folders, with IDs cut to a 7-character prefix and
+Load the four addresses by key name. `bws` reads `BWS_ACCESS_TOKEN` from the environment (on the
+owner's hosts: `set -a; . ~/.bws_token; set +a`). Print a name only if its address is missing,
+never the address:
+
+```bash
+ts_ip() { bws secret list -o json | jq -r --arg k "syncthing-tailscale-ip-$1" '.[] | select(.key == $k) | .value'; }
+WSL_IP=$(ts_ip wsl); LGN5_IP=$(ts_ip lgn5); HOMELAB_IP=$(ts_ip homelab); DJ15_IP=$(ts_ip dj15)
+for v in WSL_IP LGN5_IP HOMELAB_IP DJ15_IP; do [ -n "${!v}" ] || echo "$v is not in Secrets Manager"; done
+```
+
+Stop if any is missing: ask the user to add it with `bws secret create`. Then print each node's devices, addresses and folders, with IDs cut to a 7-character prefix and
 no secrets:
 
 ```bash
@@ -124,10 +140,10 @@ from one of the commands above.
 |-----------------|----------------|
 | WSL → LGN5 | `tcp://127.0.0.1:22000` (mirrored networking) |
 | LGN5 → WSL | `tcp://127.0.0.1:22001` (WSL's BEP port) |
-| Any → homelab | `tcp://100.68.221.49:22000` |
-| homelab → WSL | `tcp://100.125.93.42:22001` |
-| homelab → LGN5 | `tcp://100.68.40.49:22000` |
-| Any → iOS | `tcp://100.75.26.3:22000` |
+| Any → homelab | `tcp://$HOMELAB_IP:22000` |
+| homelab → WSL | `tcp://$WSL_IP:22001` |
+| homelab → LGN5 | `tcp://$LGN5_IP:22000` |
+| Any → iOS | `tcp://$DJ15_IP:22000` |
 | Any → new remote machine | `tcp://<tailscale-ip>:22000` |
 
 WSL and LGN5 share one network stack, so they reach each other on loopback; every other leg
@@ -206,7 +222,7 @@ curl -s -H "X-API-Key: $key" http://127.0.0.1:8385/rest/system/connections | \
   python3 -c "import sys,json; c=json.load(sys.stdin)['connections']; [print(k[:7],v['connected']) for k,v in c.items()]"
 ```
 
-On homelab use its config path and `https://100.68.221.49:8384` with `curl -sk`; on LGN5,
+On homelab use its config path and `https://$HOMELAB_IP:8384` with `curl -sk`; on LGN5,
 its config path and `http://127.0.0.1:8386`.
 Allow up to 60 seconds for the initial handshake.
 
@@ -228,6 +244,6 @@ Syncthing pair complete
 
 - **Stop the node's Syncthing before editing** its config.xml, confirm it stopped, restart after
 - **Use 127.0.0.1** for WSL↔LGN5 (mirrored networking); WSL's BEP port is 22001
-- **Use Tailscale IPs** for every other peer, never `dynamic`
+- **Use Tailscale IPs** for every other peer, never `dynamic`, and read them from Secrets Manager: never paste one into a file in a repo
 - **Match devices by ID prefix**, never by name
 - **Keep the API key and GUI password hash out of output**: read them inside the command
