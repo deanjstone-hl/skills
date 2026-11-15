@@ -122,7 +122,13 @@ def table(addresses):
     rows = "\n".join(
         f"| `{ROW[name]}` | `ABCDEFG` | — | `{addresses[name]}` |" for name in ("wsl", "lgn5", "homelab", "dj15")
     )
-    return f"# Syncthing\n\n| Name | ID prefix | Live names | Tailscale IP |\n|---|---|---|---|\n{rows}\n"
+    topology = (
+        "| Node | Service | GUI | BEP listen |\n|---|---|---|---|\n"
+        f"| WSL | apt | `http://127.0.0.1:8385` | `{addresses['wsl']}:22001`, `127.0.0.1:22001` |\n"
+        f"| homelab | apt | `https://{addresses['homelab']}:8384` | `{addresses['homelab']}:22000` |\n"
+    )
+    devices = f"| Name | ID prefix | Live names | Tailscale IP |\n|---|---|---|---|\n{rows}\n"
+    return f"# Syncthing\n\n{topology}\n{devices}"
 
 
 class Fixture:

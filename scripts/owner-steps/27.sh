@@ -159,7 +159,9 @@ find_unscrubbed_skill() {
 seed_value() {
   local row value
   row=$(ip_row "$1")
-  value=$(awk -F'|' -v n="$row" '{ c = $2; gsub(/[ `]/, "", c); if (c == n) { v = $(NF - 1); gsub(/[ `]/, "", v); print v; exit } }' <<< "$old_blob")
+  # Only the devices table: its second cell is a 7-character Syncthing ID prefix. The topology
+  # table above it also has a row named homelab, whose last cell is an address with a port.
+  value=$(awk -F'|' -v n="$row" '{ c = $2; id = $3; gsub(/[ `]/, "", c); gsub(/[ `]/, "", id); if (c == n && id ~ /^[A-Z0-9]{7}$/) { v = $(NF - 1); gsub(/[ `]/, "", v); print v; exit } }' <<< "$old_blob")
   [[ "$value" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]] || return 1
   printf '%s' "$value"
 }
