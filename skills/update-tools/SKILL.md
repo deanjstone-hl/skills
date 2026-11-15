@@ -1,7 +1,7 @@
 ---
 name: update-tools
 description: >
-  Check for and apply updates to all WSL2 dev tools and applications on LNV-LGN5. Use for
+  Check for and apply updates to all WSL2 dev tools and applications on the owner's WSL2 laptop. Use for
   "check for updates", "update tools", "update applications", "what needs updating".
 disable-model-invocation: true
 ---

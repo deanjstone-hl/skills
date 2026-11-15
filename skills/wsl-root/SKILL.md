@@ -1,7 +1,7 @@
 ---
 name: wsl-root
 description: >
-  Run root-privileged commands on WSL2 (LNV-LGN5). `sudo` cannot escalate under the
+  Run root-privileged commands on WSL2. `sudo` cannot escalate under the
   systemd --user session (NoNewPrivs), so root actions go through a fresh WSL session
   started as root from Windows. Use for any WSL2 task needing root: apt installs, edits
   outside $HOME, system-scope systemd units, "run this with sudo", or a sudo attempt
@@ -109,6 +109,6 @@ operation — never pipe a download straight into a privileged writer.
 - The failure that surfaced it:
   [sys-admin#90](https://github.com/deanjstone/sys-admin/issues/90)
 - Canonical binary location: ADR-003
-- The Bitwarden item this skill used to read as `bw-sudo` (`LNV-LGN5 WSL2`) is
+- The Bitwarden item this skill used to read as `bw-sudo` (named for the WSL2 host) is
   left in the vault. **It has no remaining consumer anywhere** in sys-admin,
   argus-config or argus — see [sys-admin#60](https://github.com/deanjstone/sys-admin/issues/60).
