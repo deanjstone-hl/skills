@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>skills architecture</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --paper: var(--background, #f5f7f8);
+      --ink: var(--foreground, #241523);
+      --soft: var(--muted-foreground, #6f6873);
+      --teal: var(--primary, #0a6f75);
+      --rule: var(--border, #cdd4dc);
+      --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --paper: var(--background, #14181c);
+        --ink: var(--foreground, #e8eaed);
+        --soft: var(--muted-foreground, #9aa3ad);
+        --teal: var(--primary, #4fc3c8);
+        --rule: var(--border, #2c343c);
+      }
+    }
+    :root[data-theme="dark"] {
+      --paper: var(--background, #14181c);
+      --ink: var(--foreground, #e8eaed);
+      --soft: var(--muted-foreground, #9aa3ad);
+      --teal: var(--primary, #4fc3c8);
+      --rule: var(--border, #2c343c);
+    }
+    body { font-family: var(--sans); background: var(--paper); color: var(--ink); padding: 16px; }
+    .frame { max-width: 360px; }
+    .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--soft); margin-bottom: 4px; }
+    h1 { font-size: 20px; font-weight: 600; line-height: 1.2; margin-bottom: 8px; }
+    .lede { font-size: 13px; line-height: 1.45; color: var(--soft); margin-bottom: 12px; }
+    .scroll { overflow-x: auto; }
+    svg { width: 100%; min-width: 320px; display: block; }
+    .src { font-size: 11px; line-height: 1.5; color: var(--soft); margin-top: 12px; }
+    .src a { color: var(--teal); }
+    .src code { font-family: var(--mono); font-size: 10px; }
+    .divider { stroke: var(--rule); stroke-width: 1; }
+    .lane { fill: var(--soft); font-family: var(--mono); font-size: 9px; letter-spacing: .12em; }
+    .flow { fill: none; stroke: var(--soft); stroke-width: 1.2; }
+    .dashed { stroke-dasharray: 5,4; }
+    .node { fill: var(--paper); stroke: var(--ink); stroke-width: 1; }
+    .node.focal { fill: color-mix(in srgb, var(--teal) 14%, var(--paper)); stroke: var(--teal); stroke-width: 1.6; }
+    .node.ext { stroke-dasharray: 4,3; }
+    .step:target .node { stroke: var(--teal); stroke-width: 2.6; fill: color-mix(in srgb, var(--teal) 22%, var(--paper)); }
+    .name { fill: var(--ink); font-family: var(--sans); font-size: 12px; font-weight: 600; text-anchor: middle; }
+    .sub { fill: var(--soft); font-family: var(--mono); font-size: 9px; text-anchor: middle; }
+    .note { fill: var(--soft); font-family: var(--sans); font-size: 11px; font-style: italic; }
+    .key { fill: var(--soft); font-family: var(--sans); font-size: 10px; }
+    .head-soft { fill: var(--soft); }
+    .head-teal { fill: var(--teal); }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Architecture</p>
+    <h1>skills architecture</h1>
+    <p class="lede">A public repo of agent skills: pinned imports from upstream plus authored ones, held to one check.</p>
+    <div class="scroll">
+    <svg viewBox="0 0 360 686" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="skills-title skills-desc">
+      <title id="skills-title">skills architecture</title>
+      <desc id="skills-desc">Authored and imported skills live as skills/&lt;name&gt; directories with a SKILL.md. Imports are recorded in skills-lock.json with their upstream commit and hashes, and licence texts sit in licenses/. Scripts import, refresh, update and check skills; unit tests and a scrub scan cover them. How machines consume a release is undecided.</desc>
+      <defs>
+        <marker id="skills-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon class="head-soft" points="0 0, 8 3, 0 6"/></marker>
+        <marker id="skills-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon class="head-teal" points="0 0, 8 3, 0 6"/></marker>
+      </defs>
+<path class="flow" d="M 84,72 L 84,84"/>
+<path class="flow" d="M 276,72 L 276,84"/>
+<path class="flow" d="M 84,84 L 276,84"/>
+<path class="flow" d="M 180,84 L 180,96" marker-end="url(#skills-arrow)"/>
+<path class="flow" d="M 180,328 L 180,340"/>
+<path class="flow" d="M 84,340 L 276,340"/>
+<path class="flow" d="M 84,340 L 84,352" marker-end="url(#skills-arrow)"/>
+<path class="flow" d="M 276,340 L 276,352" marker-end="url(#skills-arrow)"/>
+<g id="step-skills-authored" class="step">
+<rect class="node" x="8" y="24" width="152" height="48" rx="6"/>
+<text class="name" x="84" y="45">Authored skills</text>
+<text class="sub" x="84" y="60">written here, unlocked</text>
+</g>
+<g id="step-skills-imported" class="step">
+<rect class="node" x="200" y="24" width="152" height="48" rx="6"/>
+<text class="name" x="276" y="45">Imported skills</text>
+<text class="sub" x="276" y="60">pinned, with SOURCE note</text>
+</g>
+<g id="step-skills-dir" class="step">
+<rect class="node focal" x="8" y="96" width="344" height="48" rx="6"/>
+<text class="name" x="180" y="117">skills/&lt;name&gt;/</text>
+<text class="sub" x="180" y="132">SKILL.md, its files, SOURCE if imported</text>
+</g>
+<text class="lane" x="8" y="176">RECORDS</text>
+<g id="step-skills-lock" class="step">
+<rect class="node" x="8" y="188" width="152" height="48" rx="6"/>
+<text class="name" x="84" y="209">skills-lock.json</text>
+<text class="sub" x="84" y="224">pins, hashes, licences</text>
+</g>
+<g id="step-skills-licenses" class="step">
+<rect class="node" x="200" y="188" width="152" height="48" rx="6"/>
+<text class="name" x="276" y="209">licenses/</text>
+<text class="sub" x="276" y="224">upstream licence texts</text>
+</g>
+<text class="lane" x="8" y="268">TOOLING</text>
+<g id="step-skills-scripts" class="step">
+<rect class="node focal" x="8" y="280" width="344" height="48" rx="6"/>
+<text class="name" x="180" y="301">scripts/</text>
+<text class="sub" x="180" y="316">import, refresh, update, check</text>
+</g>
+<g id="step-skills-tests" class="step">
+<rect class="node" x="8" y="352" width="152" height="48" rx="6"/>
+<text class="name" x="84" y="373">tests/</text>
+<text class="sub" x="84" y="388">unit and public-safe tests</text>
+</g>
+<g id="step-skills-scrub" class="step">
+<rect class="node" x="200" y="352" width="152" height="48" rx="6"/>
+<text class="name" x="276" y="373">scrub-scan.sh</text>
+<text class="sub" x="276" y="388">gitleaks, personal data</text>
+</g>
+<text class="lane" x="8" y="432">OUTSIDE</text>
+<g id="step-skills-consumers" class="step">
+<rect class="node ext" x="8" y="444" width="344" height="48" rx="6"/>
+<text class="name" x="180" y="465">Machines using skills</text>
+<text class="sub" x="180" y="480">how they consume a release: undecided</text>
+</g>
+<text class="note" x="8" y="534">The repo is public after a fresh-history cutover</text>
+<text class="note" x="8" y="548">(skills#27): no private value is in the tree, and scrub-</text>
+<text class="note" x="8" y="562">scan.sh must report no finding.</text>
+<text class="note" x="8" y="580">skills-config.json turns the private-marker screen off</text>
+<text class="note" x="8" y="594">on purpose, because skills cite the owner's private</text>
+<text class="note" x="8" y="608">repos by name; scrub-scan.sh is the value gate.</text>
+<text class="note" x="8" y="626">Consumption is argus-config#1225: nothing is installed</text>
+<text class="note" x="8" y="640">from a release yet, per the README.</text>
+<rect class="node " x="8" y="664" width="14" height="10" rx="2"/>
+<text class="key" x="28" y="673">Part</text>
+<rect class="node focal" x="62.8" y="664" width="14" height="10" rx="2"/>
+<text class="key" x="82.8" y="673">Core</text>
+<rect class="node ext" x="117.6" y="664" width="14" height="10" rx="2"/>
+<text class="key" x="137.6" y="673">Outside</text>
+<line class="flow" x1="188.0" y1="669" x2="212.0" y2="669" marker-end="url(#skills-arrow)"/>
+<text class="key" x="218.0" y="673">Flow</text>
+    </svg>
+    </div>
+    <p class="src">Sources: <code>README.md</code>, <code>scripts/skills_lib.py</code>, <code>scripts/scrub-scan.sh</code>, <code>skills-lock.json</code> layout, <code>skills-config.json</code>.</p>
+  </div>
+</body>
+</html>

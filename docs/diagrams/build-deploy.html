@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>skills build and deploy</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --paper: var(--background, #f5f7f8);
+      --ink: var(--foreground, #241523);
+      --soft: var(--muted-foreground, #6f6873);
+      --teal: var(--primary, #0a6f75);
+      --rule: var(--border, #cdd4dc);
+      --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --paper: var(--background, #14181c);
+        --ink: var(--foreground, #e8eaed);
+        --soft: var(--muted-foreground, #9aa3ad);
+        --teal: var(--primary, #4fc3c8);
+        --rule: var(--border, #2c343c);
+      }
+    }
+    :root[data-theme="dark"] {
+      --paper: var(--background, #14181c);
+      --ink: var(--foreground, #e8eaed);
+      --soft: var(--muted-foreground, #9aa3ad);
+      --teal: var(--primary, #4fc3c8);
+      --rule: var(--border, #2c343c);
+    }
+    body { font-family: var(--sans); background: var(--paper); color: var(--ink); padding: 16px; }
+    .frame { max-width: 360px; }
+    .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--soft); margin-bottom: 4px; }
+    h1 { font-size: 20px; font-weight: 600; line-height: 1.2; margin-bottom: 8px; }
+    .lede { font-size: 13px; line-height: 1.45; color: var(--soft); margin-bottom: 12px; }
+    .scroll { overflow-x: auto; }
+    svg { width: 100%; min-width: 320px; display: block; }
+    .src { font-size: 11px; line-height: 1.5; color: var(--soft); margin-top: 12px; }
+    .src a { color: var(--teal); }
+    .src code { font-family: var(--mono); font-size: 10px; }
+    .divider { stroke: var(--rule); stroke-width: 1; }
+    .lane { fill: var(--soft); font-family: var(--mono); font-size: 9px; letter-spacing: .12em; }
+    .flow { fill: none; stroke: var(--soft); stroke-width: 1.2; }
+    .dashed { stroke-dasharray: 5,4; }
+    .node { fill: var(--paper); stroke: var(--ink); stroke-width: 1; }
+    .node.focal { fill: color-mix(in srgb, var(--teal) 14%, var(--paper)); stroke: var(--teal); stroke-width: 1.6; }
+    .node.ext { stroke-dasharray: 4,3; }
+    .step:target .node { stroke: var(--teal); stroke-width: 2.6; fill: color-mix(in srgb, var(--teal) 22%, var(--paper)); }
+    .name { fill: var(--ink); font-family: var(--sans); font-size: 12px; font-weight: 600; text-anchor: middle; }
+    .sub { fill: var(--soft); font-family: var(--mono); font-size: 9px; text-anchor: middle; }
+    .note { fill: var(--soft); font-family: var(--sans); font-size: 11px; font-style: italic; }
+    .key { fill: var(--soft); font-family: var(--sans); font-size: 10px; }
+    .head-soft { fill: var(--soft); }
+    .head-teal { fill: var(--teal); }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Pipeline</p>
+    <h1>skills build and deploy</h1>
+    <p class="lede">A merge to main checks and releases nothing. A promotion to deploy runs a pre-check, tests, then tags a release.</p>
+    <div class="scroll">
+    <svg viewBox="0 0 360 668" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="skillsrel-title skillsrel-desc">
+      <title id="skillsrel-title">skills build and deploy</title>
+      <desc id="skillsrel-desc">A trunk push to main runs the Check workflow on a GitHub-hosted runner: the release-scripts lock check, then scripts/check.sh. The owner's Approve fast-forwards deploy to a main SHA. That push starts Release: a test job first runs release-needed.sh and, only if a feat, fix, perf, revert or breaking commit is pending, the same check. The release job then tags a plain version with semantic-release and publishes a GitHub Release. Nothing is installed on any machine from it yet.</desc>
+      <defs>
+        <marker id="skillsrel-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon class="head-soft" points="0 0, 8 3, 0 6"/></marker>
+        <marker id="skillsrel-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon class="head-teal" points="0 0, 8 3, 0 6"/></marker>
+      </defs>
+<path class="flow" d="M 180,72 L 180,96" marker-end="url(#skillsrel-arrow)"/>
+<path class="flow" d="M 180,144 L 180,168" marker-end="url(#skillsrel-arrow)"/>
+<path class="flow" d="M 180,216 L 180,240" marker-end="url(#skillsrel-arrow)"/>
+<path class="flow" d="M 180,288 L 180,312" marker-end="url(#skillsrel-arrow)"/>
+<path class="flow" d="M 180,360 L 180,384" marker-end="url(#skillsrel-arrow)"/>
+<g id="step-skillsrel-push" class="step">
+<rect class="node" x="8" y="24" width="344" height="48" rx="6"/>
+<text class="name" x="180" y="45">Trunk push to main</text>
+<text class="sub" x="180" y="60">pull --rebase, scripts/check.sh, push HEAD:main</text>
+</g>
+<g id="step-skillsrel-check" class="step">
+<rect class="node focal" x="8" y="96" width="344" height="48" rx="6"/>
+<text class="name" x="180" y="117">Check workflow</text>
+<text class="sub" x="180" y="132">scripts lock, unit tests, check_skills.py</text>
+</g>
+<g id="step-skillsrel-approve" class="step">
+<rect class="node" x="8" y="168" width="344" height="48" rx="6"/>
+<text class="name" x="180" y="189">Owner Approve</text>
+<text class="sub" x="180" y="204">ops hub card, deploy fast-forwarded to a main SHA</text>
+</g>
+<g id="step-skillsrel-test" class="step">
+<rect class="node" x="8" y="240" width="344" height="48" rx="6"/>
+<text class="name" x="180" y="261">Pre-check, then test</text>
+<text class="sub" x="180" y="276">release-needed.sh; check.sh if releasable</text>
+</g>
+<g id="step-skillsrel-release" class="step">
+<rect class="node" x="8" y="312" width="344" height="48" rx="6"/>
+<text class="name" x="180" y="333">Release</text>
+<text class="sub" x="180" y="348">semantic-release vX.Y.Z, GitHub Release</text>
+</g>
+<g id="step-skillsrel-install" class="step">
+<rect class="node ext" x="8" y="384" width="344" height="48" rx="6"/>
+<text class="name" x="180" y="405">Install on machines</text>
+<text class="sub" x="180" y="420">undecided (argus-config#1225)</text>
+</g>
+<text class="note" x="8" y="474">Nothing releasable since the last v* tag (only chore,</text>
+<text class="note" x="8" y="488">docs, ci, test, refactor): the run ends green with no</text>
+<text class="note" x="8" y="502">test and no version.</text>
+<text class="note" x="8" y="520">Every job runs on ubuntu-latest only. The repo is</text>
+<text class="note" x="8" y="534">public, so a fork's PR runs Check: no self-hosted</text>
+<text class="note" x="8" y="548">runner, no runner variable, no secret beyond the read-</text>
+<text class="note" x="8" y="562">only token (tests/test_public_safe.py).</text>
+<text class="note" x="8" y="580">The release scripts in scripts/ci are vendored from</text>
+<text class="note" x="8" y="594">argus-config and checked against a lock. No rollback</text>
+<text class="note" x="8" y="608">workflow exists yet, so the hub's Roll back card has</text>
+<text class="note" x="8" y="622">nothing to dispatch.</text>
+<rect class="node " x="8" y="646" width="14" height="10" rx="2"/>
+<text class="key" x="28" y="655">Step</text>
+<rect class="node focal" x="62.8" y="646" width="14" height="10" rx="2"/>
+<text class="key" x="82.8" y="655">Gate</text>
+<rect class="node ext" x="117.6" y="646" width="14" height="10" rx="2"/>
+<text class="key" x="137.6" y="655">Not built</text>
+<line class="flow" x1="198.4" y1="651" x2="222.4" y2="651" marker-end="url(#skillsrel-arrow)"/>
+<text class="key" x="228.4" y="655">Flow</text>
+    </svg>
+    </div>
+    <p class="src">Sources: <code>.github/workflows/check.yml</code>, <code>release.yml</code>, <code>.releaserc.json</code>, <code>README.md</code> (Settings and CI, Releases and the deploy branch). The generic promotion path is the ops hub card; see argus-config docs.</p>
+  </div>
+</body>
+</html>

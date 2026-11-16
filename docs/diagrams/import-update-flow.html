@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>skills import and update</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --paper: var(--background, #f5f7f8);
+      --ink: var(--foreground, #241523);
+      --soft: var(--muted-foreground, #6f6873);
+      --teal: var(--primary, #0a6f75);
+      --rule: var(--border, #cdd4dc);
+      --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --paper: var(--background, #14181c);
+        --ink: var(--foreground, #e8eaed);
+        --soft: var(--muted-foreground, #9aa3ad);
+        --teal: var(--primary, #4fc3c8);
+        --rule: var(--border, #2c343c);
+      }
+    }
+    :root[data-theme="dark"] {
+      --paper: var(--background, #14181c);
+      --ink: var(--foreground, #e8eaed);
+      --soft: var(--muted-foreground, #9aa3ad);
+      --teal: var(--primary, #4fc3c8);
+      --rule: var(--border, #2c343c);
+    }
+    body { font-family: var(--sans); background: var(--paper); color: var(--ink); padding: 16px; }
+    .frame { max-width: 360px; }
+    .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--soft); margin-bottom: 4px; }
+    h1 { font-size: 20px; font-weight: 600; line-height: 1.2; margin-bottom: 8px; }
+    .lede { font-size: 13px; line-height: 1.45; color: var(--soft); margin-bottom: 12px; }
+    .scroll { overflow-x: auto; }
+    svg { width: 100%; min-width: 320px; display: block; }
+    .src { font-size: 11px; line-height: 1.5; color: var(--soft); margin-top: 12px; }
+    .src a { color: var(--teal); }
+    .src code { font-family: var(--mono); font-size: 10px; }
+    .divider { stroke: var(--rule); stroke-width: 1; }
+    .lane { fill: var(--soft); font-family: var(--mono); font-size: 9px; letter-spacing: .12em; }
+    .flow { fill: none; stroke: var(--soft); stroke-width: 1.2; }
+    .dashed { stroke-dasharray: 5,4; }
+    .node { fill: var(--paper); stroke: var(--ink); stroke-width: 1; }
+    .node.focal { fill: color-mix(in srgb, var(--teal) 14%, var(--paper)); stroke: var(--teal); stroke-width: 1.6; }
+    .node.ext { stroke-dasharray: 4,3; }
+    .step:target .node { stroke: var(--teal); stroke-width: 2.6; fill: color-mix(in srgb, var(--teal) 22%, var(--paper)); }
+    .name { fill: var(--ink); font-family: var(--sans); font-size: 12px; font-weight: 600; text-anchor: middle; }
+    .sub { fill: var(--soft); font-family: var(--mono); font-size: 9px; text-anchor: middle; }
+    .note { fill: var(--soft); font-family: var(--sans); font-size: 11px; font-style: italic; }
+    .key { fill: var(--soft); font-family: var(--sans); font-size: 10px; }
+    .head-soft { fill: var(--soft); }
+    .head-teal { fill: var(--teal); }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Flow</p>
+    <h1>skills import and update</h1>
+    <p class="lede">How an upstream skill enters, gets local edits, and later takes upstream changes without losing them.</p>
+    <div class="scroll">
+    <svg viewBox="0 0 360 828" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="import-title import-desc">
+      <title id="import-title">skills import and update</title>
+      <desc id="import-desc">An import is committed verbatim so the pinned upstream commit is an exact merge base. Local edits come in later commits and refresh_lock records the new hash. check_skills validates hashes. update_skill compares with upstream and runs a three-way merge. A clean merge advances the pin; a conflict writes markers and leaves the pin until resolve.</desc>
+      <defs>
+        <marker id="import-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon class="head-soft" points="0 0, 8 3, 0 6"/></marker>
+        <marker id="import-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon class="head-teal" points="0 0, 8 3, 0 6"/></marker>
+      </defs>
+<path class="flow" d="M 180,72 L 180,96" marker-end="url(#import-arrow)"/>
+<path class="flow" d="M 180,144 L 180,168" marker-end="url(#import-arrow)"/>
+<path class="flow" d="M 180,216 L 180,240" marker-end="url(#import-arrow)"/>
+<path class="flow" d="M 180,288 L 180,312" marker-end="url(#import-arrow)"/>
+<path class="flow" d="M 180,360 L 180,384" marker-end="url(#import-arrow)"/>
+<path class="flow" d="M 180,432 L 180,456" marker-end="url(#import-arrow)"/>
+<path class="flow" d="M 180,504 L 180,516"/>
+<path class="flow" d="M 84,516 L 276,516"/>
+<path class="flow" d="M 84,516 L 84,528" marker-end="url(#import-arrow)"/>
+<path class="flow" d="M 276,516 L 276,528" marker-end="url(#import-arrow)"/>
+<path class="flow" d="M 84,576 L 84,588"/>
+<path class="flow" d="M 276,576 L 276,588"/>
+<path class="flow" d="M 84,588 L 276,588"/>
+<path class="flow" d="M 180,588 L 180,600" marker-end="url(#import-arrow)"/>
+<g id="step-import-import" class="step">
+<rect class="node" x="8" y="24" width="344" height="48" rx="6"/>
+<text class="name" x="180" y="45">Import verbatim</text>
+<text class="sub" x="180" y="60">import_skill.py owner/repo path --license</text>
+</g>
+<g id="step-import-commit" class="step">
+<rect class="node" x="8" y="96" width="344" height="48" rx="6"/>
+<text class="name" x="180" y="117">Commit as imported</text>
+<text class="sub" x="180" y="132">pinned commit becomes the merge base</text>
+</g>
+<g id="step-import-edit" class="step">
+<rect class="node" x="8" y="168" width="344" height="48" rx="6"/>
+<text class="name" x="180" y="189">Edit for local use</text>
+<text class="sub" x="180" y="204">later commits, only when needed</text>
+</g>
+<g id="step-import-refresh" class="step">
+<rect class="node" x="8" y="240" width="344" height="48" rx="6"/>
+<text class="name" x="180" y="261">Refresh the lock</text>
+<text class="sub" x="180" y="276">refresh_lock.py: edited, new localHash</text>
+</g>
+<g id="step-import-check" class="step">
+<rect class="node focal" x="8" y="312" width="344" height="48" rx="6"/>
+<text class="name" x="180" y="333">check_skills.py</text>
+<text class="sub" x="180" y="348">hashes, front matter, size, licences</text>
+</g>
+<g id="step-import-status" class="step">
+<rect class="node" x="8" y="384" width="344" height="48" rx="6"/>
+<text class="name" x="180" y="405">Compare with upstream</text>
+<text class="sub" x="180" y="420">update_skill.py status, no writes</text>
+</g>
+<g id="step-import-merge" class="step">
+<rect class="node" x="8" y="456" width="344" height="48" rx="6"/>
+<text class="name" x="180" y="477">Three-way merge</text>
+<text class="sub" x="180" y="492">base: pin; ours: here; theirs: upstream</text>
+</g>
+<g id="step-import-clean" class="step">
+<rect class="node" x="8" y="528" width="152" height="48" rx="6"/>
+<text class="name" x="84" y="549">Clean</text>
+<text class="sub" x="84" y="564">pin and hashes advance</text>
+</g>
+<g id="step-import-conflict" class="step">
+<rect class="node" x="200" y="528" width="152" height="48" rx="6"/>
+<text class="name" x="276" y="549">Conflict</text>
+<text class="sub" x="276" y="564">markers, pin stays</text>
+</g>
+<g id="step-import-again" class="step">
+<rect class="node focal" x="8" y="600" width="344" height="48" rx="6"/>
+<text class="name" x="180" y="621">Resolve, then check</text>
+<text class="sub" x="180" y="636">update_skill.py resolve; check_skills.py</text>
+</g>
+<text class="note" x="8" y="690">check_skills.py fails if an unedited import differs from</text>
+<text class="note" x="8" y="704">its upstream hash, or an edited one from its recorded</text>
+<text class="note" x="8" y="718">hash.</text>
+<text class="note" x="8" y="736">A pending conflict or leftover markers fail the check</text>
+<text class="note" x="8" y="750">until resolved.</text>
+<text class="note" x="8" y="768">status: unadapted in the lock marks a skill that still</text>
+<text class="note" x="8" y="782">names another harness's paths or tools; it only warns.</text>
+<rect class="node " x="8" y="806" width="14" height="10" rx="2"/>
+<text class="key" x="28" y="815">Step</text>
+<rect class="node focal" x="62.8" y="806" width="14" height="10" rx="2"/>
+<text class="key" x="82.8" y="815">Gate</text>
+<rect class="node ext" x="117.6" y="806" width="14" height="10" rx="2"/>
+<text class="key" x="137.6" y="815">Host step</text>
+<line class="flow" x1="198.4" y1="811" x2="222.4" y2="811" marker-end="url(#import-arrow)"/>
+<text class="key" x="228.4" y="815">Flow</text>
+    </svg>
+    </div>
+    <p class="src">Sources: <code>README.md</code> (How imports stay updatable), <code>scripts/import_skill.py</code>, <code>refresh_lock.py</code>, <code>update_skill.py</code>, <code>check_skills.py</code>.</p>
+  </div>
+</body>
+</html>
