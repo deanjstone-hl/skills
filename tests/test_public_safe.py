@@ -1,6 +1,6 @@
-"""What keeps this repository safe to publish (skills/27).
+"""What keeps this repository safe to publish (skills/27, skills/30).
 
-The repo goes public through a fresh-history cutover, so a pull request from a fork runs the
+The repo goes public in place (scripts/owner-steps/28.sh), so a pull request from a fork runs the
 workflows on this repository's behalf and every file is world-readable. These tests pin the
 rules: GitHub-hosted runners only, nothing that could send a job to the homelab, no
 `pull_request_target`, no secret in a workflow a pull request starts, and no private value in

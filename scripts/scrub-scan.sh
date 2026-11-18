@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# The scrub gate for a public tree (skills/27): gitleaks' default rules plus the personal-data
+# The scrub gate for a public tree (skills/27, skills/30): gitleaks' default rules plus the personal-data
 # rules in .gitleaks.toml (tailnet and LAN addresses, tailnet hostnames, email addresses, AU
 # mobile numbers, Cloudflare ids and UUIDs).
 #
@@ -10,7 +10,7 @@
 #
 # Prints `scrub-scan: pass` or `scrub-scan: FAIL: N finding(s)`, then one line per finding
 # with rule, file and line. Every value is redacted (--redact=100): this never prints one.
-# Needs gitleaks on PATH. Run by scripts/owner-steps/27.sh on the tree it would publish.
+# Needs gitleaks on PATH. Run by scripts/owner-steps/28.sh (--head) on the tree it is about to publish.
 set -euo pipefail
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

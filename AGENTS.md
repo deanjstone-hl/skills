@@ -1,6 +1,6 @@
 # skills
 
-A public repo of agent skills (fresh history; the earlier private history is `skills-archive`): pinned imports from upstream plus authored skills. Read `README.md` for layout and commands.
+A public repo of agent skills (made public in place, history kept): pinned imports from upstream plus authored skills. Read `README.md` for layout and commands.
 
 ## Rules
 

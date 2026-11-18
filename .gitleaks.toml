@@ -1,4 +1,4 @@
-# The scrub rules for this repository (skills/27): gitleaks' default rules plus personal-data
+# The scrub rules for this repository (skills/27, skills/30): gitleaks' default rules plus personal-data
 # rules, so the public tree holds no private value. Run `bash scripts/scrub-scan.sh`; it exits
 # non-zero on a hit and never prints a value. Private values live in Bitwarden Secrets Manager
 # and are read by name when a skill needs them (docs/public-cutover.md).
