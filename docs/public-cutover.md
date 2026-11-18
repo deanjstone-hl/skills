@@ -63,8 +63,8 @@ to it; and self-hosted runners "should almost never be used for public repositor
 `tests/test_public_safe.py` pins, for every workflow:
 
 - no job hard-codes a self-hosted runner. While the repo is private, a job may read `vars.CI_RUNS_ON`
-  (homelab#475) so the billing guard can move it to a homelab runner, and `release.yml` uses the
-  private `host-pnpm` action there. **This invariant was relaxed on purpose.** Before the flip,
+  (homelab#475) so the billing guard can move it to a homelab runner, and `release.yml` checks the host pnpm
+  with `scripts/check-host-pnpm.sh` there. **This invariant was relaxed on purpose.** Before the flip,
   `git revert` the homelab#475 commit: it restores every job to `runs-on: ubuntu-latest` (no
   `CI_RUNS_ON`, no `runner.environment` branch, no action from a private repository) and the stricter
   test. `28.sh` also deletes the `CI_RUNS_ON` variable;

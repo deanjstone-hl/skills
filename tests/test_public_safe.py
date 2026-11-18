@@ -6,7 +6,7 @@ workflows on this repository's behalf and every file is world-readable. While it
 runner: a private repo has no fork pull requests. These tests pin the rules that still matter: no
 hard-coded self-hosted runner, no `pull_request_target`, no secret in a workflow a pull request
 starts, and no private value in the tree. To restore the stricter invariant (hosted runners only,
-no `CI_RUNS_ON`, no private action) before going public, `git revert` the homelab#475 commit.
+no `CI_RUNS_ON`) before going public, `git revert` the homelab#475 commit.
 GitHub, secure use of Actions: self-hosted runners "should almost never be used for public
 repositories"; secrets are not passed to workflows started from forks.
 
@@ -26,7 +26,6 @@ ROOT = Path(__file__).resolve().parent.parent
 WORKFLOWS = sorted((ROOT / ".github" / "workflows").glob("*.yml"))
 SYNCTHING_SKILL = ROOT / "skills" / "syncthing-pair" / "SKILL.md"
 RUNS_ON_ALLOWED = {"ubuntu-latest", "${{ fromJSON(vars.CI_RUNS_ON || '\"ubuntu-latest\"') }}"}
-HOST_PNPM_ACTION = "deanjstone/argus/.github/actions/host-pnpm@"
 IP_KEYS = ("wsl", "lgn5", "homelab", "dj15")
 HAVE_GITLEAKS = shutil.which("gitleaks") is not None and shutil.which("jq") is not None
 
@@ -55,11 +54,17 @@ class WorkflowTests(unittest.TestCase):
         for path in WORKFLOWS:
             self.assertNotIn("pull_request_target", code_of(path), path.name)
 
-    def test_no_action_or_workflow_from_a_private_repository_of_the_owner_but_host_pnpm(self):
+    def test_no_action_or_workflow_from_a_private_repository_of_the_owner(self):
         for path in WORKFLOWS:
             uses = re.findall(r"uses:\s*([^\s#]+)", code_of(path))
-            private = [u for u in uses if u.startswith("deanjstone/") and not u.startswith(HOST_PNPM_ACTION)]
-            self.assertEqual(private, [], path.name)
+            self.assertEqual([u for u in uses if u.startswith("deanjstone/")], [], path.name)
+
+    def test_pnpm_is_set_up_by_the_action_when_hosted_and_checked_on_the_host_otherwise(self):
+        for path in WORKFLOWS:
+            code = code_of(path)
+            setups = len(re.findall(r"uses: pnpm/action-setup", code))
+            self.assertGreaterEqual(code.count("if: runner.environment == 'github-hosted'"), setups, path.name)
+            self.assertEqual(code.count("run: bash scripts/check-host-pnpm.sh"), setups, path.name)
 
     def test_a_workflow_a_pull_request_starts_uses_no_secret_but_the_read_only_token(self):
         started = [p for p in WORKFLOWS if "pull_request" in triggers(yaml.safe_load(p.read_text()))]

@@ -79,13 +79,14 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       # pnpm/action-setup only runs on GitHub-hosted runners (the CI_RUNS_ON fallback). The
-      # homelab runners already have pnpm on PATH through fnm; host-pnpm checks it matches
-      # `packageManager`, which stays the one place the pnpm version is pinned (argus-config#621, #594).
+      # homelab runners already have pnpm on PATH through fnm; check-host-pnpm.sh checks it matches
+      # `packageManager`, which stays the one place the pnpm version is pinned. The private argus
+      # host-pnpm action does not resolve from this repo (homelab#475).
       - uses: pnpm/action-setup@v4
         if: runner.environment == 'github-hosted'
-      - name: Use the host pnpm (self-hosted)
+      - name: Check the host pnpm against the packageManager pin (self-hosted)
         if: runner.environment != 'github-hosted'
-        uses: deanjstone/argus/.github/actions/host-pnpm@e08b523faa5e3a6e0732d229d6f4139c6d0d05f6 # argus#692
+        run: bash scripts/check-host-pnpm.sh
       - uses: actions/setup-node@v4
         with:
           node-version: 22
