@@ -62,8 +62,12 @@ GitHub: a fork's pull request starts workflows on the upstream repository; secre
 to it; and self-hosted runners "should almost never be used for public repositories". So
 `tests/test_public_safe.py` pins, for every workflow:
 
-- every job is `runs-on: ubuntu-latest` (no `self-hosted`, no `CI_RUNS_ON` or other variable that
-  could pick a runner, no `runner.environment` branch, no action from a private repository);
+- no job hard-codes a self-hosted runner. While the repo is private, a job may read `vars.CI_RUNS_ON`
+  (homelab#475) so the billing guard can move it to a homelab runner, and `release.yml` uses the
+  private `host-pnpm` action there. **This invariant was relaxed on purpose.** Before the flip,
+  `git revert` the homelab#475 commit: it restores every job to `runs-on: ubuntu-latest` (no
+  `CI_RUNS_ON`, no `runner.environment` branch, no action from a private repository) and the stricter
+  test. `28.sh` also deletes the `CI_RUNS_ON` variable;
 - no `pull_request_target`;
 - a workflow a pull request starts (`check.yml`) uses no secret but the read-only `GITHUB_TOKEN`;
 - no workflow holds `BWS_ACCESS_TOKEN`.

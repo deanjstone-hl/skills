@@ -58,12 +58,13 @@ class ReleaseConfigTests(unittest.TestCase):
         self.assertNotIn("@semantic-release/git", plugins)
         self.assertNotIn("@semantic-release/changelog", plugins)
 
-    def test_every_job_runs_on_a_github_hosted_runner(self):
-        # The repo is public (skills/27): no variable may send a job to the homelab. The full
-        # set of public-safety rules is in test_public_safe.py.
+    def test_every_job_runs_on_the_ci_runs_on_fallback(self):
+        # The repo is private (homelab#475): every job reads CI_RUNS_ON so the billing guard can
+        # move it, defaulting to ubuntu-latest. The public-safety rules are in test_public_safe.py.
+        runs_on = "runs-on: ${{ fromJSON(vars.CI_RUNS_ON || '\"ubuntu-latest\"') }}"
         for name, jobs in (("check.yml", 1), ("release.yml", 2)):
             text = (ROOT / ".github" / "workflows" / name).read_text()
-            self.assertEqual(text.count("runs-on: ubuntu-latest"), jobs, name)
+            self.assertEqual(text.count(runs_on), jobs, name)
 
     def test_release_retry_wrapper_is_authenticated_and_pointed_at_deploy(self):
         # The vendored script reads these; its own behaviour is tested in argus-config.

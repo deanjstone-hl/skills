@@ -60,7 +60,7 @@ python3 scripts/update_skill.py resolve <skill>                      # after fix
 ## Settings and CI
 
 - **`skills-config.json`**: `privacyCheck` controls the private-marker screen (the `PRIVATE_MARKERS` list in `scripts/skills_lib.py`: personal paths, hostnames, internal repo names). It is **off here**: the skills cite the owner's private repos and vault paths on purpose, and the screen would fail 60 times. The value gate is `scripts/scrub-scan.sh`. Force the marker screen for one run with `python3 scripts/check_skills.py --privacy` (or `--no-privacy`); with no config file it defaults to on.
-- **Runners**: both workflows run every job on `ubuntu-latest`. The repo is public, so a fork's pull request runs `check.yml`: no job may use `self-hosted`, read `CI_RUNS_ON` or another runner-selecting variable, use `pull_request_target`, or hold a secret beyond the read-only `GITHUB_TOKEN`. `tests/test_public_safe.py` fails on any of them. Do not enrol this repo in the homelab JIT dispatcher.
+- **Runners**: both workflows run every job on `vars.CI_RUNS_ON`, default `ubuntu-latest`, so the billing guard can move them to a homelab runner once the repo is enrolled in the JIT dispatcher (homelab#475). The repo is private, so the public-safe invariant (hosted runners only, no `CI_RUNS_ON`) was relaxed on purpose; `tests/test_public_safe.py` still fails on a hard-coded `self-hosted` runner, `pull_request_target`, or a secret beyond the read-only `GITHUB_TOKEN` in `check.yml`. If the repo goes public, `git revert` the homelab#475 commit to restore the strict invariant and keep it out of the dispatcher.
 
 ## Development
 
