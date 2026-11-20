@@ -64,7 +64,7 @@ python3 scripts/update_skill.py resolve <skill>                      # after fix
 
 ## Development
 
-Trunk-based: small commits straight to `main` with `Refs #N`; before each push run `git pull --rebase` and `bash scripts/check.sh`. Tests first for script changes.
+Trunk-based: small commits straight to `main` with `Refs #N`; before each push run `git pull --rebase` and `bash scripts/check.sh`. Tests first for script changes. `scripts/check.sh` takes the host-wide heavy lock ([argus-config/1506](https://github.com/deanjstone/argus-config/issues/1506)): it re-runs itself through `scripts/heavy-lock.sh`, so only one full check runs at a time on a host, whichever thread or CI job starts it, and it also waits while memory `some avg60` is 10 or more. A queued run prints `waiting for the host lock` and starts when the holder ends; it exits 75 without running once `HEAVY_LOCK_TIMEOUT` (3600 s) passes. `scripts/heavy-lock.sh` and `scripts/heavy-lock.lock` are vendored byte-for-byte from argus-config (its `scripts/sync-heavy-lock.sh` rewrites both; never edit them here), and `tests/test_heavy_lock.py` fails on a copy that no longer matches its lock.
 
 ## Releases and the `deploy` branch
 
