@@ -16,9 +16,9 @@ Adds a new device to the Syncthing mesh and shares one or more folders to it.
 Node names: **WSL** is the WSL2 instance on the laptop, **LGN5** is its Windows host.
 
 **No address is stored in this file.** The four Tailscale addresses are private values, kept in
-Bitwarden Secrets Manager under `syncthing-tailscale-ip-wsl`, `syncthing-tailscale-ip-lgn5`,
-`syncthing-tailscale-ip-homelab` and `syncthing-tailscale-ip-dj15`.
-Step 0 loads them into `$WSL_IP`, `$LGN5_IP`, `$HOMELAB_IP` and `$DJ15_IP`; every table below
+Bitwarden Secrets Manager under `syncthing-tailscale-ip-wsl`, `syncthing-tailscale-ip-laptop`,
+`syncthing-tailscale-ip-homelab` and `syncthing-tailscale-ip-iphone`.
+Step 0 loads them into `$WSL_IP`, `$LAPTOP_IP`, `$HOMELAB_IP` and `$IPHONE_IP`; every table below
 uses those names.
 
 The tables below are a cache of live state, read 2026-10-17. Full device IDs, the topology
@@ -49,10 +49,10 @@ by its ID prefix, never by its name.
 | Name | ID prefix | Live names still in config | Tailscale IP (variable) |
 |------|-----------|----------------------------|--------------|
 | `WSL` | `QZY5U6X` | hostname-style names, differing per node | `$WSL_IP` |
-| `LGN5` | `EJZYLDC` | the laptop's hostname (all nodes) | `$LGN5_IP` |
+| `LGN5` | `EJZYLDC` | the laptop's hostname (all nodes) | `$LAPTOP_IP` |
 | `homelab` | `QUTF5GA` | — | `$HOMELAB_IP` |
-| `dj15-SyncTrain` | `LTS4Z7E` | — | `$DJ15_IP` |
-| `dj15-VaultSync` | `X2ASWHV` | LGN5 config only | `$DJ15_IP` |
+| `dj15-SyncTrain` | `LTS4Z7E` | — | `$IPHONE_IP` |
+| `dj15-VaultSync` | `X2ASWHV` | LGN5 config only | `$IPHONE_IP` |
 
 Only the hosts above are mesh nodes; any other tailnet host is outside the mesh.
 
@@ -74,8 +74,8 @@ never the address:
 
 ```bash
 ts_ip() { bws secret list -o json | jq -r --arg k "syncthing-tailscale-ip-$1" '.[] | select(.key == $k) | .value'; }
-WSL_IP=$(ts_ip wsl); LGN5_IP=$(ts_ip lgn5); HOMELAB_IP=$(ts_ip homelab); DJ15_IP=$(ts_ip dj15)
-for v in WSL_IP LGN5_IP HOMELAB_IP DJ15_IP; do [ -n "${!v}" ] || echo "$v is not in Secrets Manager"; done
+WSL_IP=$(ts_ip wsl); LAPTOP_IP=$(ts_ip laptop); HOMELAB_IP=$(ts_ip homelab); IPHONE_IP=$(ts_ip iphone)
+for v in WSL_IP LAPTOP_IP HOMELAB_IP IPHONE_IP; do [ -n "${!v}" ] || echo "$v is not in Secrets Manager"; done
 ```
 
 Stop if any is missing: ask the user to add it with `bws secret create`. Then print each node's devices, addresses and folders, with IDs cut to a 7-character prefix and
@@ -142,8 +142,8 @@ from one of the commands above.
 | LGN5 → WSL | `tcp://127.0.0.1:22001` (WSL's BEP port) |
 | Any → homelab | `tcp://$HOMELAB_IP:22000` |
 | homelab → WSL | `tcp://$WSL_IP:22001` |
-| homelab → LGN5 | `tcp://$LGN5_IP:22000` |
-| Any → iOS | `tcp://$DJ15_IP:22000` |
+| homelab → LGN5 | `tcp://$LAPTOP_IP:22000` |
+| Any → iOS | `tcp://$IPHONE_IP:22000` |
 | Any → new remote machine | `tcp://<tailscale-ip>:22000` |
 
 WSL and LGN5 share one network stack, so they reach each other on loopback; every other leg

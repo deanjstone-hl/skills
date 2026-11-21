@@ -32,9 +32,9 @@ There is no Worker, no deploy script and no Cloudflare id in this repository, so
 | BWS secret | Used by | Origin |
 |---|---|---|
 | `syncthing-tailscale-ip-wsl` | `skills/syncthing-pair`, as `$WSL_IP` | the WSL2 node's tailnet address (`tailscale ip -4`) |
-| `syncthing-tailscale-ip-lgn5` | `skills/syncthing-pair`, as `$LGN5_IP` | the Windows host's tailnet address |
+| `syncthing-tailscale-ip-laptop` | `skills/syncthing-pair`, as `$LAPTOP_IP` | the Windows host's tailnet address |
 | `syncthing-tailscale-ip-homelab` | `skills/syncthing-pair`, as `$HOMELAB_IP` | the homelab server's tailnet address |
-| `syncthing-tailscale-ip-dj15` | `skills/syncthing-pair`, as `$DJ15_IP` | the iPhone's tailnet address (SyncTrain and VaultSync share it) |
+| `syncthing-tailscale-ip-iphone` | `skills/syncthing-pair`, as `$IPHONE_IP` | the iPhone's tailnet address (SyncTrain and VaultSync share it) |
 
 The skill reads them by key name:
 

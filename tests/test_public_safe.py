@@ -26,7 +26,7 @@ ROOT = Path(__file__).resolve().parent.parent
 WORKFLOWS = sorted((ROOT / ".github" / "workflows").glob("*.yml"))
 SYNCTHING_SKILL = ROOT / "skills" / "syncthing-pair" / "SKILL.md"
 RUNS_ON_ALLOWED = {"ubuntu-latest", "${{ fromJSON(vars.CI_RUNS_ON || '\"ubuntu-latest\"') }}"}
-IP_KEYS = ("wsl", "lgn5", "homelab", "dj15")
+IP_KEYS = ("wsl", "laptop", "homelab", "iphone")
 HAVE_GITLEAKS = shutil.which("gitleaks") is not None and shutil.which("jq") is not None
 
 
