@@ -97,9 +97,9 @@ jobs:
       - run: dotnet test --no-build
 ```
 
-Self-hosted runners: use `runs-on: ${{ fromJSON(vars.CI_RUNS_ON || '"ubuntu-latest"') }}` and guard
-hosted-only setup steps with `if: runner.environment == 'github-hosted'`, as
-`deanjstone/skills` does in `check.yml`.
+Self-hosted runners, private repos only: use `runs-on: ${{ fromJSON(vars.CI_RUNS_ON || '"ubuntu-latest"') }}`
+and guard hosted-only setup steps with `if: runner.environment == 'github-hosted'`. A public repo
+runs `ubuntu-latest` with no `CI_RUNS_ON` (`trunk-readiness.sh` point 5).
 
 ## 5. PR template
 
