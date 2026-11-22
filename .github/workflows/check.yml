@@ -13,10 +13,7 @@ permissions:
 jobs:
   check:
     name: Check skills
-    # CI_RUNS_ON lets the billing guard move this job to a homelab runner (homelab#475). The repo is
-    # private, so no fork pull request reaches it; tests/test_public_safe.py still bans a hard-coded
-    # self-hosted runner.
-    runs-on: ${{ fromJSON(vars.CI_RUNS_ON || '"ubuntu-latest"') }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       # The release scripts in scripts/ci are vendored from argus-config and synced, never

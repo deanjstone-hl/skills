@@ -1,14 +1,11 @@
 """What keeps this repository safe to publish (skills/27, skills/30).
 
 The repo goes public in place (scripts/owner-steps/28.sh), so a pull request from a fork runs the
-workflows on this repository's behalf and every file is world-readable. While it is private
-(homelab#475) a job may read `vars.CI_RUNS_ON` so the billing guard can move it to a homelab
-runner: a private repo has no fork pull requests. These tests pin the rules that still matter: no
-hard-coded self-hosted runner, no `pull_request_target`, no secret in a workflow a pull request
-starts, and no private value in the tree. To restore the stricter invariant (hosted runners only,
-no `CI_RUNS_ON`) before going public, `git revert` the homelab#475 commit.
-GitHub, secure use of Actions: self-hosted runners "should almost never be used for public
-repositories"; secrets are not passed to workflows started from forks.
+workflows on this repository's behalf and every file is world-readable. These tests pin the
+rules: GitHub-hosted runners only, nothing that could send a job to the homelab, no
+`pull_request_target`, no secret in a workflow a pull request starts, and no private value in
+the tree. GitHub, secure use of Actions: self-hosted runners "should almost never be used for
+public repositories"; secrets are not passed to workflows started from forks.
 
 Any value that looks private is built at run time, so this file holds none.
 """
@@ -25,7 +22,6 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 WORKFLOWS = sorted((ROOT / ".github" / "workflows").glob("*.yml"))
 SYNCTHING_SKILL = ROOT / "skills" / "syncthing-pair" / "SKILL.md"
-RUNS_ON_ALLOWED = {"ubuntu-latest", "${{ fromJSON(vars.CI_RUNS_ON || '\"ubuntu-latest\"') }}"}
 IP_KEYS = ("wsl", "laptop", "homelab", "iphone")
 HAVE_GITLEAKS = shutil.which("gitleaks") is not None and shutil.which("jq") is not None
 
@@ -44,11 +40,17 @@ class WorkflowTests(unittest.TestCase):
     def test_there_are_workflows_to_check(self):
         self.assertTrue(WORKFLOWS)
 
-    def test_every_job_runs_on_ubuntu_latest_or_the_ci_runs_on_fallback(self):
+    def test_every_job_runs_on_ubuntu_latest_and_only_there(self):
         for path in WORKFLOWS:
-            runs_on = re.findall(r"(?m)^\s*runs-on:\s*(.+)$", code_of(path))
+            code = code_of(path)
+            self.assertNotRegex(code, r"self-hosted|homelab", path.name)
+            runs_on = re.findall(r"(?m)^\s*runs-on:\s*(.+)$", code)
             self.assertTrue(runs_on, path.name)
-            self.assertEqual({value.strip() for value in runs_on} - RUNS_ON_ALLOWED, set(), path.name)
+            self.assertEqual({value.strip() for value in runs_on}, {"ubuntu-latest"}, path.name)
+
+    def test_no_runner_selecting_variable_and_no_self_hosted_only_step(self):
+        for path in WORKFLOWS:
+            self.assertNotRegex(code_of(path), r"CI_RUNS_ON|vars\.[A-Z_]*RUNS_ON|runner\.environment", path.name)
 
     def test_no_pull_request_target(self):
         for path in WORKFLOWS:
@@ -58,13 +60,6 @@ class WorkflowTests(unittest.TestCase):
         for path in WORKFLOWS:
             uses = re.findall(r"uses:\s*([^\s#]+)", code_of(path))
             self.assertEqual([u for u in uses if u.startswith("deanjstone/")], [], path.name)
-
-    def test_pnpm_is_set_up_by_the_action_when_hosted_and_checked_on_the_host_otherwise(self):
-        for path in WORKFLOWS:
-            code = code_of(path)
-            setups = len(re.findall(r"uses: pnpm/action-setup", code))
-            self.assertGreaterEqual(code.count("if: runner.environment == 'github-hosted'"), setups, path.name)
-            self.assertEqual(code.count("run: bash scripts/check-host-pnpm.sh"), setups, path.name)
 
     def test_a_workflow_a_pull_request_starts_uses_no_secret_but_the_read_only_token(self):
         started = [p for p in WORKFLOWS if "pull_request" in triggers(yaml.safe_load(p.read_text()))]
