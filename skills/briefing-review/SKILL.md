@@ -59,7 +59,7 @@ An item touching any of these counts as immediately relevant:
 - **Argus**: agent-cli, agent-engine, memory-mcp (memory.myargus.cc), notice-board, vault-agent, watchtower, email-worker/email-mcp, x-mcp, wiki
 - **Harness**: Claude Code, argus-config (skills, hooks, settings), T3 Code, agent-intern (Codex, Gemini, Copilot and the other bridged CLIs), the 5-hour quota window
 - **Vaults**: CONTEXT (agent memory, briefings), CORTEX (Obsidian PKM), Syncthing sync
-- **Projects**: myargus.cc, design-system, budget, atto1, erto-apps, slate-reader
+- **Projects**: myargus.cc, frontend, budget, atto1, erto-apps, slate-reader
 - **Stack**: TypeScript, Vite, Tailwind CSS, Supabase, Cloudflare Workers/Pages, Node.js, pnpm
 - **Infra**: WSL2, homelab, Tailscale, systemd user units, Bitwarden
 
