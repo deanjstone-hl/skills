@@ -20,7 +20,7 @@ The script's per-day billing table for 2–9 Oct:
 | myargus | 405 | 0 | 405 |
 | homelab | 234 | 0 | 234 |
 | argus-config | 43 | 94 | 231 |
-| pkm-vault | 99 | 0 | 99 |
+| neocortex | 99 | 0 | 99 |
 
 The monthly aggregate had charged minutes to `mcp-memory` and `context`, which never ran
 those jobs. That is why the script reads billing per day only.
